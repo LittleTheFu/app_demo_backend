@@ -1,4 +1,4 @@
-package com.fu.demo;
+package com.fu.demo.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
