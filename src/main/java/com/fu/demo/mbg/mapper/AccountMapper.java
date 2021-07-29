@@ -10,4 +10,5 @@ import com.fu.demo.mbg.model.Account;
 public interface AccountMapper {
     List<Account> queryAllAccount();
 
+    void insert(Account account);
 }

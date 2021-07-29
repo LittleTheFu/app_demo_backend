@@ -14,6 +14,12 @@ public class Account implements Serializable {
 	private String password;
 
 	private static final long serialVersionUID = 1L;
+	
+//	public Account(String email, String password) {
+//		super();
+//		this.email = email;
+//		this.password = password;
+//	}
 
 	public Long getId() {
 		return id;
