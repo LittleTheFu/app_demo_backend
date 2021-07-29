@@ -2,12 +2,17 @@ package com.fu.demo.mbg.model;
 
 import java.io.Serializable;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Article implements Serializable {
 
+	@ApiModelProperty(value="id")
 	private Long id;
 
+	@ApiModelProperty(value="title")
 	private String title;
 
+	@ApiModelProperty(value="content")
 	private String content;
 
 	private static final long serialVersionUID = 1L;
