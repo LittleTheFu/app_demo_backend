@@ -11,4 +11,6 @@ public interface AccountMapper {
     List<Account> queryAllAccount();
 
     void insert(Account account);
+    
+    Account queryAccountByEmail(String email);
 }

@@ -31,4 +31,10 @@ public class AccountServiceImpl implements AccountService {
 
 		return;
 	}
+	
+	@Override
+	public Account getAccountByEmail(String email) {
+		return accountMapper.queryAccountByEmail(email);
+	}
+
 }

@@ -9,4 +9,6 @@ public interface AccountService {
 	List<Account> listAllAccount();
 	
 	void insert(AccountDto accountDto);
+	
+	Account getAccountByEmail(String email);
 }
