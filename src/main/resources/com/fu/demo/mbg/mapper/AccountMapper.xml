@@ -12,10 +12,10 @@
 		resultType="com.fu.demo.mbg.model.Account">
 		select * from account
 	</select>
-	<select id="queryAccountByEmail(String email)"
-		parameterType="java.lang.String"
+	<select id="queryAccountByEmail"
+		parameterType="String"
 		resultType="com.fu.demo.mbg.model.Account">
-		select id,email,password from account where email=#{email}
+		select * from account where email = #{email}
 	</select>
 	<insert id="insert"
 		parameterType="com.fu.demo.mbg.model.Account">

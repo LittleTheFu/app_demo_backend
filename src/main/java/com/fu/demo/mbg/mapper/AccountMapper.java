@@ -3,6 +3,7 @@ package com.fu.demo.mbg.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.fu.demo.mbg.model.Account;
 
@@ -12,5 +13,5 @@ public interface AccountMapper {
 
     void insert(Account account);
     
-    Account queryAccountByEmail(String email);
+    List<Account> queryAccountByEmail(@Param("email") String email);
 }

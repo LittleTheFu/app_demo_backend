@@ -11,4 +11,6 @@ public interface AccountService {
 	void insert(AccountDto accountDto);
 	
 	Account getAccountByEmail(String email);
+
+	String login(String email, String password);
 }
