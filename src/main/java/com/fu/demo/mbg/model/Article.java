@@ -6,13 +6,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Article implements Serializable {
 
-	@ApiModelProperty(value="id")
+	@ApiModelProperty(value = "id")
 	private Long id;
 
-	@ApiModelProperty(value="title")
+	@ApiModelProperty(value = "title")
 	private String title;
 
-	@ApiModelProperty(value="content")
+	@ApiModelProperty(value = "content")
 	private String content;
 
 	private static final long serialVersionUID = 1L;

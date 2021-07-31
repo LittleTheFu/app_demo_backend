@@ -14,4 +14,6 @@ public interface AccountMapper {
     void insert(Account account);
     
     List<Account> queryAccountByEmail(@Param("email") String email);
+    
+    Account queryAccountById(@Param("id") long id); 
 }

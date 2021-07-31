@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +34,14 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-
+	
+	@ApiOperation("根据id查询账户")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Account> getById(@PathVariable("id") int id) {
+		return CommonResult.success(accountService.getAccountById(id));
+	}
+	
 	@ApiOperation("获取所有账户列表")
 	@GetMapping("/all")
 	public List<Account> allArticle() {

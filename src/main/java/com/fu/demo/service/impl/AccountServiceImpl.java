@@ -78,4 +78,9 @@ public class AccountServiceImpl implements AccountService {
 		return token;
 	}
 
+	@Override
+	public Account getAccountById(long id) {
+		return accountMapper.queryAccountById(id);
+	}
+
 }

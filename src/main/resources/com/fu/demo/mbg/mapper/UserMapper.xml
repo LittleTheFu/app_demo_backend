@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fu.demo.mbg.mapper.UserMapper">
+	<resultMap id="UserResultMap"
+		type="com.fu.demo.mbg.model.User">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<association column="accountId" property="account"
+			select="com.fu.demo.mbg.mapper.AccountMapper.queryAccountById">
+		</association>
+	</resultMap>
+
+
+	<select id="listAllUser" resultMap="UserResultMap">
+		select * from user
+	</select>
+	<select id="queryUserById" parameterType="int"
+		resultMap="UserResultMap">
+		select * from user where id=#{id}
+	</select>
+</mapper>
