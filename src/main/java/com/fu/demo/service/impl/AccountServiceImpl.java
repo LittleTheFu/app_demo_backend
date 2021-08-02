@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.mapper.AccountMapper;
 import com.fu.demo.mbg.model.Account;
@@ -34,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 	private AccountMapper accountMapper;
 
 	@Override
-	public List<Account> listAllAccount() {
+	public List<AccountInfoDto> listAllAccount() {
 		return accountMapper.queryAllAccount();
 	}
 

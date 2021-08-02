@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
+import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
@@ -44,7 +45,7 @@ public class AccountController {
 	
 	@ApiOperation("获取所有账户列表")
 	@GetMapping("/all")
-	public List<Account> allArticle() {
+	public List<AccountInfoDto> allArticle() {
 		return accountService.listAllAccount();
 	}
 

@@ -5,11 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.model.Account;
 
 @Mapper
 public interface AccountMapper {
-    List<Account> queryAllAccount();
+    List<AccountInfoDto> queryAllAccount();
 
     void insert(Account account);
     
