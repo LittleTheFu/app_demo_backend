@@ -39,11 +39,11 @@
 
 	<insert id="insert"
 		parameterType="com.fu.demo.mbg.model.Account">
-		INSERT INTO
+		insert into
 		account
 		(email,password)
-		VALUES
+		values
 		(#{email},
-		#{password})
+		#{password});
 	</insert>
 </mapper>
