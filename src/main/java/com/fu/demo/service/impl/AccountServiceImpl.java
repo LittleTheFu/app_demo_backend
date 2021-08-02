@@ -17,14 +17,16 @@ import org.springframework.stereotype.Service;
 import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.mapper.AccountMapper;
+import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.Account;
+import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private UserDetailsService userDetailsService;
-
+	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
@@ -33,6 +35,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private AccountMapper accountMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public List<AccountInfoDto> listAllAccount() {
@@ -48,7 +53,15 @@ public class AccountServiceImpl implements AccountService {
 		account.setPassword(encodePassword);
 
 		accountMapper.insert(account);
+		
+		User user = new User();
+		user.setName("new_user");
+		userMapper.insert(user);
+		
+		accountMapper.setUserId(account.getId(), user.getId());
+		userMapper.setAccountId(user.getId(), account.getId());
 
+		long newId = account.getId();
 		return;
 	}
 

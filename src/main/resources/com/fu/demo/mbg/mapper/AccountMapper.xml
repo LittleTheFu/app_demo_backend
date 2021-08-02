@@ -12,38 +12,45 @@
 		<!-- select="com.fu.demo.mbg.mapper.UserMapper.queryUserById"> -->
 		<!-- </association> -->
 	</resultMap>
-	
+
 	<resultMap id="AccountInfoResultMap"
 		type="com.fu.demo.mbg.dto.AccountInfoDto">
 		<result column="email" jdbcType="VARCHAR" property="email" />
 		<result column="name" property="name" />
 	</resultMap>
-	
+
 	<select id="queryAllAccount" resultMap="AccountInfoResultMap">
-		select email,name 
-		from account left join user 
+		select email,name
+		from
+		account left join user
 		on account.userId = user.id
 	</select>
 	<select id="queryAccountByEmail" parameterType="String"
 		resultType="com.fu.demo.mbg.model.Account">
-		select * from account 
-		where 
+		select * from account
+		where
 		email = #{email}
 	</select>
 	<select id="queryAccountById" parameterType="long"
 		resultType="com.fu.demo.mbg.model.Account">
-		select * from account 
-		where 
+		select * from account
+		where
 		id = #{id}
 	</select>
 
-	<insert id="insert"
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
 		parameterType="com.fu.demo.mbg.model.Account">
 		insert into
 		account
 		(email,password)
 		values
 		(#{email},
-		#{password});
+		#{password})
 	</insert>
+	
+	<update id="setUserId">
+		update account
+		set userId=#{userId}
+		where id=#{accountId}
+	</update>
 </mapper>
