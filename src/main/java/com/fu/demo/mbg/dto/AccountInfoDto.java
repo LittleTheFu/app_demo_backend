@@ -6,7 +6,7 @@ public class AccountInfoDto {
 	@ApiModelProperty(value = "email")
 	private String email;
 
-	@ApiModelProperty(value = "email")
+	@ApiModelProperty(value = "name")
 	private String name;
 
 	public String getEmail() {
