@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fu.demo.mbg.mapper.ArticleMapper">
-	<resultMap id="BaseResultMap" type="com.fu.demo.mbg.model.Article">
-		<id column="id" jdbcType="BIGINT" property="id" />
-		<result column="title" jdbcType="VARCHAR" property="title" />
-		<result column="content" jdbcType="VARCHAR" property="content" />
+	<resultMap id="ArticleDtoResultMap"
+		type="com.fu.demo.mbg.dto.ArticleDto">
+		<!-- <id column="id" jdbcType="BIGINT" property="id" /> -->
+		<!-- <result column="title" jdbcType="VARCHAR" property="title" /> -->
+		<!-- <result column="content" jdbcType="VARCHAR" property="content" /> -->
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="name" property="author" />
 	</resultMap>
-	<select id="queryAllArticle" resultType="com.fu.demo.mbg.model.Article">
-        select * from  article
-    </select>
+	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
+		select
+		title,content,name
+		from article left join user
+		on article.articleUserId = user.id
+	</select>
 </mapper>

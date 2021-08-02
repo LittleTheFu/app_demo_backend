@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.mapper.ArticleMapper;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.ArticleService;
@@ -16,7 +17,7 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleMapper articleMapper;
 	
 	@Override
-	public List<Article> listAllArticle() {
+	public List<ArticleDto> listAllArticle() {
 		return articleMapper.queryAllArticle();
 	}
 

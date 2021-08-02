@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.ArticleService;
 
@@ -20,7 +21,7 @@ public class ArticleController {
 	
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/article")
-	public List<Article> allArticle() {
+	public List<ArticleDto> allArticle() {
 		return articleService.listAllArticle();
 	}
 }

@@ -14,6 +14,9 @@ public class Article implements Serializable {
 
 	@ApiModelProperty(value = "content")
 	private String content;
+	
+	@ApiModelProperty(value = "articleUserId")
+	private Long articleUserId;
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,5 +42,13 @@ public class Article implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public Long getArticleUserId() {
+		return id;
+	}
+
+	public void setArticleUserId(Long id) {
+		this.id = id;
 	}
 }
