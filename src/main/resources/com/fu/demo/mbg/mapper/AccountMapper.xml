@@ -7,22 +7,23 @@
 		<result column="email" jdbcType="VARCHAR" property="email" />
 		<result column="password" jdbcType="VARCHAR"
 			property="password" />
+		<association column="userId" property="user"
+			select="com.fu.demo.mbg.mapper.UserMapper.queryUserById">
+		</association>
 	</resultMap>
 	<select id="queryAllAccount"
-		resultType="com.fu.demo.mbg.model.Account">
+		resultMap="AccountResultMap">
 		select * from account
 	</select>
-	<select id="queryAccountByEmail"
-		parameterType="String"
+	<select id="queryAccountByEmail" parameterType="String"
 		resultType="com.fu.demo.mbg.model.Account">
 		select * from account where email = #{email}
 	</select>
-	<select id="queryAccountById"
-		parameterType="long"
+	<select id="queryAccountById" parameterType="long"
 		resultType="com.fu.demo.mbg.model.Account">
 		select * from account where id = #{id}
 	</select>
-	
+
 	<insert id="insert"
 		parameterType="com.fu.demo.mbg.model.Account">
 		INSERT INTO
