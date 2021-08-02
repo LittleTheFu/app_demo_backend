@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
-import com.fu.demo.mbg.dto.AccountDto;
+import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
 
@@ -51,7 +51,7 @@ public class AccountController {
 	@ApiOperation("注册账户")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public int createBrand(@RequestBody AccountDto accountDto) {
+	public int createBrand(@RequestBody AccountSecurityDto accountDto) {
 		accountService.insert(accountDto);
 		return 0;
 	}
@@ -59,7 +59,7 @@ public class AccountController {
 	@ApiOperation(value = "登录以后返回token")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult login(@RequestBody AccountDto accountDto) {
+	public CommonResult login(@RequestBody AccountSecurityDto accountDto) {
 		String token = accountService.login(accountDto.getEmail(), accountDto.getPassword());
 		if (token == null) {
 			return CommonResult.validateFailed("用户名或密码错误");

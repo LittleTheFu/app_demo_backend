@@ -5,9 +5,10 @@
 		type="com.fu.demo.mbg.model.User">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<association column="accountId" property="account"
-			select="com.fu.demo.mbg.mapper.AccountMapper.queryAccountById">
-		</association>
+		<result column="accountId" property="accountId" />
+		<!-- <association column="accountId" property="account" -->
+		<!-- select="com.fu.demo.mbg.mapper.AccountMapper.queryAccountById"> -->
+		<!-- </association> -->
 	</resultMap>
 
 

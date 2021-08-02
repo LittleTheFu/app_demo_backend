@@ -13,8 +13,8 @@ public class Account implements Serializable {
 	@ApiModelProperty(value = "password")
 	private String password;
 	
-	@ApiModelProperty(value = "user")
-	private User user;
+	@ApiModelProperty(value = "userId")
+	private Long userId;
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,11 +42,11 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 }

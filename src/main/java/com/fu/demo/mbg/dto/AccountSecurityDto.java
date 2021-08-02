@@ -2,7 +2,7 @@ package com.fu.demo.mbg.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class AccountDto {
+public class AccountSecurityDto {
 	@ApiModelProperty(value = "email")
 	private String email;
 

@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fu.demo.mbg.dto.AccountDto;
+import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.mapper.AccountMapper;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void insert(AccountDto accountDto) {
+	public void insert(AccountSecurityDto accountDto) {
 		Account account = new Account();
 		BeanUtils.copyProperties(accountDto, account);
 

@@ -36,7 +36,6 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<User> getById(@PathVariable("id") int id) {
-		Account account = userService.getUserById(id).getAccount();
 		User user = userService.getUserById(id);
 		return CommonResult.success(user);
 	}

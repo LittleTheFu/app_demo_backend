@@ -7,12 +7,12 @@
 		<result column="email" jdbcType="VARCHAR" property="email" />
 		<result column="password" jdbcType="VARCHAR"
 			property="password" />
-		<association column="userId" property="user"
-			select="com.fu.demo.mbg.mapper.UserMapper.queryUserById">
-		</association>
+		<result column="userId" property="userId" />
+		<!-- <association column="userId" property="user" -->
+		<!-- select="com.fu.demo.mbg.mapper.UserMapper.queryUserById"> -->
+		<!-- </association> -->
 	</resultMap>
-	<select id="queryAllAccount"
-		resultMap="AccountResultMap">
+	<select id="queryAllAccount" resultMap="AccountResultMap">
 		select * from account
 	</select>
 	<select id="queryAccountByEmail" parameterType="String"
