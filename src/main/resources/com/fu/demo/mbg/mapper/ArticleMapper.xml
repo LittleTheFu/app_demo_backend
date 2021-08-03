@@ -10,10 +10,19 @@
 		<result column="content" property="content" />
 		<result column="name" property="author" />
 	</resultMap>
+	
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
 		title,content,name
 		from article left join user
 		on article.articleUserId = user.id
 	</select>
+	
+	<insert id="insert" parameterType="com.fu.demo.mbg.model.Article">
+		insert into
+		article
+		(title, content, articleUserId)
+		values
+		(#{title}, #{content}, #{articleUserId})
+	</insert>
 </mapper>

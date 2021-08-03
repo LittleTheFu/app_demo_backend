@@ -16,4 +16,6 @@ public interface AccountService {
 	Account getAccountById(long id);
 
 	String login(String email, String password);
+
+	long getUserIdByEmail(String email);
 }

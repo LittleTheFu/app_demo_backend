@@ -19,4 +19,6 @@ public interface AccountMapper {
     Account queryAccountById(@Param("id") long id);
     
     void setUserId(@Param("accountId") long accountId, @Param("userId") long userId);
+    
+    long getUserIdByEmail(@Param("email") String email);
 }

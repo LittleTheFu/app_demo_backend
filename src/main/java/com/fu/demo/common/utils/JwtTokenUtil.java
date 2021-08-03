@@ -25,6 +25,7 @@ public class JwtTokenUtil {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 	private static final String CLAIM_KEY_USERNAME = "sub";
 	private static final String CLAIM_KEY_CREATED = "created";
+	private static final String CLAIM_KEY_CURRENT_USER_ID = "current_user_id";
 	@Value("${jwt.secret}")
 	private String secret;
 	@Value("${jwt.expiration}")
@@ -71,6 +72,15 @@ public class JwtTokenUtil {
 		}
 		return username;
 	}
+	
+	public long getUserIdFromToken(String token) {
+		long id = 0;
+		
+		Claims claims = getClaimsFromToken(token);
+		id = (long) claims.get(CLAIM_KEY_CURRENT_USER_ID);
+		
+		return id;
+	}
 
 	/**
 	 * 验证token是否还有效
@@ -108,6 +118,13 @@ public class JwtTokenUtil {
 		claims.put(CLAIM_KEY_CREATED, new Date());
 		return generateToken(claims);
 	}
+//	public String generateToken(UserDetails userDetails, long userId) {
+//		Map<String, Object> claims = new HashMap<>();
+//		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+//		claims.put(CLAIM_KEY_CREATED, new Date());
+//		claims.put(CLAIM_KEY_CURRENT_USER_ID, userId);
+//		return generateToken(claims);
+//	}
 
 	/**
 	 * 判断token是否可以被刷新

@@ -3,6 +3,7 @@ package com.fu.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class UserController {
 	@ApiOperation("根据id查询用户")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<User> getById(@PathVariable("id") int id) {
+	public CommonResult<User> getById(Authentication authentication, @PathVariable("id") int id) {
 		User user = userService.getUserById(id);
 		return CommonResult.success(user);
 	}

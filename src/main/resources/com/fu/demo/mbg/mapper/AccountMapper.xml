@@ -25,17 +25,26 @@
 		account left join user
 		on account.userId = user.id
 	</select>
+
 	<select id="queryAccountByEmail" parameterType="String"
 		resultType="com.fu.demo.mbg.model.Account">
 		select * from account
 		where
 		email = #{email}
 	</select>
+
 	<select id="queryAccountById" parameterType="long"
 		resultType="com.fu.demo.mbg.model.Account">
 		select * from account
 		where
 		id = #{id}
+	</select>
+
+	<select id="getUserIdByEmail" parameterType="String"
+		resultType="long">
+		select userId from account
+		where
+		email = #{email}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
@@ -47,10 +56,11 @@
 		(#{email},
 		#{password})
 	</insert>
-	
+
 	<update id="setUserId">
 		update account
 		set userId=#{userId}
-		where id=#{accountId}
+		where
+		id=#{accountId}
 	</update>
 </mapper>
