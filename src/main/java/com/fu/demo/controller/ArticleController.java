@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
+import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
@@ -29,36 +31,38 @@ import io.swagger.annotations.ApiOperation;
 public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
 	public List<ArticleDto> allArticle() {
 		return articleService.listAllArticle();
 	}
-	
+
 	@ApiOperation("创建文章")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public int createArticle(Principal principal, @RequestBody CreateArticleDto createAccountDto) {
-		String email = principal.getName();
-		long userId = accountService.getUserIdByEmail(email);
+	public CommonResult createArticle(Authentication authentication, @RequestBody CreateArticleDto createAccountDto) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long userId = detail.getUserId();
+		
 		articleService.createArticle(createAccountDto, userId);
-		return 0;
+		
+		return CommonResult.success(null);
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult deleteArticle(@PathVariable("id") Long id) {
-        int count = articleService.deleteArticle(id);
-        if (count == 1) {
+	@ResponseBody
+	public CommonResult deleteArticle(@PathVariable("id") Long id) {
+		int count = articleService.deleteArticle(id);
+		if (count == 1) {
 //            LOGGER.debug("deleteBrand success :id={}", id);
-            return CommonResult.success(null);
-        } else {
+			return CommonResult.success(null);
+		} else {
 //            LOGGER.debug("deleteBrand failed :id={}", id);
-            return CommonResult.failed("操作失败");
-        }
-    }
+			return CommonResult.failed("操作失败");
+		}
+	}
 }
