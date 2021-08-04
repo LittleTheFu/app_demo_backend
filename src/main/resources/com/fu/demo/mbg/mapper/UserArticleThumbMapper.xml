@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fu.demo.mbg.mapper.UserArticleThumbMapper">
+
+	<select id="getThumbNum" resultType="long">
+		select count(*) from
+		user_article_thumb
+		where
+		thumbUserId = #{userId} and thumbArticleId =
+		#{articleId}
+	</select>
+
+	<insert id="thumb">
+		insert into
+		user_article_thumb
+		(thumbUserId,thumbArticleId)
+		values
+		(#{userId},#{articleId});
+		
+		update article
+		set thumb = thumb + 1
+		where id = #{articleId};
+
+	</insert>
+
+	<delete id="unThumb">
+		delete from
+		user_article_thumb
+		where
+		thumbUserId =
+		#{userId} and
+		thumbArticleId = #{articleId};
+
+		update article
+		set thumb = thumb - 1
+		where id = #{articleId};
+
+	</delete>
+</mapper>

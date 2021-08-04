@@ -16,4 +16,5 @@ public interface ArticleMapper {
 	void insert(Article article);
 	
 	int delete(@Param("id") long id);
+	
 }

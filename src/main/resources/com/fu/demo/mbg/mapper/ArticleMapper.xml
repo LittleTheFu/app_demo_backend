@@ -11,23 +11,26 @@
 		<result column="name" property="author" />
 		<result column="thumb" property="thumb" />
 	</resultMap>
-	
+
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
 		title,content,name,thumb
 		from article left join user
-		on article.articleUserId = user.id
+		on
+		article.articleUserId = user.id
 	</select>
-	
-	<insert id="insert" parameterType="com.fu.demo.mbg.model.Article">
+
+	<insert id="insert"
+		parameterType="com.fu.demo.mbg.model.Article">
 		insert into
 		article
 		(title, content, articleUserId)
 		values
 		(#{title}, #{content}, #{articleUserId})
 	</insert>
-	
+
 	<delete id="delete" parameterType="long">
-        delete from article where id=#{id}
-    </delete>
+		delete from article where
+		id=#{id}
+	</delete>
 </mapper>

@@ -52,6 +52,38 @@ public class ArticleController {
 		
 		return CommonResult.success(null);
 	}
+	
+	@ApiOperation("点赞文章")
+	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult thumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long userId = detail.getUserId();
+		
+		if(articleService.isThumbed(id, userId)) {
+			return CommonResult.success(null, "已经点赞过了啊！");
+		}
+		
+		articleService.thumb(id, userId);
+		
+		return CommonResult.success(null);
+	}
+	
+	@ApiOperation("取消点赞文章")
+	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult unThumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long userId = detail.getUserId();
+		
+		if(articleService.isThumbed(id, userId) == false) {
+			return CommonResult.success(null, "你之前根本没有点赞啊！");
+		}
+		
+		articleService.unThumb(id, userId);
+		
+		return CommonResult.success(null);
+	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody

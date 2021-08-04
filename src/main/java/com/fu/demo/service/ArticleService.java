@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
-import com.fu.demo.mbg.model.Article;
 
 public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
@@ -12,4 +11,10 @@ public interface ArticleService {
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
 	
 	int deleteArticle(long id);
+	
+	boolean isThumbed(long articleId, long userId);
+	
+	void thumb(long articleId, long userId);
+	
+	void unThumb(long articleId, long userId);
 }

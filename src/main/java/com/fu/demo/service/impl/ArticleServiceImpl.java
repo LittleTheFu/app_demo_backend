@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.mapper.ArticleMapper;
+import com.fu.demo.mbg.mapper.UserArticleThumbMapper;
 import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.ArticleService;
@@ -18,6 +19,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;
+
+	@Autowired
+	private UserArticleThumbMapper thumbMapper;
 
 	@Override
 	public List<ArticleDto> listAllArticle() {
@@ -38,4 +42,22 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.delete(id);
 	}
 
+	@Override
+	public void thumb(long articleId, long userId) {
+		if (!isThumbed(articleId, userId)) {
+			thumbMapper.thumb(articleId, userId);
+		}
+	}
+
+	@Override
+	public void unThumb(long articleId, long userId) {
+		if (isThumbed(articleId, userId)) {
+			thumbMapper.unThumb(articleId, userId);
+		}
+	}
+
+	@Override
+	public boolean isThumbed(long articleId, long userId) {
+		return thumbMapper.getThumbNum(articleId, userId) > 0;
+	}
 }
