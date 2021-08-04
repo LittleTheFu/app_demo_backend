@@ -17,6 +17,9 @@ public class Article implements Serializable {
 	
 	@ApiModelProperty(value = "articleUserId")
 	private Long articleUserId;
+	
+	@ApiModelProperty(value = "thumb")
+	private Long thumb;
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,5 +53,13 @@ public class Article implements Serializable {
 
 	public void setArticleUserId(Long id) {
 		this.id = id;
+	}
+	
+	public void setThumb(Long thumb) {
+		this.thumb = thumb;
+	}
+	
+	public long getThumb() {
+		return thumb;
 	}
 }

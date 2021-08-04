@@ -11,6 +11,9 @@ public class ArticleDto {
 	
 	@ApiModelProperty(value = "author")
 	private String author;
+	
+	@ApiModelProperty(value = "thumb")
+	private Long thumb;
 
 	public String getTitle() {
 		return title;
@@ -34,5 +37,13 @@ public class ArticleDto {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public long getThumb() {
+		return thumb;
+	}
+	
+	public void setThumb(Long thumb) {
+		this.thumb = thumb;
 	}
 }

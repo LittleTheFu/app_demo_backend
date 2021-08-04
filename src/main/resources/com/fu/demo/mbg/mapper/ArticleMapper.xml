@@ -9,11 +9,12 @@
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="name" property="author" />
+		<result column="thumb" property="thumb" />
 	</resultMap>
 	
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
-		title,content,name
+		title,content,name,thumb
 		from article left join user
 		on article.articleUserId = user.id
 	</select>
