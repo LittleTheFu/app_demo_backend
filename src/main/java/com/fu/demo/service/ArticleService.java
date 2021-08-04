@@ -10,4 +10,6 @@ public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
 	
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
+	
+	int deleteArticle(long id);
 }

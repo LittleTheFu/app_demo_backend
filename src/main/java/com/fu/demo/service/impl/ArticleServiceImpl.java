@@ -33,4 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
 		articleMapper.insert(article);
 	}
 
+	@Override
+	public int deleteArticle(long id) {
+		return articleMapper.delete(id);
+	}
+
 }

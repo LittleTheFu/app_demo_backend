@@ -14,4 +14,6 @@ public interface ArticleMapper {
 	List<ArticleDto> queryAllArticle();
 
 	void insert(Article article);
+	
+	int delete(@Param("id") long id);
 }

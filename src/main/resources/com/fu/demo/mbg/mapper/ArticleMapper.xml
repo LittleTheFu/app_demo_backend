@@ -25,4 +25,8 @@
 		values
 		(#{title}, #{content}, #{articleUserId})
 	</insert>
+	
+	<delete id="delete" parameterType="long">
+        delete from article where id=#{id}
+    </delete>
 </mapper>
