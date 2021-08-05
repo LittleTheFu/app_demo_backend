@@ -36,4 +36,22 @@
 		values
 		(#{name})
 	</insert>
+
+	<insert id="follow"
+		parameterType="com.fu.demo.mbg.dto.FollowDto">
+		insert ignore into
+		user_follow
+		(fromId, toId)
+		values
+		(#{fromId}, #{toId})
+	</insert>
+
+	<delete id="unfollow"
+		parameterType="com.fu.demo.mbg.dto.FollowDto">
+		delete from
+		user_follow
+		where
+		fromId = #{fromId} and toId =
+		#{toId}
+	</delete>
 </mapper>

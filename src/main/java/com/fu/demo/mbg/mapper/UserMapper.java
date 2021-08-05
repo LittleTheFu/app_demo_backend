@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.fu.demo.mbg.dto.FollowDto;
 import com.fu.demo.mbg.model.User;
 
 @Mapper
@@ -16,4 +17,8 @@ public interface UserMapper {
 	void setAccountId(@Param("userId") long userId, @Param("accountId") long accountId);
 	
 	void insert(User user);
+	
+	void follow(FollowDto followDto);
+	
+	void unfollow(FollowDto followDto);
 }
