@@ -37,8 +37,8 @@ public class ArticleController {
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public List<ArticleDto> allArticle() {
-		return articleService.listAllArticle();
+	public CommonResult<List<ArticleDto>>  allArticle() {
+		return CommonResult.success(articleService.listAllArticle());
 	}
 
 	@ApiOperation("创建文章")
