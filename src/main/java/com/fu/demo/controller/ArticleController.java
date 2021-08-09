@@ -18,6 +18,7 @@ import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.AccountService;
 import com.fu.demo.service.ArticleService;
@@ -40,7 +41,13 @@ public class ArticleController {
 	public CommonResult<List<ArticleDto>>  allArticle() {
 		return CommonResult.success(articleService.listAllArticle());
 	}
-
+	
+	@ApiOperation("获取指定文章")
+	@GetMapping("/{id}")
+	public CommonResult<ArticleDto>  getArticle(@PathVariable("id") long id) {
+		return CommonResult.success(articleService.getArticleById(id));
+	}
+	
 	@ApiOperation("创建文章")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody

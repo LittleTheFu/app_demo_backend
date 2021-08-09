@@ -8,6 +8,8 @@ import com.fu.demo.mbg.dto.CreateArticleDto;
 public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
 	
+	public ArticleDto getArticleById(long id);
+	
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
 	
 	int deleteArticle(long id);

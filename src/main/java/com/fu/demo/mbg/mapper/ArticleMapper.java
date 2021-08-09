@@ -12,6 +12,8 @@ import com.fu.demo.mbg.model.Article;
 @Mapper
 public interface ArticleMapper {
 	List<ArticleDto> queryAllArticle();
+	
+	ArticleDto queryById(long id);
 
 	void insert(Article article);
 	

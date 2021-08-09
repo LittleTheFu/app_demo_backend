@@ -60,4 +60,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public boolean isThumbed(long articleId, long userId) {
 		return thumbMapper.getThumbNum(articleId, userId) > 0;
 	}
+
+	@Override
+	public ArticleDto getArticleById(long id) {
+		return articleMapper.queryById(id);
+	}
 }

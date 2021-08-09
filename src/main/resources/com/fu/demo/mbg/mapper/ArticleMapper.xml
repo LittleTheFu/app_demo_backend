@@ -20,6 +20,16 @@
 		on
 		article.articleUserId = user.id
 	</select>
+	
+	<select id="queryById" parameterType="long" resultMap="ArticleDtoResultMap">
+		select
+		article.id,title,content,name,thumb
+		from article left join user
+		on
+		article.articleUserId = user.id 
+		where
+		article.id = #{id}
+	</select>
 
 	<insert id="insert"
 		parameterType="com.fu.demo.mbg.model.Article">
