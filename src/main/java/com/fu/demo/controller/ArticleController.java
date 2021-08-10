@@ -61,7 +61,7 @@ public class ArticleController {
 	}
 	
 	@ApiOperation("点赞文章")
-	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult thumbArticle(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
@@ -77,7 +77,7 @@ public class ArticleController {
 	}
 	
 	@ApiOperation("取消点赞文章")
-	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult unThumbArticle(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
