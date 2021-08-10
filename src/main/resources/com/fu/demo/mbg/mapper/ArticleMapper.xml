@@ -20,15 +20,39 @@
 		on
 		article.articleUserId = user.id
 	</select>
-	
-	<select id="queryById" parameterType="long" resultMap="ArticleDtoResultMap">
+
+	<select id="queryById" parameterType="long"
+		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,thumb
-		from article left join user
+		from article left
+		join user
 		on
-		article.articleUserId = user.id 
+		article.articleUserId = user.id
 		where
 		article.id = #{id}
+	</select>
+
+	<select id="queryByIdWithThumbState"
+		resultMap="ArticleDtoResultMap">
+		select
+		article.id,title,content,name,thumb
+		from article left
+		join user
+		on
+		article.articleUserId = user.id
+		where
+		article.id = #{id}
+	</select>
+
+	<select id="isThumbed" resultType="boolean">
+		select COALESCE
+		((select 1
+		from
+		user_article_thumb
+		where
+		thumbArticleId = #{id} and thumbUserId = #{userId}
+		), 0)
 	</select>
 
 	<insert id="insert"

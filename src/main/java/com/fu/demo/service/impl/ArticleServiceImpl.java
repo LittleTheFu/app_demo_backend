@@ -1,5 +1,6 @@
 package com.fu.demo.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -26,6 +27,22 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticleDto> listAllArticle() {
 		return articleMapper.queryAllArticle();
+	}
+
+	@Override
+	public List<ArticleDto> listAllArticle(long userId) {
+		List<ArticleDto> articles = articleMapper.queryAllArticle();
+
+		Iterator<ArticleDto> iter = articles.iterator();
+
+		while (iter.hasNext()) {
+			ArticleDto article = iter.next();
+			
+			boolean isThumbed = articleMapper.isThumbed(article.getId(), userId);
+			article.setThumbState(isThumbed);
+		}
+
+		return articles;
 	}
 
 	@Override
@@ -64,5 +81,19 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public ArticleDto getArticleById(long id) {
 		return articleMapper.queryById(id);
+	}
+
+	@Override
+	public ArticleDto getArticleById(long id, long userId) {
+		ArticleDto article = articleMapper.queryById(id);
+		article.setThumbState(articleMapper.isThumbed(id, userId));
+		
+		return article;
+	}
+
+	@Override
+	public boolean isArticleThumbed(long id, long userId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -38,14 +38,20 @@ public class ArticleController {
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public CommonResult<List<ArticleDto>>  allArticle() {
-		return CommonResult.success(articleService.listAllArticle());
+	public CommonResult<List<ArticleDto>>  allArticle(Authentication authentication) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long userId = detail.getUserId();
+		
+		return CommonResult.success(articleService.listAllArticle(userId));
 	}
 	
 	@ApiOperation("获取指定文章")
 	@GetMapping("/{id}")
-	public CommonResult<ArticleDto>  getArticle(@PathVariable("id") long id) {
-		return CommonResult.success(articleService.getArticleById(id));
+	public CommonResult<ArticleDto>  getArticle(Authentication authentication, @PathVariable("id") long id) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long userId = detail.getUserId();
+		
+		return CommonResult.success(articleService.getArticleById(id, userId ));
 	}
 	
 	@ApiOperation("创建文章")

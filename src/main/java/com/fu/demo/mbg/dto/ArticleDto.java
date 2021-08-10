@@ -16,7 +16,10 @@ public class ArticleDto {
 	private String author;
 	
 	@ApiModelProperty(value = "thumb")
-	private Long thumb;
+	private long thumb;
+	
+	@ApiModelProperty(value = "thumbState")
+	private boolean thumbState;
 	
 	public long getId() {
 		return id;
@@ -54,7 +57,15 @@ public class ArticleDto {
 		return thumb;
 	}
 	
-	public void setThumb(Long thumb) {
+	public void setThumb(long thumb) {
 		this.thumb = thumb;
+	}
+	
+	public void setThumbState(boolean thumbState) {
+		this.thumbState = thumbState;
+	}
+	
+	public boolean getThumbState() {
+		return thumbState;
 	}
 }

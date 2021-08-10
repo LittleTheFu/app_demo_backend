@@ -8,8 +8,14 @@ import com.fu.demo.mbg.dto.CreateArticleDto;
 public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
 	
+	public List<ArticleDto> listAllArticle(long userId);
+	
 	public ArticleDto getArticleById(long id);
 	
+	public ArticleDto getArticleById(long id, long userId);
+	
+	public boolean isArticleThumbed(long id, long userId);
+
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
 	
 	int deleteArticle(long id);
