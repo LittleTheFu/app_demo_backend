@@ -22,4 +22,6 @@ public interface UserMapper {
 	void follow(FollowDto followDto);
 	
 	void unfollow(FollowDto followDto);
+	
+	boolean isFollowed(@Param("fromId") long fromId, @Param("toId") long toId);
 }

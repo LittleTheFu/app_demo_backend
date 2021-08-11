@@ -8,6 +8,9 @@ public class UserDto {
 
 	@ApiModelProperty(value = "name")
 	private String name;
+	
+	@ApiModelProperty(value = "followed")
+	private boolean followed;
 
 	public Long getId() {
 		return id;
@@ -23,6 +26,14 @@ public class UserDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean getFollowed() {
+		return followed;
+	}
+
+	public void setFollowed(boolean followed) {
+		this.followed = followed;
 	}
 
 }

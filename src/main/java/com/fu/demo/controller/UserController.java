@@ -33,8 +33,11 @@ public class UserController {
 	
 	@ApiOperation("获取所有用户")
 	@GetMapping("/all")
-	public List<UserDto> allUser() {
-		List<UserDto> users = userService.listAllUser();
+	public List<UserDto> allUser(Authentication authentication) {
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long fromId = detail.getUserId();
+		
+		List<UserDto> users = userService.listAllUser(fromId);
 		return users;
 	}
 	
@@ -42,12 +45,16 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<UserDto> getById(Authentication authentication, @PathVariable("id") int id) {
-		UserDto user = userService.getUserById(id);
+		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+		long fromId = detail.getUserId();
+
+		UserDto user = userService.getUserById(id, fromId);
+		
 		return CommonResult.success(user);
 	}
 	
 	@ApiOperation("follow用户")
-	@RequestMapping(value = "/follow", method = RequestMethod.POST)
+	@RequestMapping(value = "/follow", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult follow(Authentication authentication, @RequestBody FollowDto followDto) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
@@ -61,7 +68,7 @@ public class UserController {
 	}
 	
 	@ApiOperation("unfollow用户")
-	@RequestMapping(value = "/unfollow", method = RequestMethod.POST)
+	@RequestMapping(value = "/unfollow", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult unfollow(Authentication authentication, @RequestBody FollowDto followDto) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();

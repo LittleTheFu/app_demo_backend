@@ -54,4 +54,14 @@
 		fromId = #{fromId} and toId =
 		#{toId}
 	</delete>
+	
+	<select id="isFollowed" resultType="boolean">
+		select COALESCE
+		((select 1
+		from
+		user_follow
+		where
+		fromId = #{fromId} and toId = #{toId}
+		), 0)
+	</select>
 </mapper>
