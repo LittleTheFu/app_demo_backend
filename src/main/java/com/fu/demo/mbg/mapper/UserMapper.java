@@ -6,13 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.fu.demo.mbg.dto.FollowDto;
+import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.model.User;
 
 @Mapper
 public interface UserMapper {
-	List<User> listAllUser();
+	List<UserDto> listAllUser();
 
-	User queryUserById(long id);
+	UserDto queryUserById(long id);
 
 	void setAccountId(@Param("userId") long userId, @Param("accountId") long accountId);
 	

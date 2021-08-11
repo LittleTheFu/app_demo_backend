@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fu.demo.mbg.mapper.UserMapper">
 	<resultMap id="UserResultMap"
-		type="com.fu.demo.mbg.model.User">
+		type="com.fu.demo.mbg.dto.UserDto">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="accountId" property="accountId" />
+<!-- 		<result column="accountId" property="accountId" /> -->
 		<!-- <association column="accountId" property="account" -->
 		<!-- select="com.fu.demo.mbg.mapper.AccountMapper.queryAccountById"> -->
 		<!-- </association> -->
@@ -13,12 +13,12 @@
 
 
 	<select id="listAllUser" resultMap="UserResultMap">
-		select * from user
+		select id,name from user
 	</select>
 
-	<select id="queryUserById" parameterType="int"
+	<select id="queryUserById" parameterType="long"
 		resultMap="UserResultMap">
-		select * from user where id=#{id}
+		select id,name from user where id=#{id}
 	</select>
 
 	<update id="setAccountId">

@@ -16,6 +16,7 @@ import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.FollowDto;
+import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.UserService;
@@ -32,16 +33,16 @@ public class UserController {
 	
 	@ApiOperation("获取所有用户")
 	@GetMapping("/all")
-	public List<User> allArticle() {
-		List<User> users =userService.listAllUser();
+	public List<UserDto> allUser() {
+		List<UserDto> users = userService.listAllUser();
 		return users;
 	}
 	
 	@ApiOperation("根据id查询用户")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<User> getById(Authentication authentication, @PathVariable("id") int id) {
-		User user = userService.getUserById(id);
+	public CommonResult<UserDto> getById(Authentication authentication, @PathVariable("id") int id) {
+		UserDto user = userService.getUserById(id);
 		return CommonResult.success(user);
 	}
 	

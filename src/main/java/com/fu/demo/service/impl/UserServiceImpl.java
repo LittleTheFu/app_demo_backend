@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fu.demo.mbg.dto.FollowDto;
+import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.UserService;
@@ -16,12 +17,12 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 	
 	@Override
-	public List<User> listAllUser() {
+	public List<UserDto> listAllUser() {
 		return userMapper.listAllUser();
 	}
 
 	@Override
-	public User getUserById(long id) {
+	public UserDto getUserById(long id) {
 		return userMapper.queryUserById(id);
 	}
 
