@@ -14,6 +14,8 @@ public interface ArticleService {
 	
 	public ArticleDto getArticleById(long id, long userId);
 	
+	public int getArticleThumbNumber(long id);
+	
 	public boolean isArticleThumbed(long id, long userId);
 
 	public void createArticle(CreateArticleDto createArticleDto, long userId);

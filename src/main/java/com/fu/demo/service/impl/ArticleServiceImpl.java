@@ -96,4 +96,9 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public int getArticleThumbNumber(long id) {
+		return articleMapper.queryThumbNumber(id);
+	}
 }

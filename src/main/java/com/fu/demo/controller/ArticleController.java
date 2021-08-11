@@ -17,6 +17,7 @@ import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.ArticleDto;
+import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
@@ -69,7 +70,7 @@ public class ArticleController {
 	@ApiOperation("点赞文章")
 	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult thumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+	public CommonResult<ArticleThumbResponseDto> thumbArticle(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
 		
@@ -79,13 +80,17 @@ public class ArticleController {
 		
 		articleService.thumb(id, userId);
 		
-		return CommonResult.success(null);
+		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
+		retObj.setThumbState(true);
+		retObj.setThumbNumber(articleService.getArticleThumbNumber(id));
+		
+		return CommonResult.success(retObj);
 	}
 	
 	@ApiOperation("取消点赞文章")
 	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult unThumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+	public CommonResult<ArticleThumbResponseDto> unThumbArticle(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
 		
@@ -95,7 +100,11 @@ public class ArticleController {
 		
 		articleService.unThumb(id, userId);
 		
-		return CommonResult.success(null);
+		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
+		retObj.setThumbState(false);
+		retObj.setThumbNumber(articleService.getArticleThumbNumber(id));
+		
+		return CommonResult.success(retObj);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

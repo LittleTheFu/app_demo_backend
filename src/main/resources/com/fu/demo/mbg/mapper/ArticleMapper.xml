@@ -54,6 +54,12 @@
 		thumbArticleId = #{id} and thumbUserId = #{userId}
 		), 0)
 	</select>
+	
+	<select id="queryThumbNumber" resultType="int">
+		select thumb
+		from article
+		where id=#{id}
+	</select>
 
 	<insert id="insert"
 		parameterType="com.fu.demo.mbg.model.Article">
