@@ -3,18 +3,18 @@ package com.fu.demo.mbg.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 public class ArticleThumbResponseDto {
-	@ApiModelProperty(value = "thumbNumber")
-	private int thumbNumber;
+	@ApiModelProperty(value = "thumb")
+	private int thumb;
 	
 	@ApiModelProperty(value = "thumbState")
 	private boolean thumbState;
 
-	public int getThumbNumber() {
-		return thumbNumber;
+	public int getThumb() {
+		return thumb;
 	}
 
-	public void setThumbNumber(int thumbNumber) {
-		this.thumbNumber = thumbNumber;
+	public void setThumb(int thumb) {
+		this.thumb = thumb;
 	}
 
 	public boolean isThumbState() {

@@ -82,7 +82,7 @@ public class ArticleController {
 		
 		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
 		retObj.setThumbState(true);
-		retObj.setThumbNumber(articleService.getArticleThumbNumber(id));
+		retObj.setThumb(articleService.getArticleThumbNumber(id));
 		
 		return CommonResult.success(retObj);
 	}
@@ -102,7 +102,7 @@ public class ArticleController {
 		
 		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
 		retObj.setThumbState(false);
-		retObj.setThumbNumber(articleService.getArticleThumbNumber(id));
+		retObj.setThumb(articleService.getArticleThumbNumber(id));
 		
 		return CommonResult.success(retObj);
 	}
