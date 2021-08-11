@@ -3,7 +3,7 @@ package com.fu.demo.mbg.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 public class ArticleDto {
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(value = "id")
 	private long id;
 	
 	@ApiModelProperty(value = "title")
@@ -14,6 +14,9 @@ public class ArticleDto {
 	
 	@ApiModelProperty(value = "author")
 	private String author;
+	
+	@ApiModelProperty(value = "authorId")
+	private long authorId;
 	
 	@ApiModelProperty(value = "thumb")
 	private long thumb;
@@ -51,6 +54,14 @@ public class ArticleDto {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public void setAuthorId(long authorId) {
+		this.authorId = authorId;
+	}
+	
+	public long getAuthorId() {
+		return authorId;
 	}
 	
 	public long getThumb() {
