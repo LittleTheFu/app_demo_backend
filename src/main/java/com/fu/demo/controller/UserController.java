@@ -16,6 +16,7 @@ import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.FollowDto;
+import com.fu.demo.mbg.dto.FollowResponseDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.User;
@@ -54,30 +55,40 @@ public class UserController {
 	}
 	
 	@ApiOperation("follow用户")
-	@RequestMapping(value = "/follow", method = RequestMethod.PUT)
+	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult follow(Authentication authentication, @RequestBody FollowDto followDto) {
+	public CommonResult<FollowResponseDto> follow(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
 		
+		FollowDto followDto = new FollowDto();
 		followDto.setFromId(userId);
+		followDto.setToId(id);
 		
 		userService.follow(followDto);
 		
-		return CommonResult.success(null);
+		FollowResponseDto responseDto = new FollowResponseDto();
+		responseDto.setFollowed(true);
+		
+		return CommonResult.success(responseDto);
 	}
 	
 	@ApiOperation("unfollow用户")
-	@RequestMapping(value = "/unfollow", method = RequestMethod.PUT)
+	@RequestMapping(value = "/unfollow/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult unfollow(Authentication authentication, @RequestBody FollowDto followDto) {
+	public CommonResult<FollowResponseDto> unfollow(Authentication authentication, @PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
 		
+		FollowDto followDto = new FollowDto();
 		followDto.setFromId(userId);
+		followDto.setToId(id);
 		
 		userService.unfollow(followDto);
 		
-		return CommonResult.success(null);
+		FollowResponseDto responseDto = new FollowResponseDto();
+		responseDto.setFollowed(false);
+		
+		return CommonResult.success(responseDto);
 	}
 }
