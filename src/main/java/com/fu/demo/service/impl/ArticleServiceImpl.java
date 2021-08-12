@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fu.demo.mbg.dto.ArticleDto;
+import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.mapper.ArticleMapper;
+import com.fu.demo.mbg.mapper.CommentMapper;
 import com.fu.demo.mbg.mapper.UserArticleThumbMapper;
 import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.Article;
@@ -20,6 +23,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;
+	
+	@Autowired
+	private CommentMapper commentMapper;
 
 	@Autowired
 	private UserArticleThumbMapper thumbMapper;
@@ -101,4 +107,21 @@ public class ArticleServiceImpl implements ArticleService {
 	public int getArticleThumbNumber(long id) {
 		return articleMapper.queryThumbNumber(id);
 	}
+
+	@Override
+	public void createComment(long articleId, long userId, String content) {
+		commentMapper.insertComment(articleId, userId, content);
+	}
+	
+	@Override
+	public List<CommentResponseDto> getArticleComments(long articleId) {
+		return commentMapper.queryCommentByArticleId(articleId);
+	}
+
+	@Override
+	public CommentResponseDto getArticleCommentById(long commentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -3,7 +3,9 @@ package com.fu.demo.service;
 import java.util.List;
 
 import com.fu.demo.mbg.dto.ArticleDto;
+import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.CreateCommentDto;
 
 public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
@@ -19,6 +21,12 @@ public interface ArticleService {
 	public boolean isArticleThumbed(long id, long userId);
 
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
+	
+	public void createComment(long articleId, long userId, String content);
+	
+	public List<CommentResponseDto> getArticleComments(long articleId);
+	
+	public CommentResponseDto getArticleCommentById(long commentId);
 	
 	int deleteArticle(long id);
 	

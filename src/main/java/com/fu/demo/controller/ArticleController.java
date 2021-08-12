@@ -18,7 +18,9 @@ import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
+import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.AccountService;
@@ -39,71 +41,82 @@ public class ArticleController {
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public CommonResult<List<ArticleDto>>  allArticle(Authentication authentication) {
+	public CommonResult<List<ArticleDto>> allArticle(Authentication authentication) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
-		
+
 		return CommonResult.success(articleService.listAllArticle(userId));
 	}
-	
+
 	@ApiOperation("获取指定文章")
 	@GetMapping("/{id}")
-	public CommonResult<ArticleDto>  getArticle(Authentication authentication, @PathVariable("id") long id) {
+	public CommonResult<ArticleDto> getArticle(Authentication authentication, @PathVariable("id") long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
-		
-		return CommonResult.success(articleService.getArticleById(id, userId ));
+
+		return CommonResult.success(articleService.getArticleById(id, userId));
 	}
-	
-	@ApiOperation("创建文章")
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+
+	@ApiOperation("获取指定文章的评论")
+	@GetMapping("/article_comments/{article_id}")
+	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id) {
+		return CommonResult.success(articleService.getArticleComments(article_id));
+	}
+
+	@ApiOperation("创建评论")
+	@RequestMapping(value = "/create_comment/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult createArticle(Authentication authentication, @RequestBody CreateArticleDto createAccountDto) {
+	public CommonResult<List<CommentResponseDto>> createComment(Authentication authentication,
+			@PathVariable("id") Long id, @RequestBody CreateCommentDto createCommentDto) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
+
+		articleService.createComment(id, userId, createCommentDto.getContent());
 		
-		articleService.createArticle(createAccountDto, userId);
-		
-		return CommonResult.success(null);
+		List<CommentResponseDto> ret = articleService.getArticleComments(id);
+
+		return CommonResult.success(ret);
 	}
-	
+
 	@ApiOperation("点赞文章")
 	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<ArticleThumbResponseDto> thumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+	public CommonResult<ArticleThumbResponseDto> thumbArticle(Authentication authentication,
+			@PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
-		
-		if(articleService.isThumbed(id, userId)) {
+
+		if (articleService.isThumbed(id, userId)) {
 			return CommonResult.success(null, "已经点赞过了啊！");
 		}
-		
+
 		articleService.thumb(id, userId);
-		
+
 		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
 		retObj.setThumbState(true);
 		retObj.setThumb(articleService.getArticleThumbNumber(id));
-		
+
 		return CommonResult.success(retObj);
 	}
-	
+
 	@ApiOperation("取消点赞文章")
 	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<ArticleThumbResponseDto> unThumbArticle(Authentication authentication, @PathVariable("id") Long id) {
+	public CommonResult<ArticleThumbResponseDto> unThumbArticle(Authentication authentication,
+			@PathVariable("id") Long id) {
 		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
 		long userId = detail.getUserId();
-		
-		if(articleService.isThumbed(id, userId) == false) {
+
+		if (articleService.isThumbed(id, userId) == false) {
 			return CommonResult.success(null, "你之前根本没有点赞啊！");
 		}
-		
+
 		articleService.unThumb(id, userId);
-		
+
 		ArticleThumbResponseDto retObj = new ArticleThumbResponseDto();
 		retObj.setThumbState(false);
 		retObj.setThumb(articleService.getArticleThumbNumber(id));
-		
+
 		return CommonResult.success(retObj);
 	}
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fu.demo.mbg.mapper.CommentMapper">
+	<resultMap id="CommentDtoResultMap"
+		type="com.fu.demo.mbg.dto.CommentResponseDto">
+		<result column="id" property="id" />
+		<result column="articleCommentArticleId" property="articleCommentArticleId" />
+		<result column="articleCommentUserId" property="articleCommentUserId" />
+		<result column="name" property="articleCommentUserName" />
+		<result column="articleCommentContent" property="articleCommentContent" />
+	</resultMap>
+
+	<select id="queryCommentByArticleId" resultMap="CommentDtoResultMap">
+		select
+		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
+		from article_comment join user
+		on
+		article_comment.articleCommentUserId = user.id
+	</select>
+	
+	<select id="queryById" resultMap="CommentDtoResultMap">
+		select
+		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
+		from article_comment join user
+		on
+		article_comment.articleCommentUserId = user.id
+		where
+		article_comment.id = #{id}
+	</select>
+	
+	
+	<insert id="insertComment">
+		insert into
+		article_comment
+		(articleCommentArticleId, articleCommentUserId, articleCommentContent)
+		values
+		(#{articleId}, #{userId}, #{content})
+	</insert>
+	
+</mapper>
