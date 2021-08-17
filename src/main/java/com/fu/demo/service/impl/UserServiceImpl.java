@@ -78,6 +78,22 @@ public class UserServiceImpl implements UserService {
 
 		return user;
 	}
+	
+	@Override
+	public UserDto getUserByIdWithCurrentUser(long id) {
+		AccountDetail detail = getCurrentAccount();
+		
+		if(detail == null)
+			return null;
+		
+		long fromId = detail.getUserId();
+		UserDto user = userMapper.queryUserById(id);
+
+		boolean followed = userMapper.isFollowed(fromId, id);
+		user.setFollowed(followed);
+
+		return user;
+	}
 
 	@Override
 	public void follow(FollowDto followDto) {

@@ -43,11 +43,8 @@ public class UserController {
 	@ApiOperation("根据id查询用户")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<UserDto> getById(Authentication authentication, @PathVariable("id") int id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long fromId = detail.getUserId();
-
-		UserDto user = userService.getUserById(id, fromId);
+	public CommonResult<UserDto> getById(@PathVariable("id") int id) {
+		UserDto user = userService.getUserByIdWithCurrentUser(id);
 		
 		return CommonResult.success(user);
 	}
