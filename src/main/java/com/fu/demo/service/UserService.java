@@ -20,4 +20,11 @@ public interface UserService {
 	void unfollow(FollowDto followDto);
 	
 	boolean isFollowed(long from, long to);
+	
+	//-----------------------------------------------------------------
+	UserDto getCurrentUser();
+	
+	void currentUserFollow(long that);
+	
+	void currentUserUnfollow(long that);
 }

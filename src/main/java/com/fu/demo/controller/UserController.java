@@ -57,15 +57,8 @@ public class UserController {
 	@ApiOperation("follow用户")
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<FollowResponseDto> follow(Authentication authentication, @PathVariable("id") Long id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
-		
-		FollowDto followDto = new FollowDto();
-		followDto.setFromId(userId);
-		followDto.setToId(id);
-		
-		userService.follow(followDto);
+	public CommonResult<FollowResponseDto> follow(@PathVariable("id") Long id) {
+		userService.currentUserFollow(id);
 		
 		FollowResponseDto responseDto = new FollowResponseDto();
 		responseDto.setFollowed(true);
@@ -76,15 +69,8 @@ public class UserController {
 	@ApiOperation("unfollow用户")
 	@RequestMapping(value = "/unfollow/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<FollowResponseDto> unfollow(Authentication authentication, @PathVariable("id") Long id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
-		
-		FollowDto followDto = new FollowDto();
-		followDto.setFromId(userId);
-		followDto.setToId(id);
-		
-		userService.unfollow(followDto);
+	public CommonResult<FollowResponseDto> unfollow(@PathVariable("id") Long id) {
+		userService.currentUserUnfollow(id);
 		
 		FollowResponseDto responseDto = new FollowResponseDto();
 		responseDto.setFollowed(false);
