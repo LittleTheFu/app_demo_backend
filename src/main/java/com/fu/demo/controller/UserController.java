@@ -35,10 +35,13 @@ public class UserController {
 	@ApiOperation("获取所有用户")
 	@GetMapping("/all")
 	public List<UserDto> allUser(Authentication authentication) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long fromId = detail.getUserId();
+//		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
+//		long fromId = detail.getUserId();
+//		
+//		List<UserDto> users = userService.listAllUser(fromId);
 		
-		List<UserDto> users = userService.listAllUser(fromId);
+		List<UserDto> users = userService.listAllUserWithCurrentUser();
+		
 		return users;
 	}
 	

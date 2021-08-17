@@ -11,6 +11,8 @@ public interface UserService {
 	
 	List<UserDto> listAllUser(long fromId);
 	
+	List<UserDto> listAllUserWithCurrentUser();
+
 	UserDto getUserById(long id);
 	
 	UserDto getUserById(long id, long fromId);

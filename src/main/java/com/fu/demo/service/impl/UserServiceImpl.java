@@ -40,6 +40,29 @@ public class UserServiceImpl implements UserService {
 
 		return users;
 	}
+	
+	@Override
+	public List<UserDto> listAllUserWithCurrentUser() {
+		AccountDetail detail = getCurrentAccount();
+		
+		if(detail == null) 
+			return null;
+		
+		long fromId = detail.getUserId();
+		
+		List<UserDto> users = userMapper.listAllUser();
+
+		Iterator<UserDto> iterator = users.iterator();
+		while (iterator.hasNext()) {
+			UserDto user = iterator.next();
+
+			boolean isFollowed = userMapper.isFollowed(fromId, user.getId());
+			user.setFollowed(isFollowed);
+		}
+
+		return users;
+	}
+
 
 	@Override
 	public UserDto getUserById(long id) {
