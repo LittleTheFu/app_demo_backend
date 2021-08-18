@@ -122,6 +122,19 @@ public class UserServiceImpl implements UserService {
 
 		return userMapper.queryUserById(id);
 	}
+	
+	@Override
+	public long getCurrentUserId() {
+		AccountDetail detail = getCurrentAccount();
+
+		if (detail == null) {
+			return 0;
+		}
+
+		long id = detail.getUserId();
+		
+		return id;
+	}
 
 	@Override
 	public void currentUserFollow(long that) {

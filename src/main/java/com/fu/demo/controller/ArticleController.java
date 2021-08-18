@@ -25,6 +25,7 @@ import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.AccountService;
 import com.fu.demo.service.ArticleService;
+import com.fu.demo.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,22 +38,23 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	private AccountService accountService;
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public CommonResult<List<ArticleDto>> allArticle(Authentication authentication) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
+	public CommonResult<List<ArticleDto>> allArticle() {
+		long userId = userService.getCurrentUserId();
 
 		return CommonResult.success(articleService.listAllArticle(userId));
 	}
 
 	@ApiOperation("获取指定文章")
 	@GetMapping("/{id}")
-	public CommonResult<ArticleDto> getArticle(Authentication authentication, @PathVariable("id") long id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
+	public CommonResult<ArticleDto> getArticle(@PathVariable("id") long id) {
+		long userId = userService.getCurrentUserId();
 
 		return CommonResult.success(articleService.getArticleById(id, userId));
 	}
@@ -66,13 +68,12 @@ public class ArticleController {
 	@ApiOperation("创建评论")
 	@RequestMapping(value = "/create_comment/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<List<CommentResponseDto>> createComment(Authentication authentication,
-			@PathVariable("id") Long id, @RequestBody CreateCommentDto createCommentDto) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
+	public CommonResult<List<CommentResponseDto>> createComment(@PathVariable("id") Long id,
+			@RequestBody CreateCommentDto createCommentDto) {
+		long userId = userService.getCurrentUserId();
 
 		articleService.createComment(id, userId, createCommentDto.getContent());
-		
+
 		List<CommentResponseDto> ret = articleService.getArticleComments(id);
 
 		return CommonResult.success(ret);
@@ -81,10 +82,8 @@ public class ArticleController {
 	@ApiOperation("点赞文章")
 	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<ArticleThumbResponseDto> thumbArticle(Authentication authentication,
-			@PathVariable("id") Long id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
+	public CommonResult<ArticleThumbResponseDto> thumbArticle(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
 
 		if (articleService.isThumbed(id, userId)) {
 			return CommonResult.success(null, "已经点赞过了啊！");
@@ -102,10 +101,8 @@ public class ArticleController {
 	@ApiOperation("取消点赞文章")
 	@RequestMapping(value = "/unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<ArticleThumbResponseDto> unThumbArticle(Authentication authentication,
-			@PathVariable("id") Long id) {
-		AccountDetail detail = (AccountDetail) authentication.getPrincipal();
-		long userId = detail.getUserId();
+	public CommonResult<ArticleThumbResponseDto> unThumbArticle(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
 
 		if (articleService.isThumbed(id, userId) == false) {
 			return CommonResult.success(null, "你之前根本没有点赞啊！");

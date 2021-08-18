@@ -28,6 +28,8 @@ public interface UserService {
 	//-----------------------------------------------------------------
 	UserDto getCurrentUser();
 	
+	long getCurrentUserId();
+	
 	void currentUserFollow(long that);
 	
 	void currentUserUnfollow(long that);
