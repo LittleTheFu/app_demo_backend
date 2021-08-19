@@ -11,6 +11,9 @@ public class UserDto {
 	
 	@ApiModelProperty(value = "followed")
 	private boolean followed;
+	
+	@ApiModelProperty(value = "icon")
+	private String icon;
 
 	public Long getId() {
 		return id;
@@ -34,6 +37,14 @@ public class UserDto {
 
 	public void setFollowed(boolean followed) {
 		this.followed = followed;
+	}
+	
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 }
