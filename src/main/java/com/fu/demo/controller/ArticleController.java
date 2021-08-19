@@ -68,13 +68,13 @@ public class ArticleController {
 	@ApiOperation("创建评论")
 	@RequestMapping(value = "/create_comment/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult<List<CommentResponseDto>> createComment(@PathVariable("id") Long id,
+	public CommonResult<CommentResponseDto> createComment(@PathVariable("id") Long id,
 			@RequestBody CreateCommentDto createCommentDto) {
 		long userId = userService.getCurrentUserId();
 
-		articleService.createComment(id, userId, createCommentDto.getContent());
+		long commentId = articleService.createComment(id, userId, createCommentDto.getContent());
 
-		List<CommentResponseDto> ret = articleService.getArticleComments(id);
+		CommentResponseDto ret = articleService.getArticleCommentById(commentId);
 
 		return CommonResult.success(ret);
 	}

@@ -14,7 +14,7 @@ public class Comment implements Serializable{
 	private long articleCommentUserId;
 	
 	@ApiModelProperty(value = "articleCommentContent")
-	private long articleCommentContent;
+	private String articleCommentContent;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -42,11 +42,11 @@ public class Comment implements Serializable{
 		this.articleCommentUserId = articleCommentUserId;
 	}
 
-	public long getArticleCommentContent() {
+	public String getArticleCommentContent() {
 		return articleCommentContent;
 	}
 
-	public void setArticleCommentContent(long articleCommentContent) {
+	public void setArticleCommentContent(String articleCommentContent) {
 		this.articleCommentContent = articleCommentContent;
 	}
 }

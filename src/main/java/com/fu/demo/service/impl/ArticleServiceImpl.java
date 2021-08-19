@@ -16,6 +16,7 @@ import com.fu.demo.mbg.mapper.CommentMapper;
 import com.fu.demo.mbg.mapper.UserArticleThumbMapper;
 import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.Article;
+import com.fu.demo.mbg.model.Comment;
 import com.fu.demo.service.ArticleService;
 
 @Service
@@ -109,8 +110,15 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public void createComment(long articleId, long userId, String content) {
-		commentMapper.insertComment(articleId, userId, content);
+	public long createComment(long articleId, long userId, String content) {
+		Comment comment = new Comment();
+		comment.setArticleCommentArticleId(articleId);
+		comment.setArticleCommentContent(content);
+		comment.setArticleCommentUserId(userId);
+		
+		commentMapper.insertComment(comment);
+		
+		return comment.getId();
 	}
 	
 	@Override
@@ -120,8 +128,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public CommentResponseDto getArticleCommentById(long commentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return commentMapper.queryById(commentId);
 	}
 
 }

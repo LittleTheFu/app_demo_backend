@@ -4,37 +4,47 @@
 	<resultMap id="CommentDtoResultMap"
 		type="com.fu.demo.mbg.dto.CommentResponseDto">
 		<result column="id" property="id" />
-		<result column="articleCommentArticleId" property="articleCommentArticleId" />
-		<result column="articleCommentUserId" property="articleCommentUserId" />
+		<result column="articleCommentArticleId"
+			property="articleCommentArticleId" />
+		<result column="articleCommentUserId"
+			property="articleCommentUserId" />
 		<result column="name" property="articleCommentUserName" />
-		<result column="articleCommentContent" property="articleCommentContent" />
+		<result column="articleCommentContent"
+			property="articleCommentContent" />
 	</resultMap>
 
-	<select id="queryCommentByArticleId" resultMap="CommentDtoResultMap">
+	<select id="queryCommentByArticleId"
+		resultMap="CommentDtoResultMap">
 		select
 		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
 		from article_comment join user
 		on
-		article_comment.articleCommentUserId = user.id
+		article_comment.articleCommentUserId =
+		user.id
 	</select>
-	
+
 	<select id="queryById" resultMap="CommentDtoResultMap">
 		select
 		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
 		from article_comment join user
 		on
-		article_comment.articleCommentUserId = user.id
+		article_comment.articleCommentUserId =
+		user.id
 		where
 		article_comment.id = #{id}
 	</select>
-	
-	
-	<insert id="insertComment">
+
+
+	<insert id="insertComment" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="id"
+		parameterType="com.fu.demo.mbg.model.Comment">
 		insert into
 		article_comment
-		(articleCommentArticleId, articleCommentUserId, articleCommentContent)
+		(articleCommentArticleId,
+		articleCommentUserId, articleCommentContent)
 		values
-		(#{articleId}, #{userId}, #{content})
+		(#{articleCommentArticleId}, #{articleCommentUserId},
+		#{articleCommentContent})
 	</insert>
-	
+
 </mapper>

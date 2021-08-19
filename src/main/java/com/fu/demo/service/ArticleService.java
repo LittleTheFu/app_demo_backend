@@ -22,7 +22,7 @@ public interface ArticleService {
 
 	public void createArticle(CreateArticleDto createArticleDto, long userId);
 	
-	public void createComment(long articleId, long userId, String content);
+	public long createComment(long articleId, long userId, String content);
 	
 	public List<CommentResponseDto> getArticleComments(long articleId);
 	
