@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		long fromId = detail.getUserId();
 		UserDto user = userMapper.queryUserById(id);
 		
-		user.setIcon("http://m.imeitou.com/uploads/allimg/2019010618/stp5rrfeelf.jpg");
+		user.setIcon("http://101.132.41.44:9000/zero/cover.png");
 
 		boolean followed = userMapper.isFollowed(fromId, id);
 		user.setFollowed(followed);
