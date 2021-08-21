@@ -17,6 +17,8 @@ public interface UserMapper {
 
 	void setAccountId(@Param("userId") long userId, @Param("accountId") long accountId);
 	
+	void setIcon(@Param("userId") long userId, @Param("icon") String icon);
+	
 	void insert(User user);
 	
 	void follow(FollowDto followDto);

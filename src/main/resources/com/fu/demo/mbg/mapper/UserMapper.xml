@@ -21,6 +21,13 @@
 		resultMap="UserResultMap">
 		select id,name,icon from user where id=#{id}
 	</select>
+	
+	<update id="setIcon">
+		update user
+		set icon=#{icon}
+		where
+		id=#{userId}
+	</update>
 
 	<update id="setAccountId">
 		update user

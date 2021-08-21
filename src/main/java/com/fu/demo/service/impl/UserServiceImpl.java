@@ -40,16 +40,16 @@ public class UserServiceImpl implements UserService {
 
 		return users;
 	}
-	
+
 	@Override
 	public List<UserDto> listAllUserWithCurrentUser() {
 		AccountDetail detail = getCurrentAccount();
-		
-		if(detail == null) 
+
+		if (detail == null)
 			return null;
-		
+
 		long fromId = detail.getUserId();
-		
+
 		List<UserDto> users = userMapper.listAllUser();
 
 		Iterator<UserDto> iterator = users.iterator();
@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
 
 		return users;
 	}
-
 
 	@Override
 	public UserDto getUserById(long id) {
@@ -78,17 +77,17 @@ public class UserServiceImpl implements UserService {
 
 		return user;
 	}
-	
+
 	@Override
 	public UserDto getUserByIdWithCurrentUser(long id) {
 		AccountDetail detail = getCurrentAccount();
-		
-		if(detail == null)
+
+		if (detail == null)
 			return null;
-		
+
 		long fromId = detail.getUserId();
 		UserDto user = userMapper.queryUserById(id);
-		
+
 //		user.setIcon("http://101.132.41.44:9000/zero/cover.png");
 
 		boolean followed = userMapper.isFollowed(fromId, id);
@@ -124,7 +123,7 @@ public class UserServiceImpl implements UserService {
 
 		return userMapper.queryUserById(id);
 	}
-	
+
 	@Override
 	public long getCurrentUserId() {
 		AccountDetail detail = getCurrentAccount();
@@ -134,7 +133,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		long id = detail.getUserId();
-		
+
 		return id;
 	}
 
@@ -168,6 +167,17 @@ public class UserServiceImpl implements UserService {
 		userMapper.unfollow(dto);
 	}
 
+	@Override
+	public void setCurrentUserIcon(String icon) {
+		AccountDetail detail = getCurrentAccount();
+		if (detail == null) {
+			return;
+		}
+		
+		long id = detail.getUserId();
+		userMapper.setIcon(id, icon);
+	}
+
 	private AccountDetail getCurrentAccount() {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
@@ -175,4 +185,5 @@ public class UserServiceImpl implements UserService {
 
 		return detail;
 	}
+
 }

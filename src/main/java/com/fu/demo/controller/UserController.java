@@ -1,27 +1,38 @@
 package com.fu.demo.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.FollowDto;
 import com.fu.demo.mbg.dto.FollowResponseDto;
+import com.fu.demo.mbg.dto.MinioUploadDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.UserService;
 
+import io.minio.MinioClient;
+import io.minio.policy.PolicyType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -29,8 +40,20 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	private UserService userService;
+	
+    @Value("${minio.endpoint}")
+    private String ENDPOINT;
+    @Value("${minio.bucketName}")
+    private String BUCKET_NAME;
+    @Value("${minio.accessKey}")
+    private String ACCESS_KEY;
+    @Value("${minio.secretKey}")
+    private String SECRET_KEY;
 	
 	@ApiOperation("获取所有用户")
 	@GetMapping("/all")
@@ -56,6 +79,42 @@ public class UserController {
 		UserDto user = userService.getCurrentUser();
 		
 		return CommonResult.success(user);
+	}
+	
+	@ApiOperation("更换头像")
+	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<MinioUploadDto> uploadIcon(@RequestParam("file") MultipartFile file) {
+		try {
+            //创建一个MinIO的Java客户端
+            MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
+            boolean isExist = minioClient.bucketExists(BUCKET_NAME);
+            if (isExist) {
+                LOGGER.info("存储桶已经存在！");
+            } else {
+                //创建存储桶并设置只读权限
+                minioClient.makeBucket(BUCKET_NAME);
+                minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
+            }
+            String filename = file.getOriginalFilename();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            // 设置存储对象名称
+            String objectName = sdf.format(new Date()) + "/" + filename;
+            // 使用putObject上传一个文件到存储桶中
+            minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
+            
+            LOGGER.info("文件上传成功!");
+            MinioUploadDto minioUploadDto = new MinioUploadDto();
+            minioUploadDto.setName(filename);
+            minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
+            
+            userService.setCurrentUserIcon(minioUploadDto.getUrl());
+            
+            return CommonResult.success(minioUploadDto);
+        } catch (Exception e) {
+            LOGGER.info("上传发生错误: {}！", e.getMessage());
+        }
+        return CommonResult.failed();
 	}
 	
 	@ApiOperation("follow用户")
