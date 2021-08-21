@@ -49,6 +49,15 @@ public class UserController {
 		return CommonResult.success(user);
 	}
 	
+	@ApiOperation("查询当前用户")
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<UserDto> getCurrentUserProfile() {
+		UserDto user = userService.getCurrentUser();
+		
+		return CommonResult.success(user);
+	}
+	
 	@ApiOperation("follow用户")
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)
 	@ResponseBody
