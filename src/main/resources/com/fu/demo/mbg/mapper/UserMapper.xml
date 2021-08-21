@@ -5,6 +5,7 @@
 		type="com.fu.demo.mbg.dto.UserDto">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
 <!-- 		<result column="accountId" property="accountId" /> -->
 		<!-- <association column="accountId" property="account" -->
 		<!-- select="com.fu.demo.mbg.mapper.AccountMapper.queryAccountById"> -->
@@ -13,12 +14,12 @@
 
 
 	<select id="listAllUser" resultMap="UserResultMap">
-		select id,name from user
+		select id,name,icon from user
 	</select>
 
 	<select id="queryUserById" parameterType="long"
 		resultMap="UserResultMap">
-		select id,name from user where id=#{id}
+		select id,name,icon from user where id=#{id}
 	</select>
 
 	<update id="setAccountId">
