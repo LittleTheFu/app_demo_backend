@@ -21,6 +21,8 @@
 		on
 		article_comment.articleCommentUserId =
 		user.id
+		where
+		article_comment.articleCommentArticleId = #{articleId}
 	</select>
 
 	<select id="queryById" resultMap="CommentDtoResultMap">
