@@ -20,7 +20,7 @@ public interface ArticleService {
 	
 	public boolean isArticleThumbed(long id, long userId);
 
-	public void createArticle(CreateArticleDto createArticleDto, long userId);
+	public long createArticle(CreateArticleDto createArticleDto, long userId);
 	
 	public long createComment(long articleId, long userId, String content);
 	

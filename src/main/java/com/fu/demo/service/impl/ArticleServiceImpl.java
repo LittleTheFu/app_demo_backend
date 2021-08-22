@@ -53,12 +53,14 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public void createArticle(CreateArticleDto craeteArticleDto, long userId) {
+	public long createArticle(CreateArticleDto craeteArticleDto, long userId) {
 		Article article = new Article();
 		BeanUtils.copyProperties(craeteArticleDto, article);
 		article.setArticleUserId(userId);
 
 		articleMapper.insert(article);
+		
+		return article.getId();
 	}
 
 	@Override

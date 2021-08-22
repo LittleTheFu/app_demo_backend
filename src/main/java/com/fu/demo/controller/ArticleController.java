@@ -20,6 +20,7 @@ import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.CreateArticleResponseDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
@@ -64,6 +65,21 @@ public class ArticleController {
 	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id) {
 		return CommonResult.success(articleService.getArticleComments(article_id));
 	}
+	
+	@ApiOperation("创建文章")
+	@RequestMapping(value = "/create_article", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult<CreateArticleResponseDto> createArticle(@RequestBody CreateArticleDto createArticleDto) {
+		long userId = userService.getCurrentUserId();
+
+		long articleId = articleService.createArticle(createArticleDto, userId);
+
+		CreateArticleResponseDto ret = new CreateArticleResponseDto();
+		ret.setId(articleId);
+
+		return CommonResult.success(ret);
+	}
+
 
 	@ApiOperation("创建评论")
 	@RequestMapping(value = "/create_comment/{id}", method = RequestMethod.PUT)

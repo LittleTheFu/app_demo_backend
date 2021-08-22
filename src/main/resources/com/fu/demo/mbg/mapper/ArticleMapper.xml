@@ -17,7 +17,8 @@
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,article.articleUserId,thumb
-		from article left join user
+		from article
+		left join user
 		on
 		article.articleUserId = user.id
 	</select>
@@ -26,7 +27,8 @@
 		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,article.articleUserId,thumb
-		from article left
+		from article
+		left
 		join user
 		on
 		article.articleUserId = user.id
@@ -38,7 +40,8 @@
 		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,article.articleUserId,thumb
-		from article left
+		from article
+		left
 		join user
 		on
 		article.articleUserId = user.id
@@ -52,17 +55,19 @@
 		from
 		user_article_thumb
 		where
-		thumbArticleId = #{id} and thumbUserId = #{userId}
+		thumbArticleId = #{id} and thumbUserId =
+		#{userId}
 		), 0)
 	</select>
-	
+
 	<select id="queryThumbNumber" resultType="int">
 		select thumb
-		from article
+		from
+		article
 		where id=#{id}
 	</select>
 
-	<insert id="insert"
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
 		parameterType="com.fu.demo.mbg.model.Article">
 		insert into
 		article
