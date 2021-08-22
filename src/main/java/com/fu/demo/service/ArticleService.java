@@ -28,7 +28,7 @@ public interface ArticleService {
 	
 	public CommentResponseDto getArticleCommentById(long commentId);
 	
-	int deleteArticle(long id);
+	int deleteArticle(long id, long userId);
 	
 	boolean isThumbed(long articleId, long userId);
 	

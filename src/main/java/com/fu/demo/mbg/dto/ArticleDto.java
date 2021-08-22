@@ -24,6 +24,9 @@ public class ArticleDto {
 	@ApiModelProperty(value = "thumbState")
 	private boolean thumbState;
 	
+	@ApiModelProperty(value = "deletable")
+	private boolean deletable;
+	
 	public long getId() {
 		return id;
 	}
@@ -78,5 +81,13 @@ public class ArticleDto {
 	
 	public boolean getThumbState() {
 		return thumbState;
+	}
+	
+	public void setDeletable(boolean deletable) {
+		this.deletable = deletable;
+	}
+	
+	public boolean getDeletable() {
+		return this.deletable;
 	}
 }

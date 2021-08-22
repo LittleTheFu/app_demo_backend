@@ -133,10 +133,11 @@ public class ArticleController {
 		return CommonResult.success(retObj);
 	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public CommonResult deleteArticle(@PathVariable("id") Long id) {
-		int count = articleService.deleteArticle(id);
+	public CommonResult deleteArticle(@PathVariable("id") long id) {
+		long userId = userService.getCurrentUserId();
+		int count = articleService.deleteArticle(id, userId);
 		if (count == 1) {
 //            LOGGER.debug("deleteBrand success :id={}", id);
 			return CommonResult.success(null);
