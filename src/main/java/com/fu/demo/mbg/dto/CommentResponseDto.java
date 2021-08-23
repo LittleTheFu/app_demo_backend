@@ -15,6 +15,9 @@ public class CommentResponseDto {
 	@ApiModelProperty(value = "articleCommentUserName")
 	private String articleCommentUserName;
 	
+	@ApiModelProperty(value = "articleCommentUserIcon")
+	private String articleCommentUserIcon;
+	
 	@ApiModelProperty(value = "articleCommentContent")
 	private String articleCommentContent;
 
@@ -48,6 +51,14 @@ public class CommentResponseDto {
 
 	public void setArticleCommentUserName(String articleCommentUserName) {
 		this.articleCommentUserName = articleCommentUserName;
+	}
+	
+	public String getArticleCommentUserIcon() {
+		return articleCommentUserIcon;
+	}
+
+	public void setArticleCommentUserIcon(String articleCommentUserIcon) {
+		this.articleCommentUserIcon = articleCommentUserIcon;
 	}
 
 	public String getArticleCommentContent() {

@@ -9,6 +9,7 @@
 		<result column="articleCommentUserId"
 			property="articleCommentUserId" />
 		<result column="name" property="articleCommentUserName" />
+		<result column="icon" property="articleCommentUserIcon" />
 		<result column="articleCommentContent"
 			property="articleCommentContent" />
 	</resultMap>
@@ -16,7 +17,7 @@
 	<select id="queryCommentByArticleId"
 		resultMap="CommentDtoResultMap">
 		select
-		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
+		article_comment.id,articleCommentArticleId,articleCommentUserId,name,icon,articleCommentContent
 		from article_comment join user
 		on
 		article_comment.articleCommentUserId =
@@ -27,7 +28,7 @@
 
 	<select id="queryById" resultMap="CommentDtoResultMap">
 		select
-		article_comment.id,articleCommentArticleId,articleCommentUserId,name,articleCommentContent
+		article_comment.id,articleCommentArticleId,articleCommentUserId,name,icon,articleCommentContent
 		from article_comment join user
 		on
 		article_comment.articleCommentUserId =
