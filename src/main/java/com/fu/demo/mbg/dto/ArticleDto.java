@@ -18,6 +18,9 @@ public class ArticleDto {
 	@ApiModelProperty(value = "authorId")
 	private long authorId;
 	
+	@ApiModelProperty(value = "authorIcon")
+	private String authorIcon;
+	
 	@ApiModelProperty(value = "thumb")
 	private long thumb;
 	
@@ -65,6 +68,14 @@ public class ArticleDto {
 	
 	public long getAuthorId() {
 		return authorId;
+	}
+	
+	public void setAuthorIcon(String authorIcon) {
+		this.authorIcon = authorIcon;
+	}
+	
+	public String getAuthorIcon() {
+		return this.authorIcon;
 	}
 	
 	public long getThumb() {

@@ -3,20 +3,18 @@
 <mapper namespace="com.fu.demo.mbg.mapper.ArticleMapper">
 	<resultMap id="ArticleDtoResultMap"
 		type="com.fu.demo.mbg.dto.ArticleDto">
-		<!-- <id column="id" jdbcType="BIGINT" property="id" /> -->
-		<!-- <result column="title" jdbcType="VARCHAR" property="title" /> -->
-		<!-- <result column="content" jdbcType="VARCHAR" property="content" /> -->
 		<result column="id" property="id" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="name" property="author" />
+		<result column="icon" property="authorIcon" />
 		<result column="articleUserId" property="authorId" />
 		<result column="thumb" property="thumb" />
 	</resultMap>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
-		article.id,title,content,name,article.articleUserId,thumb
+		article.id,title,content,name,icon,article.articleUserId,thumb
 		from article
 		left join user
 		on
@@ -26,7 +24,7 @@
 	<select id="queryById" parameterType="long"
 		resultMap="ArticleDtoResultMap">
 		select
-		article.id,title,content,name,article.articleUserId,thumb
+		article.id,title,content,name,icon,article.articleUserId,thumb
 		from article
 		left
 		join user
@@ -39,7 +37,7 @@
 	<select id="queryByIdWithThumbState"
 		resultMap="ArticleDtoResultMap">
 		select
-		article.id,title,content,name,article.articleUserId,thumb
+		article.id,title,content,name,icon,article.articleUserId,thumb
 		from article
 		left
 		join user
