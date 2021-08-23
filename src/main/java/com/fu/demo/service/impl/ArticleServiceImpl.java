@@ -48,8 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
 			boolean isThumbed = articleMapper.isThumbed(article.getId(), userId);
 			article.setThumbState(isThumbed);
 			
-			boolean isDeletable = (userId == article.getAuthorId());
-			article.setDeletable(isDeletable);
+			boolean isOwner = (userId == article.getAuthorId());
+			article.setDeletable(isOwner);
+			article.setEditable(isOwner);
 		}
 
 		return articles;
@@ -105,8 +106,9 @@ public class ArticleServiceImpl implements ArticleService {
 		ArticleDto article = articleMapper.queryById(id);
 		article.setThumbState(articleMapper.isThumbed(id, userId));
 		
-		boolean isDeletable = (userId == article.getAuthorId());
-		article.setDeletable(isDeletable);
+		boolean isOwner = (userId == article.getAuthorId());
+		article.setDeletable(isOwner);
+		article.setEditable(isOwner);
 		
 		return article;
 	}

@@ -30,6 +30,9 @@ public class ArticleDto {
 	@ApiModelProperty(value = "deletable")
 	private boolean deletable;
 	
+	@ApiModelProperty(value = "editable")
+	private boolean editable;
+	
 	public long getId() {
 		return id;
 	}
@@ -100,5 +103,13 @@ public class ArticleDto {
 	
 	public boolean getDeletable() {
 		return this.deletable;
+	}
+	
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+	
+	public boolean getEditable() {
+		return this.editable;
 	}
 }
