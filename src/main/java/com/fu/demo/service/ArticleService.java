@@ -6,6 +6,7 @@ import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.UpdateArticleDto;
 
 public interface ArticleService {
 	public List<ArticleDto> listAllArticle();
@@ -22,6 +23,8 @@ public interface ArticleService {
 
 	public long createArticle(CreateArticleDto createArticleDto, long userId);
 	
+	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId);
+
 	public long createComment(long articleId, long userId, String content);
 	
 	public List<CommentResponseDto> getArticleComments(long articleId);

@@ -18,13 +18,17 @@ public interface ArticleMapper {
 	ArticleDto queryById(long id);
 
 	ArticleDto queryByIdWithThumbState(@Param("id") long id, @Param("userId") long userId);
-	
+
 	int queryThumbNumber(@Param("id") long id);
-	
+
 	boolean isThumbed(@Param("id") long id, @Param("userId") long userId);
 
 	void insert(Article article);
 
 	int delete(@Param("id") long id);
+
+	long queryAuthorId(@Param("id") long id);
+
+	void updateArticle(@Param("id") long id, @Param("title") String title, @Param("content") String content);
 
 }

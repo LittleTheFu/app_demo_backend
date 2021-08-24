@@ -78,4 +78,17 @@
 		delete from article where
 		id=#{id}
 	</delete>
+	
+	<select id="queryAuthorId" parameterType="long" resultType="long">
+		select articleUserId
+		from article
+		where id=#{id}
+	</select>
+	
+	<update id="updateArticle">
+		update article
+		set title=#{title}, content=#{content}
+		where
+		id=#{id}
+	</update>
 </mapper>

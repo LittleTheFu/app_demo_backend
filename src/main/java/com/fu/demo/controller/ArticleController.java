@@ -22,6 +22,7 @@ import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleResponseDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.service.AccountService;
@@ -58,6 +59,20 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		return CommonResult.success(articleService.getArticleById(id, userId));
+	}
+	
+	@ApiOperation("修改指定文章")
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	public CommonResult putArticle(@PathVariable("id") long id, @RequestBody UpdateArticleDto updateArticleDto) {
+		long userId = userService.getCurrentUserId();
+		
+		boolean result = articleService.updateArticle(updateArticleDto, userId);
+		
+		if(result) {
+			return CommonResult.success(null);	
+		}
+
+		return CommonResult.failed("操作失败");
 	}
 
 	@ApiOperation("获取指定文章的评论")

@@ -11,6 +11,7 @@ import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.mbg.mapper.ArticleMapper;
 import com.fu.demo.mbg.mapper.CommentMapper;
 import com.fu.demo.mbg.mapper.UserArticleThumbMapper;
@@ -65,6 +66,23 @@ public class ArticleServiceImpl implements ArticleService {
 		articleMapper.insert(article);
 		
 		return article.getId();
+	}
+	
+	@Override
+	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId) {
+		long id = updateArticleDto.getId();
+		long authorId = articleMapper.queryAuthorId(id);
+		
+		if(userId != authorId) {
+			return false;
+		}
+		
+		String title = updateArticleDto.getTitle();
+		String content = updateArticleDto.getContent();
+		
+		articleMapper.updateArticle(id, title, content);
+		
+		return true;
 	}
 
 	@Override
