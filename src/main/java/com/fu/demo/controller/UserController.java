@@ -81,6 +81,24 @@ public class UserController {
 		return CommonResult.success(user);
 	}
 	
+	@ApiOperation("查询用户的关注")
+	@RequestMapping(value = "/followings/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<UserDto>> getFollowings(@PathVariable("id") int id) {
+		List<UserDto> followings = userService.getFollowingsWithCurrentUser(id);
+		
+		return CommonResult.success(followings);
+	}
+	
+	@ApiOperation("查询用户的粉丝")
+	@RequestMapping(value = "/followers/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<UserDto>> getFollowers(@PathVariable("id") int id) {
+		List<UserDto> followers = userService.getFollowerWithCurrentUser(id);
+		
+		return CommonResult.success(followers);
+	}
+	
 	@ApiOperation("更换头像")
 	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)
 	@ResponseBody

@@ -96,6 +96,40 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	private void updateFollowFlag(List<UserDto> that, List<UserDto> myFollowings) {
+		that.forEach((t) -> {
+			myFollowings.forEach((m) -> {
+				if (m.getId() == t.getId()) {
+					t.setFollowed(true);
+				}
+			});
+		});
+	}
+
+	@Override
+	public List<UserDto> getFollowingsWithCurrentUser(long id) {
+		List<UserDto> followings = userMapper.getFollowings(id);
+
+		long currentUserId = getCurrentUserId();
+		List<UserDto> myFollowings = userMapper.getFollowings(currentUserId);
+		
+		updateFollowFlag(followings, myFollowings);
+
+		return followings;
+	}
+
+	@Override
+	public List<UserDto> getFollowerWithCurrentUser(long id) {
+		List<UserDto> followers = userMapper.getFollowers(id);
+
+		long currentUserId = getCurrentUserId();
+		List<UserDto> myFollowings = userMapper.getFollowings(currentUserId);
+		
+		updateFollowFlag(followers, myFollowings);
+
+		return followers;
+	}
+
 	@Override
 	public void follow(FollowDto followDto) {
 		userMapper.follow(followDto);
@@ -173,7 +207,7 @@ public class UserServiceImpl implements UserService {
 		if (detail == null) {
 			return;
 		}
-		
+
 		long id = detail.getUserId();
 		userMapper.setIcon(id, icon);
 	}

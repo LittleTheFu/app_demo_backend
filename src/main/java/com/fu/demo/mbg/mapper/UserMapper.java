@@ -21,6 +21,10 @@ public interface UserMapper {
 	
 	void insert(User user);
 	
+	List<UserDto> getFollowings(long id);
+	
+	List<UserDto> getFollowers(long id); 
+	
 	void follow(FollowDto followDto);
 	
 	void unfollow(FollowDto followDto);

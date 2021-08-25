@@ -72,4 +72,18 @@
 		fromId = #{fromId} and toId = #{toId}
 		), 0)
 	</select>
+	
+	<select id="getFollowers" resultMap="UserResultMap">
+		select fromId as id,user_temp.name as name,user_temp.icon as icon 
+		from user join user_follow join user as user_temp
+		on user.id = toId and fromId = user_temp.id
+		where user.id=#{id} 
+	</select>
+	
+	<select id="getFollowings" resultMap="UserResultMap">
+		select toId as id,user_temp.name as name,user_temp.icon as icon 
+		from user join user_follow join user as user_temp
+		on user.id = fromId and toId = user_temp.id
+		where user.id=#{id} 
+	</select>
 </mapper>

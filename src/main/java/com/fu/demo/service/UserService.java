@@ -19,6 +19,10 @@ public interface UserService {
 	
 	UserDto getUserByIdWithCurrentUser(long id);
 	
+	List<UserDto> getFollowingsWithCurrentUser(long id);
+	
+	List<UserDto> getFollowerWithCurrentUser(long id);
+
 	void follow(FollowDto followDto);
 	
 	void unfollow(FollowDto followDto);
