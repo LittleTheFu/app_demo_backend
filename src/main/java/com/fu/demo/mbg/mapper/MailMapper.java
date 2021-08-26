@@ -5,5 +5,5 @@ import com.fu.demo.mbg.model.Mail;
 
 @Mapper
 public interface MailMapper {
-	long insertMail(Mail mail);
+	void insertMail(Mail mail);
 }
