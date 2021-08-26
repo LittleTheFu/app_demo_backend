@@ -82,7 +82,7 @@ public class ArticleController {
 	}
 	
 	@ApiOperation("创建文章")
-	@RequestMapping(value = "/create_article", method = RequestMethod.PUT)
+	@RequestMapping(value = "/create_mail", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult<CreateArticleResponseDto> createArticle(@RequestBody CreateArticleDto createArticleDto) {
 		long userId = userService.getCurrentUserId();
