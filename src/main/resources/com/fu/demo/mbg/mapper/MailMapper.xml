@@ -10,5 +10,12 @@
 		values
 		(#{mailFromId}, #{mailToId}, #{content})
 	</insert>
+	
+	<select id="queryMailsByUserId" resultType="com.fu.demo.mbg.model.Mail">
+		select *		
+		from mail
+		where
+		mailToId = #{id}
+	</select>
 
 </mapper>

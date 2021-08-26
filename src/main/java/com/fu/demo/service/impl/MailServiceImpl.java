@@ -1,5 +1,7 @@
 package com.fu.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,17 @@ public class MailServiceImpl implements MailService{
 	private MailMapper mailMapper;
 
 	@Override
-	public void CreateMail(CreateMailDto createMailDto, long fromId) {
+	public void createMail(CreateMailDto createMailDto, long fromId) {
 		Mail mail = new Mail();
 		
 		BeanUtils.copyProperties(createMailDto, mail);
 		mail.setMailFromId(fromId);
 
 		mailMapper.insertMail(mail);
+	}
+
+	@Override
+	public List<Mail> getMails(long userId) {
+		return mailMapper.queryMailsByUserId(userId);
 	}
 }
