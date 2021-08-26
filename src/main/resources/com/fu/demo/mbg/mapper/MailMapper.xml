@@ -10,12 +10,16 @@
 		values
 		(#{mailFromId}, #{mailToId}, #{content})
 	</insert>
-	
-	<select id="queryMailsByUserId" resultType="com.fu.demo.mbg.model.Mail">
-		select *		
-		from mail
+
+	<select id="queryMailsByUserId"
+		resultType="com.fu.demo.mbg.dto.MailResponseDto">
+		select
+		mail.id as id, mailFromId, mailToId, content,name as authorName, icon as authorIcon
+		from
+		mail join user
+		on mail.mailFromId = user.id
 		where
-		mailToId = #{id}
+		mail.mailToId = #{id}
 	</select>
 
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fu.demo.mbg.dto.CreateMailDto;
+import com.fu.demo.mbg.dto.MailResponseDto;
 import com.fu.demo.mbg.mapper.MailMapper;
 import com.fu.demo.mbg.model.Mail;
 import com.fu.demo.service.MailService;
@@ -28,7 +29,7 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public List<Mail> getMails(long userId) {
+	public List<MailResponseDto> getMails(long userId) {
 		return mailMapper.queryMailsByUserId(userId);
 	}
 }

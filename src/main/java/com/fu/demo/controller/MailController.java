@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CreateMailDto;
+import com.fu.demo.mbg.dto.MailResponseDto;
 import com.fu.demo.mbg.model.Mail;
 import com.fu.demo.service.MailService;
 import com.fu.demo.service.UserService;
@@ -43,7 +44,7 @@ public class MailController {
 	
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/get_mails")
-	public CommonResult<List<Mail>> getMails() {
+	public CommonResult<List<MailResponseDto>> getMails() {
 		long userId = userService.getCurrentUserId();
 		
 		return CommonResult.success(mailService.getMails(userId));
