@@ -16,7 +16,7 @@ public interface CommentMapper {
 //	void insertComment(@Param("articleId") long articleId, @Param("userId") long userId,
 //			@Param("content") String content);
 	
-	long insertComment(Comment comment);
+	void insertComment(Comment comment);
 	
 	CommentResponseDto queryById(@Param("id") long id);
 }
