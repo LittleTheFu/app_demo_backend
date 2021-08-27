@@ -14,12 +14,27 @@
 	<select id="queryMailsByUserId"
 		resultType="com.fu.demo.mbg.dto.MailResponseDto">
 		select
-		mail.id as id, mailFromId, mailToId, content,name as authorName, icon as authorIcon
+		mail.id as id, mailFromId, mailToId, content,name as
+		authorName, icon as authorIcon
 		from
 		mail join user
-		on mail.mailFromId = user.id
+		on mail.mailFromId =
+		user.id
 		where
 		mail.mailToId = #{id}
 	</select>
+
+	<select id="queryRawMail" parameterType="long"
+		resultType="com.fu.demo.mbg.model.Mail">
+		select *
+		from mail
+		where id=#{id}
+	</select>
+
+	<delete id="deleteMail" parameterType="long">
+		delete from mail
+		where
+		id=#{id}
+	</delete>
 
 </mapper>

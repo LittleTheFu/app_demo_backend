@@ -42,11 +42,26 @@ public class MailController {
 		return CommonResult.success(null);
 	}
 	
-	@ApiOperation("获取所有文章列表")
+	@ApiOperation("获取所有邮件列表")
 	@GetMapping("/get_mails")
 	public CommonResult<List<MailResponseDto>> getMails() {
 		long userId = userService.getCurrentUserId();
 		
 		return CommonResult.success(mailService.getMails(userId));
+	}
+	
+	@ApiOperation("del邮件")
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public CommonResult deleteMail(@PathVariable("id") long id) {
+		long userId = userService.getCurrentUserId();
+		int count = mailService.deleteMail(id, userId);
+		if (count == 1) {
+//            LOGGER.debug("deleteBrand success :id={}", id);
+			return CommonResult.success(null);
+		} else {
+//            LOGGER.debug("deleteBrand failed :id={}", id);
+			return CommonResult.failed("操作失败");
+		}
 	}
 }

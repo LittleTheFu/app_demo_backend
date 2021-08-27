@@ -32,4 +32,14 @@ public class MailServiceImpl implements MailService{
 	public List<MailResponseDto> getMails(long userId) {
 		return mailMapper.queryMailsByUserId(userId);
 	}
+
+	@Override
+	public int deleteMail(long id, long userId) {
+		Mail mail = mailMapper.queryRawMail(id);
+		if(mail.getMailToId() != userId) {
+			return 0;
+		}
+		
+		return mailMapper.deleteMail(id);
+	}
 }

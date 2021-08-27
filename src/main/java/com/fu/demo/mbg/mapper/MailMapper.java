@@ -12,4 +12,8 @@ public interface MailMapper {
 	void insertMail(Mail mail);
 	
 	List<MailResponseDto> queryMailsByUserId(long userId);
+	
+	int deleteMail(long id);
+	
+	Mail queryRawMail(long id);
 }

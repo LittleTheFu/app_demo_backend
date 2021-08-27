@@ -9,4 +9,6 @@ public interface MailService {
 	void createMail(CreateMailDto createMailDto, long fromId);
 	
 	List<MailResponseDto> getMails(long userId);
+	
+	int deleteMail(long id, long userId);
 }
