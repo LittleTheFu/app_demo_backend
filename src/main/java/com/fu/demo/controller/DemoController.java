@@ -3,8 +3,6 @@ package com.fu.demo.controller;
 import java.security.Principal;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.print.DocFlavor.STRING;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
