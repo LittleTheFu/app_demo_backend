@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.fu.demo.mbg.dto.ArticleDto;
-import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.model.Article;
 
 @Mapper

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.fu.demo.mbg.dto.CommentResponseDto;
-import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.model.Comment;
 
 @Mapper
