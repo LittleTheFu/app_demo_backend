@@ -1,10 +1,8 @@
 package com.fu.demo.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
-import com.fu.demo.mbg.dto.AccountDetail;
-import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
@@ -23,10 +19,8 @@ import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleResponseDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
-import com.fu.demo.mbg.model.Account;
-import com.fu.demo.mbg.model.Article;
-import com.fu.demo.service.AccountService;
 import com.fu.demo.service.ArticleService;
+import com.fu.demo.service.HistoryService;
 import com.fu.demo.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -41,9 +35,9 @@ public class ArticleController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	@Autowired
-	private AccountService accountService;
+	private HistoryService historyService;
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
@@ -57,7 +51,8 @@ public class ArticleController {
 	@GetMapping("/{id}")
 	public CommonResult<ArticleDto> getArticle(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
-
+		historyService.insertHistory(userId, id);
+		
 		return CommonResult.success(articleService.getArticleById(id, userId));
 	}
 	
