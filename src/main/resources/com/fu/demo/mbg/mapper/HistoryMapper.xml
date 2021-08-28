@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fu.demo.mbg.mapper.HistoryMapper">
+
 	<insert id="insertHistory">
 		insert into
 		history
 		(historyUserId, historyArticleId, historyDate)
 		values
 		(#{userId}, #{articleId}, NOW())
+		on duplicate key update historyDate = NOW()
 	</insert>
+	
+	<select id="queryHistoryByUserId" resultType="com.fu.demo.mbg.dto.HistoryResponseDto">
+		select historyArticleId as id, title
+		from article join history join user
+		on article.id = history.historyArticleId and user.id = history.historyUserId
+		where user.id = #{id}
+		order by historyDate desc
+	</select>
+	
 </mapper>
