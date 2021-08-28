@@ -13,7 +13,6 @@ import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.FollowDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.mbg.mapper.UserMapper;
-import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.UserService;
 
 @Service

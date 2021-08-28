@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 		accountMapper.setUserId(account.getId(), user.getId());
 		userMapper.setAccountId(user.getId(), account.getId());
 
-		long newId = account.getId();
+//		long newId = account.getId();
 		return;
 	}
 
