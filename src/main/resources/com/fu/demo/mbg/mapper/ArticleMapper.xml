@@ -19,6 +19,7 @@
 		left join user
 		on
 		article.articleUserId = user.id
+		order by article.id desc
 	</select>
 
 	<select id="queryById" parameterType="long"
