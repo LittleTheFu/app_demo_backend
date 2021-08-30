@@ -165,4 +165,13 @@ public class ArticleServiceImpl implements ArticleService {
 		return commentMapper.queryById(commentId);
 	}
 
+	@Override
+	public void bookmark(long articleId, long userId) {
+		articleMapper.bookmark(articleId, userId);
+	}
+
+	@Override
+	public void unBookmark(long articleId, long userId) {
+		articleMapper.unBookmark(articleId, userId);
+	}
 }

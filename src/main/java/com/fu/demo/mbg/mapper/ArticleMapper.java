@@ -23,6 +23,10 @@ public interface ArticleMapper {
 	boolean isThumbed(@Param("id") long id, @Param("userId") long userId);
 	
 	boolean isBookmarked(@Param("id") long id, @Param("userId") long userId);
+	
+	void bookmark(@Param("articleId") long articleId, @Param("userId") long userId);
+	
+	void unBookmark(@Param("articleId") long articleId, @Param("userId") long userId);
 
 	void insert(Article article);
 

@@ -38,4 +38,8 @@ public interface ArticleService {
 	void thumb(long articleId, long userId);
 	
 	void unThumb(long articleId, long userId);
+	
+	void bookmark(long articleId, long userId);
+	
+	void unBookmark(long articleId, long userId);
 }

@@ -104,6 +104,28 @@ public class ArticleController {
 
 		return CommonResult.success(ret);
 	}
+	
+	@ApiOperation("收藏文章")
+	@RequestMapping(value = "/bookmark/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult bookmarkArticle(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
+
+		articleService.bookmark(id, userId);
+	
+		return CommonResult.success(null);
+	}
+	
+	@ApiOperation("取消文章")
+	@RequestMapping(value = "/unbookmark/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult unBookmarkArticle(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
+
+		articleService.unBookmark(id, userId);
+	
+		return CommonResult.success(null);
+	}
 
 	@ApiOperation("点赞文章")
 	@RequestMapping(value = "/thumb/{id}", method = RequestMethod.PUT)

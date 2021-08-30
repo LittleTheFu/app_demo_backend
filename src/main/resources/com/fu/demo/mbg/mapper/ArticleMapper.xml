@@ -69,6 +69,21 @@
 		#{userId}
 		), 0)
 	</select>
+	
+	<insert id="bookmark">
+		insert into
+		bookmark
+		(bookmarkUserId,bookmarkArticleId)
+		values
+		(#{userId},#{articleId});
+	</insert>
+	
+	<delete id="unBookmark">
+		delete from
+		bookmark
+		where
+		bookmarkUserId = #{userId} and bookmarkArticleId = #{articleId};
+	</delete>
 
 	<select id="queryThumbNumber" resultType="int">
 		select thumb
