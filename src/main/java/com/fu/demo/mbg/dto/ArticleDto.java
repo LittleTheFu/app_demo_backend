@@ -33,6 +33,9 @@ public class ArticleDto {
 	@ApiModelProperty(value = "editable")
 	private boolean editable;
 	
+	@ApiModelProperty(value = "bookmarked")
+	private boolean bookmarked;
+	
 	public long getId() {
 		return id;
 	}
@@ -111,5 +114,13 @@ public class ArticleDto {
 	
 	public boolean getEditable() {
 		return this.editable;
+	}
+
+	public boolean isBookmarked() {
+		return bookmarked;
+	}
+
+	public void setBookmarked(boolean bookmarked) {
+		this.bookmarked = bookmarked;
 	}
 }
