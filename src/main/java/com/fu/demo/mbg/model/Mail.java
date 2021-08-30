@@ -15,8 +15,6 @@ public class Mail {
 	@ApiModelProperty(value = "content")
 	private String content;
 	
-	private static final long serialVersionUID = 1L;
-
 	public long getId() {
 		return id;
 	}
