@@ -10,6 +10,7 @@
 		<result column="icon" property="authorIcon" />
 		<result column="articleUserId" property="authorId" />
 		<result column="thumb" property="thumb" />
+		<result column="bookmarked" property="bookmarked" />
 	</resultMap>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
@@ -26,9 +27,8 @@
 		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,icon,article.articleUserId,thumb
-		from article
-		left
-		join user
+		from 
+		article join user
 		on
 		article.articleUserId = user.id
 		where
