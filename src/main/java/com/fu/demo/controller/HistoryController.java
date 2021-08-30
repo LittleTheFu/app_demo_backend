@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
-import com.fu.demo.mbg.dto.HistoryResponseDto;
+import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.MailResponseDto;
 import com.fu.demo.service.HistoryService;
 import com.fu.demo.service.UserService;
@@ -28,7 +28,7 @@ public class HistoryController {
 	
 	@ApiOperation("获取所有邮件列表")
 	@GetMapping
-	public CommonResult<List<HistoryResponseDto>> getHistory() {
+	public CommonResult<List<TitleResponseDto>> getHistory() {
 		long userId = userService.getCurrentUserId();
 		
 		return CommonResult.success(historyService.getHistory(userId));

@@ -11,7 +11,7 @@
 		on duplicate key update historyDate = NOW()
 	</insert>
 	
-	<select id="queryHistoryByUserId" resultType="com.fu.demo.mbg.dto.HistoryResponseDto">
+	<select id="queryHistoryByUserId" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
 		select 	historyArticleId as id, title, user_author.name as authorName,
 				user_author.icon as authorIcon, user_author.id as authorId
 		from article join history join user join user as user_author

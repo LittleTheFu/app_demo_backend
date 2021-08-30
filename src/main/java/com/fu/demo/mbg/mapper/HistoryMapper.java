@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.fu.demo.mbg.dto.HistoryResponseDto;
+import com.fu.demo.mbg.dto.TitleResponseDto;
 
 @Mapper
 public interface HistoryMapper {
 	void insertHistory(long userId, long articleId);
 	
-	List<HistoryResponseDto> queryHistoryByUserId(long userId);
+	List<TitleResponseDto> queryHistoryByUserId(long userId);
 }

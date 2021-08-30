@@ -2,7 +2,7 @@ package com.fu.demo.mbg.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class HistoryResponseDto {
+public class TitleResponseDto {
 	@ApiModelProperty(value = "id")
 	private long id;
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fu.demo.mbg.dto.HistoryResponseDto;
+import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.mapper.HistoryMapper;
 import com.fu.demo.service.HistoryService;
 
@@ -21,7 +21,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public List<HistoryResponseDto> getHistory(long userId) {
+	public List<TitleResponseDto> getHistory(long userId) {
 		return historyMapper.queryHistoryByUserId(userId);
 	}
 }
