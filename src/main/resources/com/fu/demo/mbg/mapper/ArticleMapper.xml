@@ -58,6 +58,17 @@
 		#{userId}
 		), 0)
 	</select>
+	
+	<select id="isBookmarked" resultType="boolean">
+		select COALESCE
+		((select 1
+		from
+		bookmark
+		where
+		bookmarkArticleId = #{id} and bookmarkUserId =
+		#{userId}
+		), 0)
+	</select>
 
 	<select id="queryThumbNumber" resultType="int">
 		select thumb

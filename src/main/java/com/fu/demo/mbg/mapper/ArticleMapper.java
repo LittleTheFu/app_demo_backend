@@ -21,6 +21,8 @@ public interface ArticleMapper {
 	int queryThumbNumber(@Param("id") long id);
 
 	boolean isThumbed(@Param("id") long id, @Param("userId") long userId);
+	
+	boolean isBookmarked(@Param("id") long id, @Param("userId") long userId);
 
 	void insert(Article article);
 

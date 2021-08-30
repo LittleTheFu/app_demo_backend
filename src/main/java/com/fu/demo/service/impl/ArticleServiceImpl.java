@@ -125,7 +125,9 @@ public class ArticleServiceImpl implements ArticleService {
 		boolean isOwner = (userId == article.getAuthorId());
 		article.setDeletable(isOwner);
 		article.setEditable(isOwner);
-		article.setBookmarked(isOwner);
+		
+		boolean isBookmarked = articleMapper.isBookmarked(id, userId);
+		article.setBookmarked(isBookmarked);
 		
 		return article;
 	}
