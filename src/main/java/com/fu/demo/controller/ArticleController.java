@@ -18,6 +18,7 @@ import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleResponseDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.service.ArticleService;
 import com.fu.demo.service.HistoryService;
@@ -116,7 +117,7 @@ public class ArticleController {
 		return CommonResult.success(null);
 	}
 	
-	@ApiOperation("取消文章")
+	@ApiOperation("取消收藏文章")
 	@RequestMapping(value = "/unbookmark/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult unBookmarkArticle(@PathVariable("id") Long id) {
@@ -125,6 +126,14 @@ public class ArticleController {
 		articleService.unBookmark(id, userId);
 	
 		return CommonResult.success(null);
+	}
+	
+	@ApiOperation("获取所有收藏文章")
+	@GetMapping("/get_bookmark_articles")
+	public CommonResult<List<TitleResponseDto>> getBookmarkArticles() {
+		long userId = userService.getCurrentUserId();
+
+		return CommonResult.success(articleService.getBookmarkedArticles(userId));
 	}
 
 	@ApiOperation("点赞文章")

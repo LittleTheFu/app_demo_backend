@@ -6,6 +6,7 @@ import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 
 public interface ArticleService {
@@ -42,4 +43,6 @@ public interface ArticleService {
 	void bookmark(long articleId, long userId);
 	
 	void unBookmark(long articleId, long userId);
+	
+	List<TitleResponseDto> getBookmarkedArticles(long userId);
 }

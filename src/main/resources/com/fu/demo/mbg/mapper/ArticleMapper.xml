@@ -84,6 +84,14 @@
 		where
 		bookmarkUserId = #{userId} and bookmarkArticleId = #{articleId};
 	</delete>
+	
+	<select id="queryBookmarkedArticle" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+		select 	article.id as id, title, user.name as authorName, 
+				user.icon as authorIcon, user.id as authorId
+		from article join bookmark join user
+		on article.id = bookmarkArticleId and user.id = article.articleUserId
+		where bookmarkUserId = #{userId}
+	</select>
 
 	<select id="queryThumbNumber" resultType="int">
 		select thumb
