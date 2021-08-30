@@ -12,7 +12,8 @@
 	</insert>
 	
 	<select id="queryHistoryByUserId" resultType="com.fu.demo.mbg.dto.HistoryResponseDto">
-		select historyArticleId as id, title
+		select 	historyArticleId as id, title, user.name as authorName,
+				user.icon as authorIcon, user.id as authorId
 		from article join history join user
 		on article.id = history.historyArticleId and user.id = history.historyUserId
 		where user.id = #{id}
