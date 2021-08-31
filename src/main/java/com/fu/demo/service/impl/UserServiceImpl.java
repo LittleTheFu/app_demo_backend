@@ -210,6 +210,12 @@ public class UserServiceImpl implements UserService {
 		long id = detail.getUserId();
 		userMapper.setIcon(id, icon);
 	}
+	
+	@Override
+	public void setCurrentUserName(String name) {
+		long userId = getCurrentUserId();
+		userMapper.setName(userId, name);
+	}
 
 	private AccountDetail getCurrentAccount() {
 		SecurityContext ctx = SecurityContextHolder.getContext();
@@ -218,5 +224,4 @@ public class UserServiceImpl implements UserService {
 
 		return detail;
 	}
-
 }

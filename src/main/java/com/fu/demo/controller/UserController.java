@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.FollowResponseDto;
 import com.fu.demo.mbg.dto.MinioUploadDto;
+import com.fu.demo.mbg.dto.UpdateArticleDto;
+import com.fu.demo.mbg.dto.UpdateUserNameDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.service.UserService;
 
@@ -90,6 +93,15 @@ public class UserController {
 		
 		return CommonResult.success(followers);
 	}
+	
+	@ApiOperation("更换用户名")
+	@RequestMapping(value = "/change_name", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult updateName(@RequestBody UpdateUserNameDto updateUserNameDto) {
+		userService.setCurrentUserName(updateUserNameDto.getName());
+		
+		return CommonResult.success(null);
+	}	
 	
 	@ApiOperation("更换头像")
 	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)

@@ -39,4 +39,6 @@ public interface UserService {
 	void currentUserUnfollow(long that);
 	
 	void setCurrentUserIcon(String icon);
+	
+	void setCurrentUserName(String name);
 }

@@ -35,6 +35,13 @@
 		where
 		id=#{userId}
 	</update>
+	
+	<update id="setName">
+		update user
+		set name=#{name}
+		where
+		id=#{userId}
+	</update>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
 		parameterType="com.fu.demo.mbg.model.User">

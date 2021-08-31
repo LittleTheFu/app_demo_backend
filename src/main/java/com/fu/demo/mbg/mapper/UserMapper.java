@@ -21,6 +21,8 @@ public interface UserMapper {
 	
 	void insert(User user);
 	
+	void setName(@Param("userId") long userId, @Param("name") String name);
+	
 	List<UserDto> getFollowings(long id);
 	
 	List<UserDto> getFollowers(long id); 
