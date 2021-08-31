@@ -5,7 +5,6 @@ import java.util.List;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
-import com.fu.demo.mbg.dto.CreateCommentDto;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 

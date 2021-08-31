@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fu.demo.mbg.dto.FollowDto;
 import com.fu.demo.mbg.dto.UserDto;
-import com.fu.demo.mbg.model.User;
 
 public interface UserService {
 	List<UserDto> listAllUser();

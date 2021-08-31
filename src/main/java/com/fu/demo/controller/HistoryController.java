@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.TitleResponseDto;
-import com.fu.demo.mbg.dto.MailResponseDto;
 import com.fu.demo.service.HistoryService;
 import com.fu.demo.service.UserService;
 

@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * SpringSecurity需要的用户详情 Created by macro on 2018/4/26.
  */
 public class AccountDetail implements UserDetails {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Account account;
 
 	public AccountDetail(Account account) {

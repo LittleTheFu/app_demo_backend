@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.FollowResponseDto;
 import com.fu.demo.mbg.dto.MinioUploadDto;
-import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.mbg.dto.UpdateUserNameDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.service.UserService;
