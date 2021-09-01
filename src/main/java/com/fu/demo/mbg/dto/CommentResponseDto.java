@@ -25,6 +25,12 @@ public class CommentResponseDto {
 	
 	@ApiModelProperty(value = "articleCommentDate")
 	private Date articleCommentDate;
+	
+	@ApiModelProperty(value = "thumbState")
+	private boolean thumbState;
+	
+	@ApiModelProperty(value = "thumbNum")
+	private long thumbNum;
 
 	public long getId() {
 		return id;
@@ -80,5 +86,21 @@ public class CommentResponseDto {
 
 	public void setArticleCommentDate(Date articleCommentDate) {
 		this.articleCommentDate = articleCommentDate;
+	}
+
+	public boolean isThumbState() {
+		return thumbState;
+	}
+
+	public void setThumbState(boolean thumbState) {
+		this.thumbState = thumbState;
+	}
+
+	public long getThumbNum() {
+		return thumbNum;
+	}
+
+	public void setThumbNum(long thumbNum) {
+		this.thumbNum = thumbNum;
 	}
 }

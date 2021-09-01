@@ -24,7 +24,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;
-	
+
 	@Autowired
 	private CommentMapper commentMapper;
 
@@ -44,10 +44,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 		while (iter.hasNext()) {
 			ArticleDto article = iter.next();
-			
+
 			boolean isThumbed = articleMapper.isThumbed(article.getId(), userId);
 			article.setThumbState(isThumbed);
-			
+
 			boolean isOwner = (userId == article.getAuthorId());
 			article.setDeletable(isOwner);
 			article.setEditable(isOwner);
@@ -63,34 +63,34 @@ public class ArticleServiceImpl implements ArticleService {
 		article.setArticleUserId(userId);
 
 		articleMapper.insert(article);
-		
+
 		return article.getId();
 	}
-	
+
 	@Override
 	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId) {
 		long id = updateArticleDto.getId();
 		long authorId = articleMapper.queryAuthorId(id);
-		
-		if(userId != authorId) {
+
+		if (userId != authorId) {
 			return false;
 		}
-		
+
 		String title = updateArticleDto.getTitle();
 		String content = updateArticleDto.getContent();
-		
+
 		articleMapper.updateArticle(id, title, content);
-		
+
 		return true;
 	}
 
 	@Override
 	public int deleteArticle(long id, long userId) {
 		ArticleDto articleDto = articleMapper.queryById(id);
-		if(userId != articleDto.getAuthorId()) {
+		if (userId != articleDto.getAuthorId()) {
 			return 0;
 		}
-		
+
 		return articleMapper.delete(id);
 	}
 
@@ -122,14 +122,14 @@ public class ArticleServiceImpl implements ArticleService {
 	public ArticleDto getArticleById(long id, long userId) {
 		ArticleDto article = articleMapper.queryById(id);
 		article.setThumbState(articleMapper.isThumbed(id, userId));
-		
+
 		boolean isOwner = (userId == article.getAuthorId());
 		article.setDeletable(isOwner);
 		article.setEditable(isOwner);
-		
+
 		boolean isBookmarked = articleMapper.isBookmarked(id, userId);
 		article.setBookmarked(isBookmarked);
-		
+
 		return article;
 	}
 
@@ -150,15 +150,26 @@ public class ArticleServiceImpl implements ArticleService {
 		comment.setArticleCommentArticleId(articleId);
 		comment.setArticleCommentContent(content);
 		comment.setArticleCommentUserId(userId);
-		
+
 		commentMapper.insertComment(comment);
-		
+
 		return comment.getId();
 	}
-	
+
 	@Override
-	public List<CommentResponseDto> getArticleComments(long articleId) {
-		return commentMapper.queryCommentByArticleId(articleId);
+	public List<CommentResponseDto> getArticleComments(long articleId, long userId) {
+		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId);
+		
+		Iterator<CommentResponseDto> iter = comments.iterator();
+
+		while (iter.hasNext()) {
+			CommentResponseDto comment = iter.next();
+
+			boolean isThumbed = commentMapper.isThumbed(comment.getId(), userId);
+			comment.setThumbState(isThumbed);
+		}
+		
+		return comments;
 	}
 
 	@Override
@@ -179,5 +190,27 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<TitleResponseDto> getBookmarkedArticles(long userId) {
 		return articleMapper.queryBookmarkedArticle(userId);
+	}
+
+	@Override
+	public boolean thumbComment(long commentId, long userId) {
+		long num = commentMapper.thumb(commentId, userId);
+
+		if (num <= 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean unthumbComment(long commentId, long userId) {
+		long num = commentMapper.unThumb(commentId, userId);
+
+		if (num <= 0) {
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -27,7 +27,7 @@ public interface ArticleService {
 
 	public long createComment(long articleId, long userId, String content);
 	
-	public List<CommentResponseDto> getArticleComments(long articleId);
+	public List<CommentResponseDto> getArticleComments(long articleId, long userId);
 	
 	public CommentResponseDto getArticleCommentById(long commentId);
 	
@@ -44,4 +44,8 @@ public interface ArticleService {
 	void unBookmark(long articleId, long userId);
 	
 	List<TitleResponseDto> getBookmarkedArticles(long userId);
+	
+	boolean thumbComment(long commentId, long userId);
+	
+	boolean unthumbComment(long commentId, long userId);
 }

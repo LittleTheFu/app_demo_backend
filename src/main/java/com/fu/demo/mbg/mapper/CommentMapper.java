@@ -14,8 +14,14 @@ public interface CommentMapper {
 
 //	void insertComment(@Param("articleId") long articleId, @Param("userId") long userId,
 //			@Param("content") String content);
-	
+
 	void insertComment(Comment comment);
-	
+
 	CommentResponseDto queryById(@Param("id") long id);
+
+	long thumb(@Param("commentId") long commentId, @Param("userId") long userId);
+
+	long unThumb(@Param("commentId") long commentId, @Param("userId") long userId);
+	
+	boolean isThumbed(@Param("commentId") long commentId, @Param("userId") long userId);
 }

@@ -14,6 +14,8 @@
 			property="articleCommentContent" />
 		<result column="articleCommentDate"
 			property="articleCommentDate" />
+		<result column="count(comment_thumb.commentThumbUserId)"
+			property="thumbNum" />
 	</resultMap>
 
 	<select id="queryCommentByArticleId"
@@ -21,13 +23,16 @@
 		select
 			article_comment.id,articleCommentArticleId,
 			articleCommentUserId,name,icon,articleCommentContent,
-			articleCommentDate
+			articleCommentDate, 
+			count(comment_thumb.commentThumbUserId)
 		from 
-			article_comment join user
+			article_comment join user left join comment_thumb
 		on
 			article_comment.articleCommentUserId = user.id
+			and article_comment.id = comment_thumb.commentThumbCommentId
 		where
 			article_comment.articleCommentArticleId = #{articleId}
+		group by article_comment.id
 		order by articleCommentDate desc
 	</select>
 
@@ -57,5 +62,28 @@
 			#{articleCommentContent}, NOW())
 			
 	</insert>
-
+	
+	<insert id="thumb">
+		insert ignore into comment_thumb
+			(commentThumbUserId, commentThumbCommentId)
+		values
+			(#{userId},#{commentId})
+	</insert>
+	
+	<delete id="unThumb">
+		delete from
+			comment_thumb
+		where
+			commentThumbUserId = #{userId} and commentThumbCommentId = #{commentId};
+	</delete>
+	
+	<select id="isThumbed" resultType="boolean">
+		select COALESCE
+			((select 1 from
+				comment_thumb
+			where
+				commentThumbCommentId = #{commentId} and commentThumbUserId = #{userId}
+			), 0)
+	</select>
+	
 </mapper>

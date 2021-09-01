@@ -36,7 +36,7 @@ public class ArticleController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private HistoryService historyService;
 
@@ -53,19 +53,19 @@ public class ArticleController {
 	public CommonResult<ArticleDto> getArticle(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
 		historyService.insertHistory(userId, id);
-		
+
 		return CommonResult.success(articleService.getArticleById(id, userId));
 	}
-	
+
 	@ApiOperation("修改指定文章")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public CommonResult putArticle(@PathVariable("id") long id, @RequestBody UpdateArticleDto updateArticleDto) {
 		long userId = userService.getCurrentUserId();
-		
+
 		boolean result = articleService.updateArticle(updateArticleDto, userId);
-		
-		if(result) {
-			return CommonResult.success(null);	
+
+		if (result) {
+			return CommonResult.success(null);
 		}
 
 		return CommonResult.failed("操作失败");
@@ -74,9 +74,11 @@ public class ArticleController {
 	@ApiOperation("获取指定文章的评论")
 	@GetMapping("/article_comments/{article_id}")
 	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id) {
-		return CommonResult.success(articleService.getArticleComments(article_id));
+		long userId = userService.getCurrentUserId();
+
+		return CommonResult.success(articleService.getArticleComments(article_id, userId));
 	}
-	
+
 	@ApiOperation("创建文章")
 	@RequestMapping(value = "/create_article", method = RequestMethod.PUT)
 	@ResponseBody
@@ -91,7 +93,6 @@ public class ArticleController {
 		return CommonResult.success(ret);
 	}
 
-
 	@ApiOperation("创建评论")
 	@RequestMapping(value = "/create_comment/{id}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -105,7 +106,7 @@ public class ArticleController {
 
 		return CommonResult.success(ret);
 	}
-	
+
 	@ApiOperation("收藏文章")
 	@RequestMapping(value = "/bookmark/{id}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -113,10 +114,10 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		articleService.bookmark(id, userId);
-	
+
 		return CommonResult.success(null);
 	}
-	
+
 	@ApiOperation("取消收藏文章")
 	@RequestMapping(value = "/unbookmark/{id}", method = RequestMethod.PUT)
 	@ResponseBody
@@ -124,10 +125,10 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		articleService.unBookmark(id, userId);
-	
+
 		return CommonResult.success(null);
 	}
-	
+
 	@ApiOperation("获取所有收藏文章")
 	@GetMapping("/get_bookmark_articles")
 	public CommonResult<List<TitleResponseDto>> getBookmarkArticles() {
@@ -187,4 +188,37 @@ public class ArticleController {
 			return CommonResult.failed("操作失败");
 		}
 	}
+
+	@ApiOperation("点赞评论")
+	@RequestMapping(value = "/comment_thumb/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult thumbComment(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
+
+		boolean result = articleService.thumbComment(id, userId);
+
+		if (false == result) {
+			return CommonResult.failed("操作失败");
+
+		}
+
+		return CommonResult.success(null);
+	}
+	
+	@ApiOperation("取消点赞评论")
+	@RequestMapping(value = "/comment_unthumb/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult unThumbComment(@PathVariable("id") Long id) {
+		long userId = userService.getCurrentUserId();
+
+		boolean result = articleService.unthumbComment(id, userId);
+
+		if (false == result) {
+			return CommonResult.failed("操作失败");
+
+		}
+
+		return CommonResult.success(null);
+	}
+
 }
