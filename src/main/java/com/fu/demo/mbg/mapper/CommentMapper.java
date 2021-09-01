@@ -10,7 +10,8 @@ import com.fu.demo.mbg.model.Comment;
 
 @Mapper
 public interface CommentMapper {
-	List<CommentResponseDto> queryCommentByArticleId(@Param("articleId") long articleId);
+	List<CommentResponseDto> queryCommentByArticleId(@Param("articleId") long articleId,
+			@Param("order_type") String order_type);
 
 //	void insertComment(@Param("articleId") long articleId, @Param("userId") long userId,
 //			@Param("content") String content);
@@ -22,6 +23,6 @@ public interface CommentMapper {
 	long thumb(@Param("commentId") long commentId, @Param("userId") long userId);
 
 	long unThumb(@Param("commentId") long commentId, @Param("userId") long userId);
-	
+
 	boolean isThumbed(@Param("commentId") long commentId, @Param("userId") long userId);
 }

@@ -158,7 +158,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<CommentResponseDto> getArticleComments(long articleId, long userId) {
-		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId);
+		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, "articleCommentDate");
 		
 		Iterator<CommentResponseDto> iter = comments.iterator();
 

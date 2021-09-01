@@ -33,7 +33,7 @@
 		where
 			article_comment.articleCommentArticleId = #{articleId}
 		group by article_comment.id
-		order by articleCommentDate desc
+		order by ${order_type} desc
 	</select>
 
 	<select id="queryById" resultMap="CommentDtoResultMap">
