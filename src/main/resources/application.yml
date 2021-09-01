@@ -6,7 +6,11 @@ spring:
     url: jdbc:mysql://localhost:3306/demo?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
-
+  profiles:  
+    include:
+      osskey 
+ 
+    
 mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
@@ -27,10 +31,3 @@ minio:
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
-      
-tenentcos:
-   SecretId: AKIDtfFclgNp20kGYcR2PWQ7bsvlNmxwhGgu
-   SecretKey: 5xc3GF1Zu1uZ0CAvSlrjNnzxiGbhaGiw
-   endpoint: https://fu-1302032721.cos.ap-shanghai.myqcloud.com/
-   bucketName: fu-1302032721
-  
