@@ -1,5 +1,0 @@
-tenentcos:
-   SecretId: SecretId
-   SecretKey: SecretKey
-   endpoint: endpoint
-   bucketName: bucketName
