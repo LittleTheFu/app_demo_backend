@@ -14,8 +14,6 @@
 			property="articleCommentContent" />
 		<result column="articleCommentDate"
 			property="articleCommentDate" />
-		<result column="count(comment_thumb.commentThumbUserId)"
-			property="thumbNum" />
 	</resultMap>
 
 	<select id="queryCommentByArticleId"
@@ -23,17 +21,25 @@
 		select
 			article_comment.id,articleCommentArticleId,
 			articleCommentUserId,name,icon,articleCommentContent,
-			articleCommentDate, 
-			count(comment_thumb.commentThumbUserId)
+			articleCommentDate 
 		from 
-			article_comment join user left join comment_thumb
+			article_comment join user
 		on
 			article_comment.articleCommentUserId = user.id
-			and article_comment.id = comment_thumb.commentThumbCommentId
 		where
 			article_comment.articleCommentArticleId = #{articleId}
-		group by article_comment.id
 		order by ${order_type} desc
+	</select>
+	
+	<select id="queryThumbNum" resultType="long">
+		select
+			count(comment_thumb.commentThumbUserId)
+		from 
+			article_comment left  join comment_thumb
+		on
+			article_comment.id = comment_thumb.commentThumbCommentId 
+		where 
+			article_comment.id = #{commentId}
 	</select>
 
 	<select id="queryById" resultMap="CommentDtoResultMap">

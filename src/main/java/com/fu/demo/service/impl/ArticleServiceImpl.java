@@ -167,6 +167,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 			boolean isThumbed = commentMapper.isThumbed(comment.getId(), userId);
 			comment.setThumbState(isThumbed);
+			
+			long thumbNum =commentMapper.queryThumbNum(comment.getId());
+			comment.setThumbNum(thumbNum);
 		}
 		
 		return comments;

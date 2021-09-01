@@ -25,4 +25,6 @@ public interface CommentMapper {
 	long unThumb(@Param("commentId") long commentId, @Param("userId") long userId);
 
 	boolean isThumbed(@Param("commentId") long commentId, @Param("userId") long userId);
+	
+	long queryThumbNum(@Param("commentId") long commentId);
 }
