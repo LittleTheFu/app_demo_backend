@@ -28,6 +28,7 @@
 			article_comment.articleCommentUserId = user.id
 		where
 			article_comment.articleCommentArticleId = #{articleId}
+		order by articleCommentDate desc
 	</select>
 
 	<select id="queryById" resultMap="CommentDtoResultMap">
