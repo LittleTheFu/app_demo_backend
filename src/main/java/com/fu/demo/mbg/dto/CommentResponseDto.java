@@ -29,8 +29,8 @@ public class CommentResponseDto {
 	@ApiModelProperty(value = "thumbState")
 	private boolean thumbState;
 	
-	@ApiModelProperty(value = "thumbNum")
-	private long thumbNum;
+	@ApiModelProperty(value = "articleCommentThumbNum")
+	private long articleCommentThumbNum;
 
 	public long getId() {
 		return id;
@@ -96,11 +96,11 @@ public class CommentResponseDto {
 		this.thumbState = thumbState;
 	}
 
-	public long getThumbNum() {
-		return thumbNum;
+	public long getArticleCommentThumbNum() {
+		return articleCommentThumbNum;
 	}
 
-	public void setThumbNum(long thumbNum) {
-		this.thumbNum = thumbNum;
+	public void setArticleCommentThumbNum(long articleCommentThumbNum) {
+		this.articleCommentThumbNum = articleCommentThumbNum;
 	}
 }

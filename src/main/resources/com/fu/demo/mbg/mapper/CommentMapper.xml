@@ -14,6 +14,8 @@
 			property="articleCommentContent" />
 		<result column="articleCommentDate"
 			property="articleCommentDate" />
+		<result column="articleCommentThumbNum"
+			property="articleCommentThumbNum" />	
 	</resultMap>
 
 	<select id="queryCommentByArticleId"
@@ -21,7 +23,7 @@
 		select
 			article_comment.id,articleCommentArticleId,
 			articleCommentUserId,name,icon,articleCommentContent,
-			articleCommentDate 
+			articleCommentDate, articleCommentThumbNum
 		from 
 			article_comment join user
 		on
@@ -91,5 +93,19 @@
 				commentThumbCommentId = #{commentId} and commentThumbUserId = #{userId}
 			), 0)
 	</select>
+	
+	<update id="incThumb">
+		update article_comment
+		set articleCommentThumbNum = articleCommentThumbNum + 1
+		where
+		id=#{commentId}
+	</update>
+	
+	<update id="decThumb">
+		update article_comment
+		set articleCommentThumbNum = articleCommentThumbNum - 1
+		where
+		id=#{commentId}
+	</update>
 	
 </mapper>

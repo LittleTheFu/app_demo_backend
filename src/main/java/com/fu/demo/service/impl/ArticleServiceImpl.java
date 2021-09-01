@@ -168,8 +168,8 @@ public class ArticleServiceImpl implements ArticleService {
 			boolean isThumbed = commentMapper.isThumbed(comment.getId(), userId);
 			comment.setThumbState(isThumbed);
 			
-			long thumbNum =commentMapper.queryThumbNum(comment.getId());
-			comment.setThumbNum(thumbNum);
+//			long thumbNum =commentMapper.queryThumbNum(comment.getId());
+//			comment.setThumbNum(thumbNum);
 		}
 		
 		return comments;
@@ -202,6 +202,7 @@ public class ArticleServiceImpl implements ArticleService {
 		if (num <= 0) {
 			return false;
 		}
+		commentMapper.incThumb(commentId);
 
 		return true;
 	}
@@ -213,6 +214,7 @@ public class ArticleServiceImpl implements ArticleService {
 		if (num <= 0) {
 			return false;
 		}
+		commentMapper.decThumb(commentId);
 
 		return true;
 	}

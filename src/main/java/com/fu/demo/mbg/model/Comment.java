@@ -20,6 +20,9 @@ public class Comment implements Serializable{
 	@ApiModelProperty(value = "articleCommentDate")
 	private Date articleCommentDate;
 	
+	@ApiModelProperty(value = "articleCommentThumbNum")
+	private long articleCommentThumbNum;
+	
 	private static final long serialVersionUID = 1L;
 
 	public long getId() {
@@ -60,5 +63,13 @@ public class Comment implements Serializable{
 
 	public void setArticleCommentDate(Date articleCommentDate) {
 		this.articleCommentDate = articleCommentDate;
+	}
+
+	public long getArticleCommentThumbNum() {
+		return articleCommentThumbNum;
+	}
+
+	public void setArticleCommentThumbNum(long articleCommentThumbNum) {
+		this.articleCommentThumbNum = articleCommentThumbNum;
 	}
 }
