@@ -1,5 +1,7 @@
 package com.fu.demo.mbg.dto;
 
+import java.util.Date;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class CommentResponseDto {
@@ -20,6 +22,9 @@ public class CommentResponseDto {
 	
 	@ApiModelProperty(value = "articleCommentContent")
 	private String articleCommentContent;
+	
+	@ApiModelProperty(value = "articleCommentDate")
+	private Date articleCommentDate;
 
 	public long getId() {
 		return id;
@@ -68,5 +73,12 @@ public class CommentResponseDto {
 	public void setArticleCommentContent(String articleCommentContent) {
 		this.articleCommentContent = articleCommentContent;
 	}
-	
+
+	public Date getArticleCommentDate() {
+		return articleCommentDate;
+	}
+
+	public void setArticleCommentDate(Date articleCommentDate) {
+		this.articleCommentDate = articleCommentDate;
+	}
 }

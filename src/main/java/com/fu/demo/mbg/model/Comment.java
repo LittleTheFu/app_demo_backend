@@ -1,5 +1,6 @@
 package com.fu.demo.mbg.model;
 import java.io.Serializable;
+import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,6 +16,9 @@ public class Comment implements Serializable{
 	
 	@ApiModelProperty(value = "articleCommentContent")
 	private String articleCommentContent;
+	
+	@ApiModelProperty(value = "articleCommentDate")
+	private Date articleCommentDate;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -48,5 +52,13 @@ public class Comment implements Serializable{
 
 	public void setArticleCommentContent(String articleCommentContent) {
 		this.articleCommentContent = articleCommentContent;
+	}
+
+	public Date getArticleCommentDate() {
+		return articleCommentDate;
+	}
+
+	public void setArticleCommentDate(Date articleCommentDate) {
+		this.articleCommentDate = articleCommentDate;
 	}
 }

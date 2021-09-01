@@ -12,42 +12,49 @@
 		<result column="icon" property="articleCommentUserIcon" />
 		<result column="articleCommentContent"
 			property="articleCommentContent" />
+		<result column="articleCommentDate"
+			property="articleCommentDate" />
 	</resultMap>
 
 	<select id="queryCommentByArticleId"
 		resultMap="CommentDtoResultMap">
 		select
-		article_comment.id,articleCommentArticleId,articleCommentUserId,name,icon,articleCommentContent
-		from article_comment join user
+			article_comment.id,articleCommentArticleId,
+			articleCommentUserId,name,icon,articleCommentContent,
+			articleCommentDate
+		from 
+			article_comment join user
 		on
-		article_comment.articleCommentUserId =
-		user.id
+			article_comment.articleCommentUserId = user.id
 		where
-		article_comment.articleCommentArticleId = #{articleId}
+			article_comment.articleCommentArticleId = #{articleId}
 	</select>
 
 	<select id="queryById" resultMap="CommentDtoResultMap">
 		select
-		article_comment.id,articleCommentArticleId,articleCommentUserId,name,icon,articleCommentContent
-		from article_comment join user
+			article_comment.id,articleCommentArticleId,
+			articleCommentUserId,name,icon,articleCommentContent,
+			articleCommentDate
+		from 
+			article_comment join user
 		on
-		article_comment.articleCommentUserId =
-		user.id
+			article_comment.articleCommentUserId = user.id
 		where
-		article_comment.id = #{id}
+			article_comment.id = #{id}
 	</select>
 
 
 	<insert id="insertComment" useGeneratedKeys="true"
 		keyProperty="id" keyColumn="id"
 		parameterType="com.fu.demo.mbg.model.Comment">
-		insert into
-		article_comment
-		(articleCommentArticleId,
-		articleCommentUserId, articleCommentContent)
+		
+		insert into article_comment
+				(articleCommentArticleId,articleCommentUserId, 
+				articleCommentContent,articleCommentDate)
 		values
-		(#{articleCommentArticleId}, #{articleCommentUserId},
-		#{articleCommentContent})
+			(#{articleCommentArticleId}, #{articleCommentUserId},
+			#{articleCommentContent}, NOW())
+			
 	</insert>
 
 </mapper>
