@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,10 +74,12 @@ public class ArticleController {
 
 	@ApiOperation("获取指定文章的评论")
 	@GetMapping("/article_comments/{article_id}")
-	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id) {
+	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id,
+			@RequestParam("sort") String sortType) {
 		long userId = userService.getCurrentUserId();
 
-		return CommonResult.success(articleService.getArticleComments(article_id, userId));
+		boolean isSortByDate = (sortType.equals("date"));
+		return CommonResult.success(articleService.getArticleComments(article_id, userId, isSortByDate));
 	}
 
 	@ApiOperation("创建文章")
@@ -204,7 +207,7 @@ public class ArticleController {
 
 		return CommonResult.success(null);
 	}
-	
+
 	@ApiOperation("取消点赞评论")
 	@RequestMapping(value = "/comment_unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody

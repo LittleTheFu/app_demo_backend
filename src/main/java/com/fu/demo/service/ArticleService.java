@@ -27,7 +27,7 @@ public interface ArticleService {
 
 	public long createComment(long articleId, long userId, String content);
 	
-	public List<CommentResponseDto> getArticleComments(long articleId, long userId);
+	public List<CommentResponseDto> getArticleComments(long articleId, long userId, boolean isSortByDate);
 	
 	public CommentResponseDto getArticleCommentById(long commentId);
 	

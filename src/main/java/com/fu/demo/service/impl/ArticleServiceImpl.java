@@ -157,9 +157,13 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<CommentResponseDto> getArticleComments(long articleId, long userId) {
-		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, "articleCommentDate");
-		
+	public List<CommentResponseDto> getArticleComments(long articleId, long userId, boolean isSortByDate) {
+		String sort_param = "articleCommentDate";
+		if (false == isSortByDate) {
+			sort_param = "articleCommentThumbNum";
+		}
+		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, sort_param);
+
 		Iterator<CommentResponseDto> iter = comments.iterator();
 
 		while (iter.hasNext()) {
@@ -167,11 +171,11 @@ public class ArticleServiceImpl implements ArticleService {
 
 			boolean isThumbed = commentMapper.isThumbed(comment.getId(), userId);
 			comment.setThumbState(isThumbed);
-			
+
 //			long thumbNum =commentMapper.queryThumbNum(comment.getId());
 //			comment.setThumbNum(thumbNum);
 		}
-		
+
 		return comments;
 	}
 
