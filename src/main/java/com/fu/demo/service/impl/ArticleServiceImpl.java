@@ -35,6 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<ArticleDto> listAllArticle() {
 		return articleMapper.queryAllArticle();
 	}
+	
+	@Override
+	public List<TitleResponseDto> getTitlesByUser(long userId) {
+		return articleMapper.queryTitlesByUser(userId);
+	}
 
 	@Override
 	public List<ArticleDto> listAllArticle(long userId) {

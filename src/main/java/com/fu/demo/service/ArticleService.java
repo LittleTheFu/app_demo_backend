@@ -9,6 +9,9 @@ import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 
 public interface ArticleService {
+	
+	public List<TitleResponseDto> getTitlesByUser(long userId);
+	
 	public List<ArticleDto> listAllArticle();
 	
 	public List<ArticleDto> listAllArticle(long userId);

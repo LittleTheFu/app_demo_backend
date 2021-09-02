@@ -12,6 +12,18 @@
 		<result column="thumb" property="thumb" />
 		<result column="bookmarked" property="bookmarked" />
 	</resultMap>
+	
+	<select id="queryTitlesByUser" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+		select
+			article.id,title,name as authorName,
+			icon as authorIcon,article.articleUserId
+		from 
+			article left join user
+		on
+			article.articleUserId = user.id
+		where
+			article.articleUserId = #{userId}
+	</select>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select

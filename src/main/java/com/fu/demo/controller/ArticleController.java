@@ -40,6 +40,12 @@ public class ArticleController {
 
 	@Autowired
 	private HistoryService historyService;
+	
+	@ApiOperation("获取某个用户的文章的标题")
+	@GetMapping("/get_titles_by_user/{id}")
+	public CommonResult<List<TitleResponseDto>> getTitlesByUser(@PathVariable("id") long id) {
+		return CommonResult.success(articleService.getTitlesByUser(id));
+	}
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
