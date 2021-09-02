@@ -85,9 +85,9 @@ public class AccountServiceImpl implements AccountService {
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
 					null, userDetails.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-//			long userId = accountMapper.getUserIdByEmail(email);
-//			token = jwtTokenUtil.generateToken(userDetails, userId);
-			token = jwtTokenUtil.generateToken(userDetails);
+			long userId = accountMapper.getUserIdByEmail(email);
+			token = jwtTokenUtil.generateToken(userDetails, userId);
+//			token = jwtTokenUtil.generateToken(userDetails);
 		} catch (AuthenticationException e) {
 //			LOGGER.warn("登录异常:{}", e.getMessage());
 		}

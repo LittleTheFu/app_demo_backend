@@ -112,19 +112,19 @@ public class JwtTokenUtil {
 	/**
 	 * 根据用户信息生成token
 	 */
-	public String generateToken(UserDetails userDetails) {
-		Map<String, Object> claims = new HashMap<>();
-		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-		claims.put(CLAIM_KEY_CREATED, new Date());
-		return generateToken(claims);
-	}
-//	public String generateToken(UserDetails userDetails, long userId) {
+//	public String generateToken(UserDetails userDetails) {
 //		Map<String, Object> claims = new HashMap<>();
 //		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 //		claims.put(CLAIM_KEY_CREATED, new Date());
-//		claims.put(CLAIM_KEY_CURRENT_USER_ID, userId);
 //		return generateToken(claims);
 //	}
+	public String generateToken(UserDetails userDetails, long userId) {
+		Map<String, Object> claims = new HashMap<>();
+		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+		claims.put(CLAIM_KEY_CREATED, new Date());
+		claims.put(CLAIM_KEY_CURRENT_USER_ID, userId);
+		return generateToken(claims);
+	}
 
 	/**
 	 * 判断token是否可以被刷新
