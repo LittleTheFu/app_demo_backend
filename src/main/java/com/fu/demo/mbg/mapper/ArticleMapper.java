@@ -13,11 +13,13 @@ import com.fu.demo.mbg.model.ArticleTag;
 @Mapper
 public interface ArticleMapper {
 	ArticleTag getTag(@Param("id") long id);
-	
+
 	List<TitleResponseDto> queryTitlesByTag(@Param("tag") String tag);
-	
+
+	long deleteArticleTag(@Param("id") long id, @Param("tag") String tag);
+
 	List<TitleResponseDto> queryTitlesByUser(@Param("userId") long userId);
-	
+
 	List<ArticleDto> queryAllArticle();
 
 	List<ArticleDto> queryAllArticleWithThumbState(@Param("userId") long userId);

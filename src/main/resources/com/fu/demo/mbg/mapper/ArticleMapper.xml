@@ -35,6 +35,14 @@
 		where
 			article_tag.articleTag = #{tag} 
 	</select>
+	
+	<delete id="deleteArticleTag">
+		delete from
+			article_tag
+		where
+			articleId = #{id} and
+			articleTag = #{tag};
+	</delete>
 
 	<select id="queryTitlesByUser"
 		resultType="com.fu.demo.mbg.dto.TitleResponseDto">

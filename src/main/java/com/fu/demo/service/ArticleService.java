@@ -9,48 +9,50 @@ import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 
 public interface ArticleService {
-	
+
 	public List<TitleResponseDto> getTitlesByUser(long userId);
-	
+
 	public List<ArticleDto> listAllArticle();
-	
+
 	public List<ArticleDto> listAllArticle(long userId);
-	
+
 	public ArticleDto getArticleById(long id);
-	
+
 	public ArticleDto getArticleById(long id, long userId);
-	
+
 	public List<TitleResponseDto> getTitleByTag(String tag);
-	
+
+	public boolean deleteArticleTag(long articleId, String tag, long userId);
+
 	public int getArticleThumbNumber(long id);
-	
+
 	public boolean isArticleThumbed(long id, long userId);
 
 	public long createArticle(CreateArticleDto createArticleDto, long userId);
-	
+
 	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId);
 
 	public long createComment(long articleId, long userId, String content);
-	
+
 	public List<CommentResponseDto> getArticleComments(long articleId, long userId, boolean isSortByDate);
-	
+
 	public CommentResponseDto getArticleCommentById(long commentId);
-	
+
 	int deleteArticle(long id, long userId);
-	
+
 	boolean isThumbed(long articleId, long userId);
-	
+
 	void thumb(long articleId, long userId);
-	
+
 	void unThumb(long articleId, long userId);
-	
+
 	void bookmark(long articleId, long userId);
-	
+
 	void unBookmark(long articleId, long userId);
-	
+
 	List<TitleResponseDto> getBookmarkedArticles(long userId);
-	
+
 	boolean thumbComment(long commentId, long userId);
-	
+
 	boolean unthumbComment(long commentId, long userId);
 }

@@ -65,6 +65,21 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<TitleResponseDto> getTitleByTag(String tag) {
 		return articleMapper.queryTitlesByTag(tag);
 	}
+	
+	@Override
+	public boolean deleteArticleTag(long articleId, String tag, long userId) {
+		ArticleDto articleDto = articleMapper.queryById(articleId);
+		if (userId != articleDto.getAuthorId()) {
+			return false;
+		} 
+		
+		long count = articleMapper.deleteArticleTag(articleId, tag);
+		if(count == 1) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	@Override
 	public long createArticle(CreateArticleDto craeteArticleDto, long userId) {

@@ -61,6 +61,19 @@ public class ArticleController {
 		return CommonResult.success(articleService.getTitleByTag(tag));
 	}
 
+	@RequestMapping(value = "/delete_article_tag", method = RequestMethod.DELETE)
+	@ResponseBody
+	public CommonResult deleteArticleTag(@RequestParam("tag") String tag, @RequestParam("id") long id) {
+		long userId = userService.getCurrentUserId();
+		boolean result = articleService.deleteArticleTag(id, tag, userId);
+
+		if (result) {
+			return CommonResult.success(null);
+		} else {
+			return CommonResult.failed("操作失败");
+		}
+	}
+
 	@ApiOperation("获取指定文章")
 	@GetMapping("/{id}")
 	public CommonResult<ArticleDto> getArticle(@PathVariable("id") long id) {
