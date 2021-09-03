@@ -20,6 +20,8 @@ public interface ArticleService {
 	
 	public ArticleDto getArticleById(long id, long userId);
 	
+	public List<TitleResponseDto> getTitleByTag(String tag);
+	
 	public int getArticleThumbNumber(long id);
 	
 	public boolean isArticleThumbed(long id, long userId);

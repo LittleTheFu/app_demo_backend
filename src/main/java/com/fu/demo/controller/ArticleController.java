@@ -40,7 +40,7 @@ public class ArticleController {
 
 	@Autowired
 	private HistoryService historyService;
-	
+
 	@ApiOperation("获取某个用户的文章的标题")
 	@GetMapping("/get_titles_by_user/{id}")
 	public CommonResult<List<TitleResponseDto>> getTitlesByUser(@PathVariable("id") long id) {
@@ -53,6 +53,12 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		return CommonResult.success(articleService.listAllArticle(userId));
+	}
+
+	@ApiOperation("根据tag获取标题")
+	@GetMapping("/get_titles_by_tag")
+	public CommonResult<List<TitleResponseDto>> getTitlesByTag(@RequestParam("tag") String tag) {
+		return CommonResult.success(articleService.getTitleByTag(tag));
 	}
 
 	@ApiOperation("获取指定文章")

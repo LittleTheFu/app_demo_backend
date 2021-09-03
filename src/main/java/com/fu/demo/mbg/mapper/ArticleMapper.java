@@ -14,6 +14,8 @@ import com.fu.demo.mbg.model.ArticleTag;
 public interface ArticleMapper {
 	ArticleTag getTag(@Param("id") long id);
 	
+	List<TitleResponseDto> queryTitlesByTag(@Param("tag") String tag);
+	
 	List<TitleResponseDto> queryTitlesByUser(@Param("userId") long userId);
 	
 	List<ArticleDto> queryAllArticle();

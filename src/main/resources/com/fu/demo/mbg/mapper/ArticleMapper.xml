@@ -21,18 +21,32 @@
 		select articleTag from article_tag
 		where articleId = #{id}
 	</select>
+	
+	<select id="queryTitlesByTag"
+		resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+		select
+			article.id,title,name as authorName,
+			icon as authorIcon,article.articleUserId
+		from
+			article join user join article_tag
+		on
+			article.articleUserId = user.id and
+			article.id = article_tag.articleId
+		where
+			article_tag.articleTag = #{tag} 
+	</select>
 
 	<select id="queryTitlesByUser"
 		resultType="com.fu.demo.mbg.dto.TitleResponseDto">
 		select
-		article.id,title,name as authorName,
-		icon as authorIcon,article.articleUserId
+			article.id,title,name as authorName,
+			icon as authorIcon,article.articleUserId
 		from
-		article left join user
+			article left join user
 		on
-		article.articleUserId = user.id
+			article.articleUserId = user.id
 		where
-		article.articleUserId = #{userId}
+			article.articleUserId = #{userId}
 	</select>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">

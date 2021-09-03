@@ -60,6 +60,11 @@ public class ArticleServiceImpl implements ArticleService {
 
 		return articles;
 	}
+	
+	@Override
+	public List<TitleResponseDto> getTitleByTag(String tag) {
+		return articleMapper.queryTitlesByTag(tag);
+	}
 
 	@Override
 	public long createArticle(CreateArticleDto craeteArticleDto, long userId) {
