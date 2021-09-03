@@ -8,9 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.model.Article;
+import com.fu.demo.mbg.model.ArticleTag;
 
 @Mapper
 public interface ArticleMapper {
+	ArticleTag getTag(@Param("id") long id);
+	
 	List<TitleResponseDto> queryTitlesByUser(@Param("userId") long userId);
 	
 	List<ArticleDto> queryAllArticle();

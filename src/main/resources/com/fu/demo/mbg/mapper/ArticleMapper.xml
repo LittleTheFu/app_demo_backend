@@ -11,53 +11,68 @@
 		<result column="articleUserId" property="authorId" />
 		<result column="thumb" property="thumb" />
 		<result column="bookmarked" property="bookmarked" />
+		<!--<association column="articleId" property="tags" select="com.fu.demo.mbg.mapper.ArticleMapper.getTag" > -->
+		<!--</association> -->
+		<collection property="tags" ofType="com.fu.demo.mbg.model.ArticleTag"  
+            column="id" select="com.fu.demo.mbg.mapper.ArticleMapper.getTag" />  
 	</resultMap>
 	
-	<select id="queryTitlesByUser" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+	<select id="getTag" parameterType="long" resultType="com.fu.demo.mbg.model.ArticleTag">
+		select * from article_tag
+		where articleId = #{id}
+	</select>
+
+	<select id="queryTitlesByUser"
+		resultType="com.fu.demo.mbg.dto.TitleResponseDto">
 		select
-			article.id,title,name as authorName,
-			icon as authorIcon,article.articleUserId
-		from 
-			article left join user
+		article.id,title,name as authorName,
+		icon as authorIcon,article.articleUserId
+		from
+		article left join user
 		on
-			article.articleUserId = user.id
+		article.articleUserId = user.id
 		where
-			article.articleUserId = #{userId}
+		article.articleUserId = #{userId}
 	</select>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,icon,article.articleUserId,thumb
-		from article
+		from
+		article
 		left join user
 		on
 		article.articleUserId = user.id
-		order by article.id desc
+		order by
+		article.id desc
 	</select>
 
 	<select id="queryById" parameterType="long"
 		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,icon,article.articleUserId,thumb
-		from 
+		from
 		article join user
 		on
 		article.articleUserId = user.id
 		where
-		article.id = #{id}
+		article.id =
+		#{id}
 	</select>
 
 	<select id="queryByIdWithThumbState"
 		resultMap="ArticleDtoResultMap">
 		select
 		article.id,title,content,name,icon,article.articleUserId,thumb
-		from article
+		from
+		article
 		left
 		join user
 		on
 		article.articleUserId = user.id
 		where
-		article.id = #{id}
+		article.id =
+		#{id}
 	</select>
 
 	<select id="isThumbed" resultType="boolean">
@@ -70,7 +85,7 @@
 		#{userId}
 		), 0)
 	</select>
-	
+
 	<select id="isBookmarked" resultType="boolean">
 		select COALESCE
 		((select 1
@@ -81,7 +96,7 @@
 		#{userId}
 		), 0)
 	</select>
-	
+
 	<insert id="bookmark">
 		insert into
 		bookmark
@@ -89,19 +104,23 @@
 		values
 		(#{userId},#{articleId});
 	</insert>
-	
+
 	<delete id="unBookmark">
 		delete from
 		bookmark
 		where
-		bookmarkUserId = #{userId} and bookmarkArticleId = #{articleId};
+		bookmarkUserId = #{userId}
+		and bookmarkArticleId = #{articleId};
 	</delete>
-	
-	<select id="queryBookmarkedArticle" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
-		select 	article.id as id, title, user.name as authorName, 
-				user.icon as authorIcon, user.id as authorId
-		from article join bookmark join user
-		on article.id = bookmarkArticleId and user.id = article.articleUserId
+
+	<select id="queryBookmarkedArticle"
+		resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+		select article.id as id, title, user.name as authorName,
+		user.icon as authorIcon, user.id as authorId
+		from article join bookmark
+		join user
+		on article.id = bookmarkArticleId and user.id =
+		article.articleUserId
 		where bookmarkUserId = #{userId}
 	</select>
 
@@ -125,13 +144,14 @@
 		delete from article where
 		id=#{id}
 	</delete>
-	
-	<select id="queryAuthorId" parameterType="long" resultType="long">
+
+	<select id="queryAuthorId" parameterType="long"
+		resultType="long">
 		select articleUserId
 		from article
 		where id=#{id}
 	</select>
-	
+
 	<update id="updateArticle">
 		update article
 		set title=#{title}, content=#{content}

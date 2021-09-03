@@ -1,5 +1,9 @@
 package com.fu.demo.mbg.dto;
 
+import java.util.List;
+
+import com.fu.demo.mbg.model.ArticleTag;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class ArticleDto {
@@ -35,6 +39,9 @@ public class ArticleDto {
 	
 	@ApiModelProperty(value = "bookmarked")
 	private boolean bookmarked;
+	
+	@ApiModelProperty(value = "tags")
+	private List<ArticleTag> tags;
 	
 	public long getId() {
 		return id;
@@ -122,5 +129,13 @@ public class ArticleDto {
 
 	public void setBookmarked(boolean bookmarked) {
 		this.bookmarked = bookmarked;
+	}
+
+	public List<ArticleTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ArticleTag> tags) {
+		this.tags = tags;
 	}
 }
