@@ -23,6 +23,8 @@ public interface ArticleService {
 	public List<TitleResponseDto> getTitleByTag(String tag);
 
 	public boolean deleteArticleTag(long articleId, String tag, long userId);
+	
+	public boolean addArticleTag(long articleId, String tag);
 
 	public int getArticleThumbNumber(long id);
 

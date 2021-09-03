@@ -43,6 +43,14 @@
 			articleId = #{id} and
 			articleTag = #{tag};
 	</delete>
+	
+	<insert id="insertArticleTag">
+		insert ignore into
+			article_tag
+				(articleId,articleTag)
+			values
+				(#{id},#{tag});
+	</insert>
 
 	<select id="queryTitlesByUser"
 		resultType="com.fu.demo.mbg.dto.TitleResponseDto">

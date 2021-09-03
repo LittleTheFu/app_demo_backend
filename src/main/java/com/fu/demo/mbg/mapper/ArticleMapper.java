@@ -17,6 +17,8 @@ public interface ArticleMapper {
 	List<TitleResponseDto> queryTitlesByTag(@Param("tag") String tag);
 
 	long deleteArticleTag(@Param("id") long id, @Param("tag") String tag);
+	
+	long insertArticleTag(@Param("id") long id, @Param("tag") String tag);
 
 	List<TitleResponseDto> queryTitlesByUser(@Param("userId") long userId);
 

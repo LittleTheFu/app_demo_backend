@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fu.demo.common.api.CommonResult;
+import com.fu.demo.mbg.dto.AddArticleTagDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
@@ -66,6 +67,18 @@ public class ArticleController {
 	public CommonResult deleteArticleTag(@RequestParam("tag") String tag, @RequestParam("id") long id) {
 		long userId = userService.getCurrentUserId();
 		boolean result = articleService.deleteArticleTag(id, tag, userId);
+
+		if (result) {
+			return CommonResult.success(null);
+		} else {
+			return CommonResult.failed("操作失败");
+		}
+	}
+
+	@RequestMapping(value = "/add_article_tag/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public CommonResult addArticleTag(@PathVariable("id") long id, @RequestBody AddArticleTagDto addArticleTagDto) {
+		boolean result = articleService.addArticleTag(id, addArticleTagDto.getTag());
 
 		if (result) {
 			return CommonResult.success(null);

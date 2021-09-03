@@ -80,6 +80,17 @@ public class ArticleServiceImpl implements ArticleService {
 		
 		return false;
 	}
+	
+	@Override
+	public boolean addArticleTag(long articleId, String tag) {
+		long count = articleMapper.insertArticleTag(articleId, tag);
+		
+		if(count == 1) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	@Override
 	public long createArticle(CreateArticleDto craeteArticleDto, long userId) {
