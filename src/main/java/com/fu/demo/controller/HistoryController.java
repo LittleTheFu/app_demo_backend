@@ -25,7 +25,7 @@ public class HistoryController {
 	@Autowired
 	UserService userService;
 	
-	@ApiOperation("获取所有邮件列表")
+	@ApiOperation("获取所有历史文章列表")
 	@GetMapping
 	public CommonResult<List<TitleResponseDto>> getHistory() {
 		long userId = userService.getCurrentUserId();
