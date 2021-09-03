@@ -13,12 +13,12 @@
 		<result column="bookmarked" property="bookmarked" />
 		<!--<association column="articleId" property="tags" select="com.fu.demo.mbg.mapper.ArticleMapper.getTag" > -->
 		<!--</association> -->
-		<collection property="tags" ofType="com.fu.demo.mbg.model.ArticleTag"  
+		<collection property="tags" ofType="String"  
             column="id" select="com.fu.demo.mbg.mapper.ArticleMapper.getTag" />  
 	</resultMap>
 	
-	<select id="getTag" parameterType="long" resultType="com.fu.demo.mbg.model.ArticleTag">
-		select * from article_tag
+	<select id="getTag" parameterType="long" resultType="String">
+		select articleTag from article_tag
 		where articleId = #{id}
 	</select>
 
