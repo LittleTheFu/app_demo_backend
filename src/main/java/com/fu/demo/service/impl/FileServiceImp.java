@@ -3,6 +3,7 @@ package com.fu.demo.service.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,11 @@ public class FileServiceImp implements FileService{
 
 			String filename = file.getOriginalFilename();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            String objectName = sdf.format(new Date()) + "_" + filename;
+            
+            Random r = new Random();
+            int randResult = r.nextInt(9999);
+            
+            String objectName = sdf.format(new Date()) + "_" + randResult + filename;
 
 			File localFile = File.createTempFile(objectName, null);
 			file.transferTo(localFile);
