@@ -18,6 +18,7 @@ import com.fu.demo.mbg.mapper.UserArticleThumbMapper;
 import com.fu.demo.mbg.model.Article;
 import com.fu.demo.mbg.model.Comment;
 import com.fu.demo.service.ArticleService;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -33,6 +34,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleDto> listAllArticle() {
+		PageHelper.startPage(1, 3);
+
 		return articleMapper.queryAllArticle();
 	}
 	
@@ -43,6 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleDto> listAllArticle(long userId) {
+		PageHelper.offsetPage(1, 3);
 		List<ArticleDto> articles = articleMapper.queryAllArticle();
 
 		Iterator<ArticleDto> iter = articles.iterator();
