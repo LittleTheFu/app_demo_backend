@@ -24,7 +24,7 @@ public interface ArticleService {
 	public List<TitleResponseDto> getTitleByTag(String tag);
 
 	public boolean deleteArticleTag(long articleId, String tag, long userId);
-	
+
 	public boolean addArticleTag(long articleId, String tag);
 
 	public int getArticleThumbNumber(long id);
@@ -37,7 +37,7 @@ public interface ArticleService {
 
 	public long createComment(long articleId, long userId, String content);
 
-	public List<CommentResponseDto> getArticleComments(long articleId, long userId, boolean isSortByDate);
+	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate, int page);
 
 	public CommentResponseDto getArticleCommentById(long commentId);
 

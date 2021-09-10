@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fu.demo.mbg.dto.ArticleDto;
+import com.fu.demo.mbg.dto.PageWrapper;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.mapper.HistoryMapper;
 import com.fu.demo.service.HistoryService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
@@ -21,8 +25,18 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public List<TitleResponseDto> getHistory(long userId) {
-		return historyMapper.queryHistoryByUserId(userId);
+	public PageWrapper<List<TitleResponseDto>> getHistory(long userId, int page) {
+		final int ITEM_PER_PAGE = 4;
+
+		PageHelper.startPage(page, ITEM_PER_PAGE);
+		List<TitleResponseDto> titles = historyMapper.queryHistoryByUserId(userId);
+		PageInfo pageInfo = new PageInfo(titles);
+		
+		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		wrapper.setContent(titles);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
+		
+		return wrapper;
 	}
 }
-

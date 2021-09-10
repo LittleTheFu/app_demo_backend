@@ -113,12 +113,13 @@ public class ArticleController {
 
 	@ApiOperation("获取指定文章的评论")
 	@GetMapping("/article_comments/{article_id}")
-	public CommonResult<List<CommentResponseDto>> getArticleComments(@PathVariable("article_id") long article_id,
-			@RequestParam("sort") String sortType) {
+	public CommonResult<PageWrapper<List<CommentResponseDto>>> getArticleComments(
+			@PathVariable("article_id") long article_id, @RequestParam("sort") String sortType,
+			@RequestParam("page") int page) {
 		long userId = userService.getCurrentUserId();
 
 		boolean isSortByDate = (sortType.equals("date"));
-		return CommonResult.success(articleService.getArticleComments(article_id, userId, isSortByDate));
+		return CommonResult.success(articleService.getArticleComments(article_id, userId, isSortByDate, page));
 	}
 
 	@ApiOperation("创建文章")

@@ -48,7 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page) {
-		PageHelper.startPage(page, 3);
+		final int ITEM_PER_PAGE = 4;
+		
+		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<ArticleDto> articles = articleMapper.queryAllArticle();
 		PageInfo pageInfo = new PageInfo(articles);
 
@@ -205,12 +207,16 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<CommentResponseDto> getArticleComments(long articleId, long userId, boolean isSortByDate) {
+	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate, int page) {
 		String sort_param = "articleCommentDate";
 		if (false == isSortByDate) {
 			sort_param = "articleCommentThumbNum";
 		}
+		
+		final int ITEM_PER_PAGE = 4;
+		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, sort_param);
+		PageInfo pageInfo = new PageInfo(comments);
 
 		Iterator<CommentResponseDto> iter = comments.iterator();
 
@@ -223,8 +229,13 @@ public class ArticleServiceImpl implements ArticleService {
 //			long thumbNum =commentMapper.queryThumbNum(comment.getId());
 //			comment.setThumbNum(thumbNum);
 		}
+		
+		PageWrapper wrapper = new PageWrapper<List<CommentResponseDto>>();
+		wrapper.setContent(comments);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
 
-		return comments;
+		return wrapper;
 	}
 
 	@Override
