@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.PageWrapper;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.mbg.mapper.ArticleMapper;
@@ -19,6 +20,7 @@ import com.fu.demo.mbg.model.Article;
 import com.fu.demo.mbg.model.Comment;
 import com.fu.demo.service.ArticleService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -45,9 +47,10 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleDto> listAllArticle(long userId) {
-		PageHelper.offsetPage(1, 3);
+	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page) {
+		PageHelper.startPage(page, 3);
 		List<ArticleDto> articles = articleMapper.queryAllArticle();
+		PageInfo pageInfo = new PageInfo(articles);
 
 		Iterator<ArticleDto> iter = articles.iterator();
 
@@ -61,8 +64,13 @@ public class ArticleServiceImpl implements ArticleService {
 			article.setDeletable(isOwner);
 			article.setEditable(isOwner);
 		}
+		
+		PageWrapper wrapper = new PageWrapper<List<ArticleDto>>();
+		wrapper.setContent(articles);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
 
-		return articles;
+		return wrapper;
 	}
 	
 	@Override

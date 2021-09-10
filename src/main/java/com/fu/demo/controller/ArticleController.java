@@ -20,6 +20,7 @@ import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
 import com.fu.demo.mbg.dto.CreateArticleResponseDto;
 import com.fu.demo.mbg.dto.CreateCommentDto;
+import com.fu.demo.mbg.dto.PageWrapper;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 import com.fu.demo.service.ArticleService;
@@ -50,10 +51,10 @@ public class ArticleController {
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public CommonResult<List<ArticleDto>> allArticle() {
+	public CommonResult<PageWrapper<List<ArticleDto>>> allArticle(@RequestParam("page") int page) {
 		long userId = userService.getCurrentUserId();
 
-		return CommonResult.success(articleService.listAllArticle(userId));
+		return CommonResult.success(articleService.listAllArticle(userId, page));
 	}
 
 	@ApiOperation("根据tag获取标题")

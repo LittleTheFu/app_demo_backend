@@ -5,6 +5,7 @@ import java.util.List;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
+import com.fu.demo.mbg.dto.PageWrapper;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.dto.UpdateArticleDto;
 
@@ -14,7 +15,7 @@ public interface ArticleService {
 
 	public List<ArticleDto> listAllArticle();
 
-	public List<ArticleDto> listAllArticle(long userId);
+	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page);
 
 	public ArticleDto getArticleById(long id);
 
