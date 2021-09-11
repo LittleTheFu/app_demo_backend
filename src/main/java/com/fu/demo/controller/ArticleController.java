@@ -174,10 +174,10 @@ public class ArticleController {
 
 	@ApiOperation("获取所有收藏文章")
 	@GetMapping("/get_bookmark_articles")
-	public CommonResult<List<TitleResponseDto>> getBookmarkArticles() {
+	public CommonResult<PageWrapper<List<TitleResponseDto>>> getBookmarkArticles(@RequestParam("page") int page) {
 		long userId = userService.getCurrentUserId();
 
-		return CommonResult.success(articleService.getBookmarkedArticles(userId));
+		return CommonResult.success(articleService.getBookmarkedArticles(userId, page));
 	}
 
 	@ApiOperation("点赞文章")

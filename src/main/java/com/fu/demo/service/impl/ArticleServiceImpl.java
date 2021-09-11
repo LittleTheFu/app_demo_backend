@@ -254,8 +254,21 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<TitleResponseDto> getBookmarkedArticles(long userId) {
-		return articleMapper.queryBookmarkedArticle(userId);
+	public PageWrapper<List<TitleResponseDto>> getBookmarkedArticles(long userId, int page) {
+		
+		final int ITEM_PER_PAGE = 4;
+		
+		PageHelper.startPage(page, ITEM_PER_PAGE);
+		List<TitleResponseDto> titles = articleMapper.queryBookmarkedArticle(userId);
+		
+		PageInfo pageInfo = new PageInfo(titles);
+		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		
+		wrapper.setContent(titles);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
+		
+		return wrapper;
 	}
 
 	@Override

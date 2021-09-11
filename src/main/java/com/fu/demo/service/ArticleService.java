@@ -53,7 +53,7 @@ public interface ArticleService {
 
 	void unBookmark(long articleId, long userId);
 
-	List<TitleResponseDto> getBookmarkedArticles(long userId);
+	PageWrapper<List<TitleResponseDto>> getBookmarkedArticles(long userId, int page);
 
 	boolean thumbComment(long commentId, long userId);
 
