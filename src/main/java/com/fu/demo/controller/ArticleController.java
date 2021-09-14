@@ -52,7 +52,7 @@ public class ArticleController {
 
 	@ApiOperation("获取所有文章列表")
 	@GetMapping("/all")
-	public CommonResult<PageWrapper<List<ArticleDto>>> allArticle(@RequestParam("page") int page) {
+	public CommonResult<PageWrapper<List<TitleResponseDto>>> allArticle(@RequestParam("page") int page) {
 		long userId = userService.getCurrentUserId();
 
 		return CommonResult.success(articleService.listAllArticle(userId, page));

@@ -23,6 +23,8 @@ public interface ArticleMapper {
 	List<TitleResponseDto> queryTitlesByUser(@Param("userId") long userId);
 
 	List<ArticleDto> queryAllArticle();
+	
+	List<TitleResponseDto> queryAllTitles();
 
 	List<ArticleDto> queryAllArticleWithThumbState(@Param("userId") long userId);
 

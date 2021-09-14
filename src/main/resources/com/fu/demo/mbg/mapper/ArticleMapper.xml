@@ -64,17 +64,28 @@
 		where
 			article.articleUserId = #{userId}
 	</select>
+	
+	<select id="queryAllTitles" resultType="com.fu.demo.mbg.dto.TitleResponseDto">
+		select 
+			article.id as id, title, user.name as authorName,
+			user.icon as authorIcon, user.id as authorId
+		from 
+			article join user
+		on
+			user.id = article.articleUserId
+		order by
+			article.id desc
+	</select>
 
 	<select id="queryAllArticle" resultMap="ArticleDtoResultMap">
 		select
-		article.id,title,content,name,icon,article.articleUserId,thumb
+			article.id,title,content,name,icon,article.articleUserId,thumb
 		from
-		article
-		left join user
+			article left join user
 		on
-		article.articleUserId = user.id
+			article.articleUserId = user.id
 		order by
-		article.id desc
+			article.id desc
 	</select>
 
 	<select id="queryById" parameterType="long"

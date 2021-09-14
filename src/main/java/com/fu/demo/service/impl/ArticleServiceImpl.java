@@ -58,28 +58,15 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page) {
+	public PageWrapper<List<TitleResponseDto>> listAllArticle(long userId, int page) {
 		final int ITEM_PER_PAGE = 4;
 
 		PageHelper.startPage(page, ITEM_PER_PAGE);
-		List<ArticleDto> articles = articleMapper.queryAllArticle();
-		PageInfo pageInfo = new PageInfo(articles);
+		List<TitleResponseDto> titles = articleMapper.queryAllTitles();
+		PageInfo pageInfo = new PageInfo(titles);
 
-		Iterator<ArticleDto> iter = articles.iterator();
-
-		while (iter.hasNext()) {
-			ArticleDto article = iter.next();
-
-			boolean isThumbed = articleMapper.isThumbed(article.getId(), userId);
-			article.setThumbState(isThumbed);
-
-			boolean isOwner = (userId == article.getAuthorId());
-			article.setDeletable(isOwner);
-			article.setEditable(isOwner);
-		}
-
-		PageWrapper wrapper = new PageWrapper<List<ArticleDto>>();
-		wrapper.setContent(articles);
+		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
 

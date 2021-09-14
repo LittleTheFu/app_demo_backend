@@ -15,7 +15,7 @@ public interface ArticleService {
 
 	public List<ArticleDto> listAllArticle();
 
-	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page);
+	public PageWrapper<List<TitleResponseDto>> listAllArticle(long userId, int page);
 
 	public ArticleDto getArticleById(long id);
 
