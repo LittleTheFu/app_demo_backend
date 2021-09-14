@@ -45,8 +45,9 @@ public class ArticleController {
 
 	@ApiOperation("获取某个用户的文章的标题")
 	@GetMapping("/get_titles_by_user/{id}")
-	public CommonResult<List<TitleResponseDto>> getTitlesByUser(@PathVariable("id") long id) {
-		return CommonResult.success(articleService.getTitlesByUser(id));
+	public CommonResult<PageWrapper<List<TitleResponseDto>>> getTitlesByUser(@PathVariable("id") long id,
+			@RequestParam("page") int page) {
+		return CommonResult.success(articleService.getTitlesByUser(id, page));
 	}
 
 	@ApiOperation("获取所有文章列表")

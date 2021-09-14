@@ -11,7 +11,7 @@ import com.fu.demo.mbg.dto.UpdateArticleDto;
 
 public interface ArticleService {
 
-	public List<TitleResponseDto> getTitlesByUser(long userId);
+	public PageWrapper<List<TitleResponseDto>> getTitlesByUser(long userId, int page);
 
 	public List<ArticleDto> listAllArticle();
 
@@ -37,7 +37,8 @@ public interface ArticleService {
 
 	public long createComment(long articleId, long userId, String content);
 
-	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate, int page);
+	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate,
+			int page);
 
 	public CommentResponseDto getArticleCommentById(long commentId);
 

@@ -40,16 +40,27 @@ public class ArticleServiceImpl implements ArticleService {
 
 		return articleMapper.queryAllArticle();
 	}
-	
+
 	@Override
-	public List<TitleResponseDto> getTitlesByUser(long userId) {
-		return articleMapper.queryTitlesByUser(userId);
+	public PageWrapper<List<TitleResponseDto>> getTitlesByUser(long userId, int page) {
+		final int ITEM_PER_PAGE = 4;
+
+		PageHelper.startPage(page, ITEM_PER_PAGE);
+		List<TitleResponseDto> titles = articleMapper.queryTitlesByUser(userId);
+		PageInfo pageInfo = new PageInfo(titles);
+
+		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		wrapper.setContent(titles);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
+
+		return wrapper;
 	}
 
 	@Override
 	public PageWrapper<List<ArticleDto>> listAllArticle(long userId, int page) {
 		final int ITEM_PER_PAGE = 4;
-		
+
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<ArticleDto> articles = articleMapper.queryAllArticle();
 		PageInfo pageInfo = new PageInfo(articles);
@@ -66,7 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
 			article.setDeletable(isOwner);
 			article.setEditable(isOwner);
 		}
-		
+
 		PageWrapper wrapper = new PageWrapper<List<ArticleDto>>();
 		wrapper.setContent(articles);
 		wrapper.setPages(pageInfo.getPages());
@@ -74,35 +85,35 @@ public class ArticleServiceImpl implements ArticleService {
 
 		return wrapper;
 	}
-	
+
 	@Override
 	public List<TitleResponseDto> getTitleByTag(String tag) {
 		return articleMapper.queryTitlesByTag(tag);
 	}
-	
+
 	@Override
 	public boolean deleteArticleTag(long articleId, String tag, long userId) {
 		ArticleDto articleDto = articleMapper.queryById(articleId);
 		if (userId != articleDto.getAuthorId()) {
 			return false;
-		} 
-		
+		}
+
 		long count = articleMapper.deleteArticleTag(articleId, tag);
-		if(count == 1) {
+		if (count == 1) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean addArticleTag(long articleId, String tag) {
 		long count = articleMapper.insertArticleTag(articleId, tag);
-		
-		if(count == 1) {
+
+		if (count == 1) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -207,12 +218,13 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate, int page) {
+	public PageWrapper<List<CommentResponseDto>> getArticleComments(long articleId, long userId, boolean isSortByDate,
+			int page) {
 		String sort_param = "articleCommentDate";
 		if (false == isSortByDate) {
 			sort_param = "articleCommentThumbNum";
 		}
-		
+
 		final int ITEM_PER_PAGE = 4;
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, sort_param);
@@ -229,7 +241,7 @@ public class ArticleServiceImpl implements ArticleService {
 //			long thumbNum =commentMapper.queryThumbNum(comment.getId());
 //			comment.setThumbNum(thumbNum);
 		}
-		
+
 		PageWrapper wrapper = new PageWrapper<List<CommentResponseDto>>();
 		wrapper.setContent(comments);
 		wrapper.setPages(pageInfo.getPages());
@@ -255,19 +267,19 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public PageWrapper<List<TitleResponseDto>> getBookmarkedArticles(long userId, int page) {
-		
+
 		final int ITEM_PER_PAGE = 4;
-		
+
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = articleMapper.queryBookmarkedArticle(userId);
-		
+
 		PageInfo pageInfo = new PageInfo(titles);
 		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
-		
+
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
-		
+
 		return wrapper;
 	}
 
