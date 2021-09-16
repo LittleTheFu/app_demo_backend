@@ -78,8 +78,19 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<TitleResponseDto> getTitleByTag(String tag) {
-		return articleMapper.queryTitlesByTag(tag);
+	public PageWrapper<List<TitleResponseDto>> getTitleByTag(String tag, int page) {
+		final int ITEM_PER_PAGE = 4;
+
+		PageHelper.startPage(page, ITEM_PER_PAGE);
+		List<TitleResponseDto> titles = articleMapper.queryTitlesByTag(tag);
+		PageInfo pageInfo = new PageInfo(titles);
+
+		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		wrapper.setContent(titles);
+		wrapper.setPages(pageInfo.getPages());
+		wrapper.setPageNum(pageInfo.getPageNum());
+
+		return wrapper;
 	}
 
 	@Override

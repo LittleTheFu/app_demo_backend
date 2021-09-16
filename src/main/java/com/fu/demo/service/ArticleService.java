@@ -21,7 +21,7 @@ public interface ArticleService {
 
 	public ArticleDto getArticleById(long id, long userId);
 
-	public List<TitleResponseDto> getTitleByTag(String tag);
+	public PageWrapper<List<TitleResponseDto>> getTitleByTag(String tag, int page);
 
 	public void deleteArticleTag(long articleId, String tag, long userId);
 

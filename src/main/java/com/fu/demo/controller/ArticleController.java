@@ -60,17 +60,18 @@ public class ArticleController {
 //		long x = 1/0;
 //		if(true)
 //		throw new AppException(ConstMessage.ERROR_MSG);
-		
+
 //		TitleResponseDto titleResponseDto = null;
 //		titleResponseDto.setId(9);
-		
+
 		return CommonResult.success(articleService.listAllArticle(userId, page));
 	}
 
 	@ApiOperation("根据tag获取标题")
 	@GetMapping("/get_titles_by_tag")
-	public CommonResult<List<TitleResponseDto>> getTitlesByTag(@RequestParam("tag") String tag) {
-		return CommonResult.success(articleService.getTitleByTag(tag));
+	public CommonResult<PageWrapper<List<TitleResponseDto>>> getTitlesByTag(@RequestParam("tag") String tag,
+			@RequestParam("page") int page) {
+		return CommonResult.success(articleService.getTitleByTag(tag, page));
 	}
 
 	@RequestMapping(value = "/delete_article_tag", method = RequestMethod.DELETE)
@@ -222,7 +223,7 @@ public class ArticleController {
 	public CommonResult deleteArticle(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
 		articleService.deleteArticle(id, userId);
-		
+
 		return CommonResult.success(null);
 	}
 
