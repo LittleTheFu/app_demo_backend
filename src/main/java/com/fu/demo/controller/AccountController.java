@@ -52,9 +52,9 @@ public class AccountController {
 	@ApiOperation("注册账户")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public int createBrand(@RequestBody AccountSecurityDto accountDto) {
+	public CommonResult createBrand(@RequestBody AccountSecurityDto accountDto) {
 		accountService.insert(accountDto);
-		return 0;
+		return CommonResult.success(null);
 	}
 
 	
