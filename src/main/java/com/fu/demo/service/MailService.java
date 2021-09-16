@@ -10,5 +10,5 @@ public interface MailService {
 	
 	List<MailResponseDto> getMails(long userId);
 	
-	int deleteMail(long id, long userId);
+	void deleteMail(long id, long userId);
 }

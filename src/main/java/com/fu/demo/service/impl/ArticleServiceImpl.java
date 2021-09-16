@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fu.demo.common.api.AppException;
+import com.fu.demo.common.api.ConstMessage;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.CommentResponseDto;
 import com.fu.demo.mbg.dto.CreateArticleDto;
@@ -21,6 +23,8 @@ import com.fu.demo.mbg.model.Comment;
 import com.fu.demo.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -79,29 +83,25 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean deleteArticleTag(long articleId, String tag, long userId) {
+	public void deleteArticleTag(long articleId, String tag, long userId) {
 		ArticleDto articleDto = articleMapper.queryById(articleId);
 		if (userId != articleDto.getAuthorId()) {
-			return false;
+			throw new AppException(ConstMessage.NOT_OWNER);
 		}
 
 		long count = articleMapper.deleteArticleTag(articleId, tag);
-		if (count == 1) {
-			return true;
+		if (count < 1) {
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
 		}
-
-		return false;
 	}
 
 	@Override
-	public boolean addArticleTag(long articleId, String tag) {
+	public void addArticleTag(long articleId, String tag) {
 		long count = articleMapper.insertArticleTag(articleId, tag);
 
-		if (count == 1) {
-			return true;
+		if (count != 1) {
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
 		}
-
-		return false;
 	}
 
 	@Override
@@ -116,30 +116,32 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId) {
+	public void updateArticle(UpdateArticleDto updateArticleDto, long userId) {
 		long id = updateArticleDto.getId();
 		long authorId = articleMapper.queryAuthorId(id);
 
 		if (userId != authorId) {
-			return false;
+			throw new AppException(ConstMessage.NOT_OWNER);
 		}
 
 		String title = updateArticleDto.getTitle();
 		String content = updateArticleDto.getContent();
 
 		articleMapper.updateArticle(id, title, content);
-
-		return true;
 	}
 
 	@Override
-	public int deleteArticle(long id, long userId) {
+	public void deleteArticle(long id, long userId) {
 		ArticleDto articleDto = articleMapper.queryById(id);
 		if (userId != articleDto.getAuthorId()) {
-			return 0;
+			throw new AppException(ConstMessage.NOT_OWNER);
 		}
 
-		return articleMapper.delete(id);
+		int count = articleMapper.delete(id);
+		
+		if(count<1) {
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
+		}
 	}
 
 	@Override
@@ -271,26 +273,24 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public boolean thumbComment(long commentId, long userId) {
+	public void thumbComment(long commentId, long userId) {
 		long num = commentMapper.thumb(commentId, userId);
 
 		if (num <= 0) {
-			return false;
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
 		}
+		
 		commentMapper.incThumb(commentId);
-
-		return true;
 	}
 
 	@Override
-	public boolean unthumbComment(long commentId, long userId) {
+	public void unthumbComment(long commentId, long userId) {
 		long num = commentMapper.unThumb(commentId, userId);
 
 		if (num <= 0) {
-			return false;
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
 		}
+		
 		commentMapper.decThumb(commentId);
-
-		return true;
 	}
 }

@@ -53,13 +53,8 @@ public class MailController {
 	@ResponseBody
 	public CommonResult deleteMail(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
-		int count = mailService.deleteMail(id, userId);
-		if (count == 1) {
-//            LOGGER.debug("deleteBrand success :id={}", id);
-			return CommonResult.success(null);
-		} else {
-//            LOGGER.debug("deleteBrand failed :id={}", id);
-			return CommonResult.failed("操作失败");
-		}
+		mailService.deleteMail(id, userId);
+		
+		return CommonResult.success(null);
 	}
 }

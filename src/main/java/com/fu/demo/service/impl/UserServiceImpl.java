@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.fu.demo.common.api.AppException;
+import com.fu.demo.common.api.ConstMessage;
 import com.fu.demo.mbg.dto.AccountDetail;
 import com.fu.demo.mbg.dto.FollowDto;
 import com.fu.demo.mbg.dto.UserDto;
@@ -44,9 +46,6 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> listAllUserWithCurrentUser() {
 		AccountDetail detail = getCurrentAccount();
 
-		if (detail == null)
-			return null;
-
 		long fromId = detail.getUserId();
 
 		List<UserDto> users = userMapper.listAllUser();
@@ -79,12 +78,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getUserByIdWithCurrentUser(long id) {
-		AccountDetail detail = getCurrentAccount();
-
-		if (detail == null)
-			return null;
-
-		long fromId = detail.getUserId();
+		long fromId = getCurrentUserId();
 		UserDto user = userMapper.queryUserById(id);
 
 //		user.setIcon("http://101.132.41.44:9000/zero/cover.png");
@@ -146,13 +140,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getCurrentUser() {
-		AccountDetail detail = getCurrentAccount();
-
-		if (detail == null) {
-			return null;
-		}
-
-		long id = detail.getUserId();
+		long id = getCurrentUserId();
 
 		return userMapper.queryUserById(id);
 	}
@@ -160,11 +148,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long getCurrentUserId() {
 		AccountDetail detail = getCurrentAccount();
-
-		if (detail == null) {
-			return 0;
-		}
-
 		long id = detail.getUserId();
 
 		return id;
@@ -187,11 +170,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void currentUserUnfollow(long that) {
-		AccountDetail detail = getCurrentAccount();
-		if (detail == null)
-			return;
-
-		long currentUserId = detail.getUserId();
+		long currentUserId = getCurrentUserId();
 
 		FollowDto dto = new FollowDto();
 		dto.setFromId(currentUserId);
@@ -202,12 +181,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void setCurrentUserIcon(String icon) {
-		AccountDetail detail = getCurrentAccount();
-		if (detail == null) {
-			return;
-		}
-
-		long id = detail.getUserId();
+		long id = getCurrentUserId();
 		userMapper.setIcon(id, icon);
 	}
 	
@@ -221,6 +195,10 @@ public class UserServiceImpl implements UserService {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
 		AccountDetail detail = (AccountDetail) auth.getPrincipal();
+		
+		if(detail == null){
+			throw new AppException(ConstMessage.NO_ACCOUNT_LOGIN);
+		}
 
 		return detail;
 	}

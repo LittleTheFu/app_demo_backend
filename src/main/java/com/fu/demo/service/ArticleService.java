@@ -23,9 +23,9 @@ public interface ArticleService {
 
 	public List<TitleResponseDto> getTitleByTag(String tag);
 
-	public boolean deleteArticleTag(long articleId, String tag, long userId);
+	public void deleteArticleTag(long articleId, String tag, long userId);
 
-	public boolean addArticleTag(long articleId, String tag);
+	public void addArticleTag(long articleId, String tag);
 
 	public int getArticleThumbNumber(long id);
 
@@ -33,7 +33,7 @@ public interface ArticleService {
 
 	public long createArticle(CreateArticleDto createArticleDto, long userId);
 
-	public boolean updateArticle(UpdateArticleDto updateArticleDto, long userId);
+	public void updateArticle(UpdateArticleDto updateArticleDto, long userId);
 
 	public long createComment(long articleId, long userId, String content);
 
@@ -42,7 +42,7 @@ public interface ArticleService {
 
 	public CommentResponseDto getArticleCommentById(long commentId);
 
-	int deleteArticle(long id, long userId);
+	void deleteArticle(long id, long userId);
 
 	boolean isThumbed(long articleId, long userId);
 
@@ -56,7 +56,7 @@ public interface ArticleService {
 
 	PageWrapper<List<TitleResponseDto>> getBookmarkedArticles(long userId, int page);
 
-	boolean thumbComment(long commentId, long userId);
+	void thumbComment(long commentId, long userId);
 
-	boolean unthumbComment(long commentId, long userId);
+	void unthumbComment(long commentId, long userId);
 }

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fu.demo.common.api.AppException;
 import com.fu.demo.common.api.CommonResult;
+import com.fu.demo.common.api.ConstMessage;
 import com.fu.demo.mbg.dto.AddArticleTagDto;
 import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.ArticleThumbResponseDto;
@@ -55,6 +57,13 @@ public class ArticleController {
 	public CommonResult<PageWrapper<List<TitleResponseDto>>> allArticle(@RequestParam("page") int page) {
 		long userId = userService.getCurrentUserId();
 
+//		long x = 1/0;
+//		if(true)
+//		throw new AppException(ConstMessage.ERROR_MSG);
+		
+//		TitleResponseDto titleResponseDto = null;
+//		titleResponseDto.setId(9);
+		
 		return CommonResult.success(articleService.listAllArticle(userId, page));
 	}
 
@@ -68,25 +77,17 @@ public class ArticleController {
 	@ResponseBody
 	public CommonResult deleteArticleTag(@RequestParam("tag") String tag, @RequestParam("id") long id) {
 		long userId = userService.getCurrentUserId();
-		boolean result = articleService.deleteArticleTag(id, tag, userId);
+		articleService.deleteArticleTag(id, tag, userId);
 
-		if (result) {
-			return CommonResult.success(null);
-		} else {
-			return CommonResult.failed("操作失败");
-		}
+		return CommonResult.success(null);
 	}
 
 	@RequestMapping(value = "/add_article_tag/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public CommonResult addArticleTag(@PathVariable("id") long id, @RequestBody AddArticleTagDto addArticleTagDto) {
-		boolean result = articleService.addArticleTag(id, addArticleTagDto.getTag());
+		articleService.addArticleTag(id, addArticleTagDto.getTag());
 
-		if (result) {
-			return CommonResult.success(null);
-		} else {
-			return CommonResult.failed("操作失败");
-		}
+		return CommonResult.success(null);
 	}
 
 	@ApiOperation("获取指定文章")
@@ -102,14 +103,9 @@ public class ArticleController {
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public CommonResult putArticle(@PathVariable("id") long id, @RequestBody UpdateArticleDto updateArticleDto) {
 		long userId = userService.getCurrentUserId();
+		articleService.updateArticle(updateArticleDto, userId);
 
-		boolean result = articleService.updateArticle(updateArticleDto, userId);
-
-		if (result) {
-			return CommonResult.success(null);
-		}
-
-		return CommonResult.failed("操作失败");
+		return CommonResult.success(null);
 	}
 
 	@ApiOperation("获取指定文章的评论")
@@ -188,7 +184,8 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		if (articleService.isThumbed(id, userId)) {
-			return CommonResult.success(null, "已经点赞过了啊！");
+//			return CommonResult.success(null, "已经点赞过了啊！");
+			throw new AppException(ConstMessage.YOU_HAVE_THUMBED_IT_BEFORE);
 		}
 
 		articleService.thumb(id, userId);
@@ -207,7 +204,8 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 
 		if (articleService.isThumbed(id, userId) == false) {
-			return CommonResult.success(null, "你之前根本没有点赞啊！");
+//			return CommonResult.success(null, "你之前根本没有点赞啊！");
+			throw new AppException(ConstMessage.YOU_HAVE_NOT_THUMBED_IT_YET);
 		}
 
 		articleService.unThumb(id, userId);
@@ -223,14 +221,9 @@ public class ArticleController {
 	@ResponseBody
 	public CommonResult deleteArticle(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
-		int count = articleService.deleteArticle(id, userId);
-		if (count == 1) {
-//            LOGGER.debug("deleteBrand success :id={}", id);
-			return CommonResult.success(null);
-		} else {
-//            LOGGER.debug("deleteBrand failed :id={}", id);
-			return CommonResult.failed("操作失败");
-		}
+		articleService.deleteArticle(id, userId);
+		
+		return CommonResult.success(null);
 	}
 
 	@ApiOperation("点赞评论")
@@ -238,13 +231,7 @@ public class ArticleController {
 	@ResponseBody
 	public CommonResult thumbComment(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
-
-		boolean result = articleService.thumbComment(id, userId);
-
-		if (false == result) {
-			return CommonResult.failed("操作失败");
-
-		}
+		articleService.thumbComment(id, userId);
 
 		return CommonResult.success(null);
 	}
@@ -254,15 +241,8 @@ public class ArticleController {
 	@ResponseBody
 	public CommonResult unThumbComment(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
+		articleService.unthumbComment(id, userId);
 
-		boolean result = articleService.unthumbComment(id, userId);
-
-		if (false == result) {
-			return CommonResult.failed("操作失败");
-
-		}
-
-		return CommonResult.success(null);
+		return CommonResult.failed("操作失败");
 	}
-
 }
