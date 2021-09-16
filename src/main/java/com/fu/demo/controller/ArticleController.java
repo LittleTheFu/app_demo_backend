@@ -244,6 +244,6 @@ public class ArticleController {
 		long userId = userService.getCurrentUserId();
 		articleService.unthumbComment(id, userId);
 
-		return CommonResult.failed("操作失败");
+		return CommonResult.success(null);
 	}
 }
