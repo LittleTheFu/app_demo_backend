@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 //	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-	
+
 	/**
 	 * 处理自定义的业务异常
+	 * 
 	 * @param req
 	 * @param e
 	 * @return
@@ -25,6 +26,7 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * 处理空指针的异常
+	 * 
 	 * @param req
 	 * @param e
 	 * @return
@@ -38,17 +40,17 @@ public class GlobalExceptionHandler {
 //		return CommonResult.failed(e.getMessage());
 //	}
 
-
-    /**
-        * 处理其他异常
-     * @param req
-     * @param e
-     * @return
-     */
-    @ExceptionHandler(value =Exception.class)
+	/**
+	 * 处理其他异常
+	 * 
+	 * @param req
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public CommonResult exceptionHandler(HttpServletRequest req, Exception e){
+	public CommonResult exceptionHandler(HttpServletRequest req, Exception e) {
 //    	logger.error("未知异常！原因是:",e);
-       	return CommonResult.failed(e.getMessage());
-    }
+		return CommonResult.failed(e.getMessage());
+	}
 }
