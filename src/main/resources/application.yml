@@ -8,8 +8,7 @@ spring:
     password: root
   profiles:  
     include:
-      osskey 
- 
+      osskey,email
     
 mybatis:
   mapper-locations:
