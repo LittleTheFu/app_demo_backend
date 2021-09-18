@@ -68,10 +68,10 @@ public class AccountController {
 	@RequestMapping(value = "/want_reset_password", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult wantResetPassword(@RequestBody EmailDto emailDto) {
-		String randMsgString = accountService.getResetLink(emailDto.getEmail());
-//		emailService.send(emailDto.getEmail(), "reset link", randMsgString);
+		String link = accountService.getResetLink(emailDto.getEmail());
+//		emailService.send(emailDto.getEmail(), "reset link", link);
 
-		return CommonResult.success(randMsgString);
+		return CommonResult.success(link);
 	}
 
 	@ApiOperation("设置密码")
