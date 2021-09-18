@@ -20,6 +20,8 @@ import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.EmailDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
+import com.fu.demo.service.EmailService;
+import com.fu.demo.service.MailService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,9 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@ApiOperation("根据id查询账户")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -62,8 +67,9 @@ public class AccountController {
 	@RequestMapping(value = "/want_reset_password", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult wantResetPassword(@RequestBody EmailDto emailDto) {
-//		boolean isExsit = accountService.s
 		String randMsgString = accountService.getResetLink(emailDto.getEmail());
+		emailService.send(emailDto.getEmail(), "reset link", randMsgString);
+		
 		return CommonResult.success(randMsgString);
 	}
 
