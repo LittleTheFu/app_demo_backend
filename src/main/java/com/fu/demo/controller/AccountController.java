@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
+import com.fu.demo.mbg.dto.EmailDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
 
@@ -55,6 +56,15 @@ public class AccountController {
 	public CommonResult createBrand(@RequestBody AccountSecurityDto accountDto) {
 		accountService.insert(accountDto);
 		return CommonResult.success(null);
+	}
+	
+	@ApiOperation("申请得到重置密码的链接")
+	@RequestMapping(value = "/want_reset_password", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult wantResetPassword(@RequestBody EmailDto emailDto) {
+//		boolean isExsit = accountService.s
+		String randMsgString = accountService.getResetLink(emailDto.getEmail());
+		return CommonResult.success(randMsgString);
 	}
 
 	

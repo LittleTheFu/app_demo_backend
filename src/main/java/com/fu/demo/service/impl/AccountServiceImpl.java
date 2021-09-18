@@ -1,6 +1,9 @@
 package com.fu.demo.service.impl;
 
 import java.util.List;
+
+import com.fu.demo.common.api.AppException;
+import com.fu.demo.common.api.ConstMessage;
 import com.fu.demo.common.utils.JwtTokenUtil;
 
 import org.springframework.beans.BeanUtils;
@@ -21,6 +24,8 @@ import com.fu.demo.mbg.mapper.UserMapper;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.mbg.model.User;
 import com.fu.demo.service.AccountService;
+
+import cn.hutool.core.util.RandomUtil;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -102,6 +107,27 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public long getUserIdByEmail(String email) {
 		return accountMapper.getUserIdByEmail(email);
+	}
+
+	@Override
+	public String getResetLink(String email) {
+		boolean isExsit = accountMapper.isAccountExsit(email);
+		if(false == isExsit) {
+			throw new AppException(ConstMessage.NO_SUCH_ACCOUNT);
+		}
+		
+		long id = accountMapper.getAccountIdByEmail(email);
+		
+		String clientAddress = "http://localhost:3000/reset/";
+		String link = clientAddress + RandomUtil.randomString(32);
+		
+		accountMapper.addResetString(id, link);
+//		int count = accountMapper.addResetString(id, link);
+//		if(count != 1) {
+//			throw new AppException(ConstMessage.ACTION_NOT_DONE);
+//		}
+		
+		return link;
 	}
 
 }

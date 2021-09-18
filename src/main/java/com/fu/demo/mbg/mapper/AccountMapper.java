@@ -21,4 +21,10 @@ public interface AccountMapper {
     void setUserId(@Param("accountId") long accountId, @Param("userId") long userId);
     
     long getUserIdByEmail(@Param("email") String email);
+    
+    long getAccountIdByEmail(@Param("email") String email);
+    
+    boolean isAccountExsit(@Param("email") String email);
+    
+    int addResetString(@Param("id") long id, @Param("code") String code);
 }

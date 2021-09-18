@@ -18,4 +18,6 @@ public interface AccountService {
 	String login(String email, String password);
 
 	long getUserIdByEmail(String email);
+	
+	String getResetLink(String email);
 }

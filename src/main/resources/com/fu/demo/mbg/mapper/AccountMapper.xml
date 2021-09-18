@@ -46,6 +46,13 @@
 		where
 		email = #{email}
 	</select>
+	
+	<select id="getAccountIdByEmail" parameterType="String"
+		resultType="long">
+		select id from account
+		where
+		email = #{email}
+	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
 		parameterType="com.fu.demo.mbg.model.Account">
@@ -63,4 +70,21 @@
 		where
 		id=#{accountId}
 	</update>
+
+	<select id="isAccountExsit" resultType="boolean">
+		select COALESCE (
+		 ( select 1	from account
+		   where email = #{email}
+		 ), 
+		 0
+		)
+	</select>
+	
+	<insert id="addResetString">
+		insert into account_reset
+			(resetAccountId,resetString)
+		values
+			(#{id},#{code})
+		on duplicate key update resetString = #{code}
+	</insert>
 </mapper>

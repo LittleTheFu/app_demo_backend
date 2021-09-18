@@ -12,5 +12,8 @@ public class ConstMessage {
 	public final static String YOU_HAVE_NOT_THUMBED_IT_YET = "YOU_HAVE_NOT_THUMBED_IT_YET";
 	
 	public final static String NO_ACCOUNT_LOGIN = "NO_ACCOUNT_LOGIN";
+	
+	public final static String NO_SUCH_ACCOUNT = "NO_SUCH_ACCOUNT";
+
 
 }
