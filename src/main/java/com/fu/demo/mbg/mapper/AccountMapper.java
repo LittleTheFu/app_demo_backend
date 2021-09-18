@@ -27,4 +27,10 @@ public interface AccountMapper {
     boolean isAccountExsit(@Param("email") String email);
     
     int addResetString(@Param("id") long id, @Param("code") String code);
+    
+    String getResetCode(@Param("id") long id);
+    
+    int changePassword(@Param("id") long id, @Param("password") String password);
+    
+    void clearResetCode(@Param("id") long id);
 }

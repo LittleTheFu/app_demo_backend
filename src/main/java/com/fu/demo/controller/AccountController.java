@@ -18,6 +18,7 @@ import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.AccountInfoDto;
 import com.fu.demo.mbg.dto.AccountSecurityDto;
 import com.fu.demo.mbg.dto.EmailDto;
+import com.fu.demo.mbg.dto.ResetPasswordDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
 import com.fu.demo.service.EmailService;
@@ -38,17 +39,17 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+
 	@ApiOperation("根据id查询账户")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Account> getById(@PathVariable("id") int id) {
 		return CommonResult.success(accountService.getAccountById(id));
 	}
-	
+
 	@ApiOperation("获取所有账户列表")
 	@GetMapping("/all")
 	public List<AccountInfoDto> allArticle() {
@@ -62,18 +63,30 @@ public class AccountController {
 		accountService.insert(accountDto);
 		return CommonResult.success(null);
 	}
-	
+
 	@ApiOperation("申请得到重置密码的链接")
 	@RequestMapping(value = "/want_reset_password", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult wantResetPassword(@RequestBody EmailDto emailDto) {
 		String randMsgString = accountService.getResetLink(emailDto.getEmail());
-		emailService.send(emailDto.getEmail(), "reset link", randMsgString);
-		
+//		emailService.send(emailDto.getEmail(), "reset link", randMsgString);
+
 		return CommonResult.success(randMsgString);
 	}
 
-	
+	@ApiOperation("设置密码")
+	@RequestMapping(value = "/reset_password", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+		String email = resetPasswordDto.getEmail();
+		String password = resetPasswordDto.getPassword();
+		String code = resetPasswordDto.getCode();
+		
+		accountService.resetPassword(email, password, code);
+		
+		return CommonResult.success(null);
+	}
+
 	@ApiOperation(value = "登录以后返回token")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody

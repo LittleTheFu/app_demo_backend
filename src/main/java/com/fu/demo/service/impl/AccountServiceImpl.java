@@ -119,15 +119,41 @@ public class AccountServiceImpl implements AccountService {
 		long id = accountMapper.getAccountIdByEmail(email);
 		
 		String clientAddress = "http://localhost:3000/reset/";
-		String link = clientAddress + RandomUtil.randomString(32);
+		String code = RandomUtil.randomString(32);
+		String link = clientAddress + code;
 		
-		accountMapper.addResetString(id, link);
+		accountMapper.addResetString(id, code);
 //		int count = accountMapper.addResetString(id, link);
 //		if(count != 1) {
 //			throw new AppException(ConstMessage.ACTION_NOT_DONE);
 //		}
 		
 		return link;
+	}
+
+	@Override
+	public void resetPassword(String email, String password, String code) {
+		boolean isExsit = accountMapper.isAccountExsit(email);
+		if(false == isExsit) {
+			throw new AppException(ConstMessage.NO_SUCH_ACCOUNT);
+		}
+		
+		long id = accountMapper.getAccountIdByEmail(email);
+
+		String savedCode = accountMapper.getResetCode(id);
+		
+		if(!code.equals(savedCode)) {
+			throw new AppException(ConstMessage.WRONG_RESET_CODE);
+		}
+		
+		String encodedPassword = passwordEncoder.encode(password);
+		
+		int count = accountMapper.changePassword(id, encodedPassword);
+		if(count != 1) {
+			throw new AppException(ConstMessage.ACTION_NOT_DONE);
+		}
+		
+		accountMapper.clearResetCode(id);
 	}
 
 }

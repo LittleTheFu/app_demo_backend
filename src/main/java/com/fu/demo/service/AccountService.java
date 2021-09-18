@@ -20,4 +20,6 @@ public interface AccountService {
 	long getUserIdByEmail(String email);
 	
 	String getResetLink(String email);
+	
+	void resetPassword(String email, String password, String code);
 }
