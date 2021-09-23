@@ -32,7 +32,7 @@ import com.fu.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "ArticleController", description = "文章管理")
+@Api(tags = "文章管理")
 @RestController
 @RequestMapping("/article")
 public class ArticleController {

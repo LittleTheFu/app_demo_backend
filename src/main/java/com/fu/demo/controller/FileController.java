@@ -15,7 +15,7 @@ import com.fu.demo.service.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "FileController", description = "文件上传管理")
+@Api(tags = "文件上传管理")
 @RestController
 @RequestMapping("/file")
 public class FileController {

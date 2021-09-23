@@ -38,7 +38,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.io.File;
 
-@Api(tags = "UserController", description = "用户管理")
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/user")
 public class UserController {

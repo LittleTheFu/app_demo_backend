@@ -17,7 +17,7 @@ import com.fu.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "HistoryController", description = "历史管理")
+@Api(tags = "历史管理")
 @RestController
 @RequestMapping("/history")
 public class HistoryController {

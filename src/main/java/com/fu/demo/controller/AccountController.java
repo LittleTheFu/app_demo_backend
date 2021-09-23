@@ -26,8 +26,9 @@ import com.fu.demo.service.MailService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags = "AccountController", description = "账户管理")
+@Api(tags = "账户管理")
 @RestController
 @RequestMapping("/account")
 public class AccountController {

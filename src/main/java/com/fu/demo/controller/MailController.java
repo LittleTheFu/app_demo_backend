@@ -20,7 +20,7 @@ import com.fu.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "MailController", description = "邮件管理")
+@Api(tags = "邮件管理")
 @RestController
 @RequestMapping("/mail")
 public class MailController {
