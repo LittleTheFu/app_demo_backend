@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fu.demo.mbg.dto.MinioUploadDto;
+import com.fu.demo.mbg.dto.OssUploadDto;
 import com.fu.demo.service.FileService;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -31,7 +31,7 @@ public class FileServiceImp implements FileService{
 	private String OSS_BUCKET_NAME;
 
 	@Override
-	public MinioUploadDto uploadImage(MultipartFile file) {
+	public OssUploadDto uploadImage(MultipartFile file) {
 		try {
 			COSCredentials credentials = new BasicCOSCredentials(OSS_SECRET_ID, OSS_SECRET_KEY);
 			ClientConfig clientConfig = new ClientConfig(new Region("ap-shanghai"));
@@ -53,7 +53,7 @@ public class FileServiceImp implements FileService{
 			PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
 
 //			LOGGER.info("文件上传成功!");
-			MinioUploadDto minioUploadDto = new MinioUploadDto();
+			OssUploadDto minioUploadDto = new OssUploadDto();
 			minioUploadDto.setName(filename);
 			minioUploadDto.setUrl(OSS_ENDPOINT + putObjectRequest.getKey());
 

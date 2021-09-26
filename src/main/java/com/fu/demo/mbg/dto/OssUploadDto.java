@@ -2,7 +2,7 @@ package com.fu.demo.mbg.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class MinioUploadDto {
+public class OssUploadDto {
 	@ApiModelProperty(value = "name")
 	private String name;
 	

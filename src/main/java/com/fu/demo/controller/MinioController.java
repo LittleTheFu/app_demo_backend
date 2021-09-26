@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.demo.common.api.CommonResult;
-import com.fu.demo.mbg.dto.MinioUploadDto;
+import com.fu.demo.mbg.dto.OssUploadDto;
 
 import io.minio.MinioClient;
 import io.minio.policy.PolicyType;
@@ -61,7 +61,7 @@ public class MinioController {
             // 使用putObject上传一个文件到存储桶中
             minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
             LOGGER.info("文件上传成功!");
-            MinioUploadDto minioUploadDto = new MinioUploadDto();
+            OssUploadDto minioUploadDto = new OssUploadDto();
             minioUploadDto.setName(filename);
             minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
             return CommonResult.success(minioUploadDto);

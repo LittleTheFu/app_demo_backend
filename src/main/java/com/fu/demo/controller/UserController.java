@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.demo.common.api.CommonResult;
 import com.fu.demo.mbg.dto.FollowResponseDto;
-import com.fu.demo.mbg.dto.MinioUploadDto;
+import com.fu.demo.mbg.dto.OssUploadDto;
 import com.fu.demo.mbg.dto.UpdateUserNameDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.service.UserService;
@@ -122,7 +122,7 @@ public class UserController {
 	@ApiOperation("更换头像")
 	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<MinioUploadDto> uploadIcon(@RequestParam("file") MultipartFile file) {
+	public CommonResult<OssUploadDto> uploadIcon(@RequestParam("file") MultipartFile file) {
 		try {
 			COSCredentials credentials = new BasicCOSCredentials(OSS_SECRET_ID, OSS_SECRET_KEY);
 			ClientConfig clientConfig = new ClientConfig(new Region("ap-shanghai"));
@@ -140,7 +140,7 @@ public class UserController {
 			PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
 
 			LOGGER.info("文件上传成功!");
-			MinioUploadDto minioUploadDto = new MinioUploadDto();
+			OssUploadDto minioUploadDto = new OssUploadDto();
 			minioUploadDto.setName(filename);
 			minioUploadDto.setUrl(OSS_ENDPOINT + putObjectRequest.getKey());
 

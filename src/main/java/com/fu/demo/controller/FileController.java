@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.demo.common.api.CommonResult;
-import com.fu.demo.mbg.dto.MinioUploadDto;
+import com.fu.demo.mbg.dto.OssUploadDto;
 import com.fu.demo.service.FileService;
 
 import io.swagger.annotations.Api;
@@ -25,8 +25,8 @@ public class FileController {
 	@ApiOperation("上传文件")
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<MinioUploadDto> upload(@RequestParam("file") MultipartFile file) {
-		MinioUploadDto minioUploadDto = fileService.uploadImage(file);
+	public CommonResult<OssUploadDto> upload(@RequestParam("file") MultipartFile file) {
+		OssUploadDto minioUploadDto = fileService.uploadImage(file);
 		
 		if(minioUploadDto == null) {
 			return CommonResult.failed();
