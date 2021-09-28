@@ -22,11 +22,9 @@ import com.fu.demo.mbg.dto.ResetPasswordDto;
 import com.fu.demo.mbg.model.Account;
 import com.fu.demo.service.AccountService;
 import com.fu.demo.service.EmailService;
-import com.fu.demo.service.MailService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Api(tags = "账户管理")
 @RestController
