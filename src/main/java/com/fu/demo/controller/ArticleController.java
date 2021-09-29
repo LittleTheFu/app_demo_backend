@@ -76,7 +76,7 @@ public class ArticleController {
 
 	@RequestMapping(value = "/delete_article_tag", method = RequestMethod.DELETE)
 	@ResponseBody
-	public CommonResult deleteArticleTag(@RequestParam("tag") String tag, @RequestParam("id") long id) {
+	public CommonResult<?> deleteArticleTag(@RequestParam("tag") String tag, @RequestParam("id") long id) {
 		long userId = userService.getCurrentUserId();
 		articleService.deleteArticleTag(id, tag, userId);
 
@@ -85,7 +85,7 @@ public class ArticleController {
 
 	@RequestMapping(value = "/add_article_tag/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult addArticleTag(@PathVariable("id") long id, @RequestBody AddArticleTagDto addArticleTagDto) {
+	public CommonResult<?> addArticleTag(@PathVariable("id") long id, @RequestBody AddArticleTagDto addArticleTagDto) {
 		articleService.addArticleTag(id, addArticleTagDto.getTag());
 
 		return CommonResult.success(null);
@@ -102,7 +102,7 @@ public class ArticleController {
 
 	@ApiOperation("修改指定文章")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public CommonResult putArticle(@PathVariable("id") long id, @RequestBody UpdateArticleDto updateArticleDto) {
+	public CommonResult<?> putArticle(@PathVariable("id") long id, @RequestBody UpdateArticleDto updateArticleDto) {
 		long userId = userService.getCurrentUserId();
 		articleService.updateArticle(updateArticleDto, userId);
 
@@ -151,7 +151,7 @@ public class ArticleController {
 	@ApiOperation("收藏文章")
 	@RequestMapping(value = "/bookmark/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult bookmarkArticle(@PathVariable("id") Long id) {
+	public CommonResult<?> bookmarkArticle(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
 
 		articleService.bookmark(id, userId);
@@ -162,7 +162,7 @@ public class ArticleController {
 	@ApiOperation("取消收藏文章")
 	@RequestMapping(value = "/unbookmark/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult unBookmarkArticle(@PathVariable("id") Long id) {
+	public CommonResult<?> unBookmarkArticle(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
 
 		articleService.unBookmark(id, userId);
@@ -220,7 +220,7 @@ public class ArticleController {
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public CommonResult deleteArticle(@PathVariable("id") long id) {
+	public CommonResult<?> deleteArticle(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
 		articleService.deleteArticle(id, userId);
 
@@ -230,7 +230,7 @@ public class ArticleController {
 	@ApiOperation("点赞评论")
 	@RequestMapping(value = "/comment_thumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult thumbComment(@PathVariable("id") Long id) {
+	public CommonResult<?> thumbComment(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
 		articleService.thumbComment(id, userId);
 
@@ -240,7 +240,7 @@ public class ArticleController {
 	@ApiOperation("取消点赞评论")
 	@RequestMapping(value = "/comment_unthumb/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult unThumbComment(@PathVariable("id") Long id) {
+	public CommonResult<?> unThumbComment(@PathVariable("id") Long id) {
 		long userId = userService.getCurrentUserId();
 		articleService.unthumbComment(id, userId);
 

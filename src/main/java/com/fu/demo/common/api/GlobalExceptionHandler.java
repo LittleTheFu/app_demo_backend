@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public CommonResult exceptionHandler(HttpServletRequest req, Exception e) {
+	public CommonResult<?> exceptionHandler(HttpServletRequest req, Exception e) {
 //    	logger.error("未知异常！原因是:",e);
 		return CommonResult.failed(e.getMessage());
 	}

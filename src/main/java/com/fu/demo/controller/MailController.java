@@ -33,7 +33,7 @@ public class MailController {
 	@ApiOperation("创建邮件")
 	@RequestMapping(value = "/create_mail", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult createMail(@RequestBody CreateMailDto createMailDto) {
+	public CommonResult<?> createMail(@RequestBody CreateMailDto createMailDto) {
 		long currentUserId = userService.getCurrentUserId();
 		mailService.createMail(createMailDto, currentUserId);
 		
@@ -51,7 +51,7 @@ public class MailController {
 	@ApiOperation("del邮件")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public CommonResult deleteMail(@PathVariable("id") long id) {
+	public CommonResult<?> deleteMail(@PathVariable("id") long id) {
 		long userId = userService.getCurrentUserId();
 		mailService.deleteMail(id, userId);
 		

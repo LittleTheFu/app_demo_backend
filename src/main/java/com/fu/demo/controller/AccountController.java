@@ -58,7 +58,7 @@ public class AccountController {
 	@ApiOperation("注册账户")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult createBrand(@RequestBody AccountSecurityDto accountDto) {
+	public CommonResult<?> createBrand(@RequestBody AccountSecurityDto accountDto) {
 		accountService.insert(accountDto);
 		return CommonResult.success(null);
 	}
@@ -66,7 +66,7 @@ public class AccountController {
 	@ApiOperation("申请得到重置密码的链接")
 	@RequestMapping(value = "/want_reset_password", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult wantResetPassword(@RequestBody EmailDto emailDto) {
+	public CommonResult<String> wantResetPassword(@RequestBody EmailDto emailDto) {
 		String link = accountService.getResetLink(emailDto.getEmail());
 //		emailService.send(emailDto.getEmail(), "reset link", link);
 
@@ -76,7 +76,7 @@ public class AccountController {
 	@ApiOperation("设置密码")
 	@RequestMapping(value = "/reset_password", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+	public CommonResult<?> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
 		String email = resetPasswordDto.getEmail();
 		String password = resetPasswordDto.getPassword();
 		String code = resetPasswordDto.getCode();
@@ -89,7 +89,7 @@ public class AccountController {
 	@ApiOperation(value = "登录以后返回token")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult login(@RequestBody AccountSecurityDto accountDto) {
+	public CommonResult<Map> login(@RequestBody AccountSecurityDto accountDto) {
 		String token = accountService.login(accountDto.getEmail(), accountDto.getPassword());
 		if (token == null) {
 			return CommonResult.validateFailed("用户名或密码错误");

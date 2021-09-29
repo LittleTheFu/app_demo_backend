@@ -111,7 +111,7 @@ public class UserController {
 	@ApiOperation("更换用户名")
 	@RequestMapping(value = "/change_name", method = RequestMethod.PUT)
 	@ResponseBody
-	public CommonResult updateName(@RequestBody UpdateUserNameDto updateUserNameDto) {
+	public CommonResult<?> updateName(@RequestBody UpdateUserNameDto updateUserNameDto) {
 		userService.setCurrentUserName(updateUserNameDto.getName());
 
 		return CommonResult.success(null);
