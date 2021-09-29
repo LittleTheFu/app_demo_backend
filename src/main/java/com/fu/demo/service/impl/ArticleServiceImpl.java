@@ -51,9 +51,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = articleMapper.queryTitlesByUser(userId);
-		PageInfo pageInfo = new PageInfo(titles);
+		PageInfo<TitleResponseDto> pageInfo = new PageInfo<TitleResponseDto>(titles);
 
-		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		PageWrapper<List<TitleResponseDto>> wrapper = new PageWrapper<List<TitleResponseDto>>();
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
@@ -67,9 +67,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = articleMapper.queryAllTitles();
-		PageInfo pageInfo = new PageInfo(titles);
+		PageInfo<TitleResponseDto> pageInfo = new PageInfo<TitleResponseDto>(titles);
 
-		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		PageWrapper<List<TitleResponseDto>> wrapper = new PageWrapper<List<TitleResponseDto>>();
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
@@ -83,9 +83,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = articleMapper.queryTitlesByTag(tag);
-		PageInfo pageInfo = new PageInfo(titles);
+		PageInfo<TitleResponseDto> pageInfo = new PageInfo<TitleResponseDto>(titles);
 
-		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		PageWrapper<List<TitleResponseDto>> wrapper = new PageWrapper<List<TitleResponseDto>>();
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
@@ -228,7 +228,7 @@ public class ArticleServiceImpl implements ArticleService {
 		final int ITEM_PER_PAGE = 4;
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<CommentResponseDto> comments = commentMapper.queryCommentByArticleId(articleId, sort_param);
-		PageInfo pageInfo = new PageInfo(comments);
+		PageInfo<CommentResponseDto> pageInfo = new PageInfo<CommentResponseDto>(comments);
 
 		Iterator<CommentResponseDto> iter = comments.iterator();
 
@@ -242,7 +242,7 @@ public class ArticleServiceImpl implements ArticleService {
 //			comment.setThumbNum(thumbNum);
 		}
 
-		PageWrapper wrapper = new PageWrapper<List<CommentResponseDto>>();
+		PageWrapper<List<CommentResponseDto>> wrapper = new PageWrapper<List<CommentResponseDto>>();
 		wrapper.setContent(comments);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
@@ -273,8 +273,8 @@ public class ArticleServiceImpl implements ArticleService {
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = articleMapper.queryBookmarkedArticle(userId);
 
-		PageInfo pageInfo = new PageInfo(titles);
-		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		PageInfo<TitleResponseDto> pageInfo = new PageInfo<TitleResponseDto>(titles);
+		PageWrapper<List<TitleResponseDto>> wrapper = new PageWrapper<List<TitleResponseDto>>();
 
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());

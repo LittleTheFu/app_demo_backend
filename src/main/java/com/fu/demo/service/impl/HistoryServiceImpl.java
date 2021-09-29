@@ -30,9 +30,9 @@ public class HistoryServiceImpl implements HistoryService {
 
 		PageHelper.startPage(page, ITEM_PER_PAGE);
 		List<TitleResponseDto> titles = historyMapper.queryHistoryByUserId(userId);
-		PageInfo pageInfo = new PageInfo(titles);
+		PageInfo<TitleResponseDto> pageInfo = new PageInfo<TitleResponseDto>(titles);
 		
-		PageWrapper wrapper = new PageWrapper<List<TitleResponseDto>>();
+		PageWrapper<List<TitleResponseDto>> wrapper = new PageWrapper<List<TitleResponseDto>>();
 		wrapper.setContent(titles);
 		wrapper.setPages(pageInfo.getPages());
 		wrapper.setPageNum(pageInfo.getPageNum());
