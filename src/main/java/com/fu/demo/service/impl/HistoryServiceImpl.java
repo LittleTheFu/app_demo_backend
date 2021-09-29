@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fu.demo.mbg.dto.ArticleDto;
 import com.fu.demo.mbg.dto.PageWrapper;
 import com.fu.demo.mbg.dto.TitleResponseDto;
 import com.fu.demo.mbg.mapper.HistoryMapper;
