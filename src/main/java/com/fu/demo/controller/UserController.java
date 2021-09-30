@@ -23,6 +23,7 @@ import com.fu.demo.mbg.dto.FollowResponseDto;
 import com.fu.demo.mbg.dto.OssUploadDto;
 import com.fu.demo.mbg.dto.UpdateUserNameDto;
 import com.fu.demo.mbg.dto.UserDto;
+import com.fu.demo.service.FileService;
 import com.fu.demo.service.UserService;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -45,6 +46,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private FileService fileService;
 
 //	@Value("${minio.endpoint}")
 //	private String ENDPOINT;
@@ -121,34 +125,14 @@ public class UserController {
 	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<OssUploadDto> uploadIcon(@RequestParam("file") MultipartFile file) {
-		try {
-			COSCredentials credentials = new BasicCOSCredentials(OSS_SECRET_ID, OSS_SECRET_KEY);
-			ClientConfig clientConfig = new ClientConfig(new Region("ap-shanghai"));
-
-			COSClient cosClient = new COSClient(credentials, clientConfig);
-
-			String filename = file.getOriginalFilename();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            String objectName = sdf.format(new Date()) + "_" + filename;
-
-			File localFile = File.createTempFile(objectName, null);
-			file.transferTo(localFile);
-
-			PutObjectRequest putObjectRequest = new PutObjectRequest(OSS_BUCKET_NAME, objectName, localFile);
-			PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-
-			LOGGER.info("文件上传成功!");
-			OssUploadDto minioUploadDto = new OssUploadDto();
-			minioUploadDto.setName(filename);
-			minioUploadDto.setUrl(OSS_ENDPOINT + putObjectRequest.getKey());
-
-            userService.setCurrentUserIcon(minioUploadDto.getUrl());
-
-			return CommonResult.success(minioUploadDto);
-		} catch (Exception e) {
-			LOGGER.info("上传发生错误: {}！", e.getMessage());
+		OssUploadDto minioUploadDto = fileService.uploadImage(file);
+		if (minioUploadDto == null) {
+			return CommonResult.failed();
 		}
-		return CommonResult.failed();
+		
+		userService.setCurrentUserIcon(minioUploadDto.getUrl());
+
+		return CommonResult.success(minioUploadDto);
 	}
 
 //	@ApiOperation("更换头像")
