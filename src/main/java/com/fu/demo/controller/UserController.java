@@ -1,7 +1,5 @@
 package com.fu.demo.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,17 +23,9 @@ import com.fu.demo.mbg.dto.UpdateUserNameDto;
 import com.fu.demo.mbg.dto.UserDto;
 import com.fu.demo.service.FileService;
 import com.fu.demo.service.UserService;
-import com.qcloud.cos.COSClient;
-import com.qcloud.cos.ClientConfig;
-import com.qcloud.cos.auth.BasicCOSCredentials;
-import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.model.PutObjectRequest;
-import com.qcloud.cos.model.PutObjectResult;
-import com.qcloud.cos.region.Region;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.io.File;
 
 @Api(tags = "用户管理")
 @RestController
@@ -49,15 +39,6 @@ public class UserController {
 
 	@Autowired
 	private FileService fileService;
-
-//	@Value("${minio.endpoint}")
-//	private String ENDPOINT;
-//	@Value("${minio.bucketName}")
-//	private String BUCKET_NAME;
-//	@Value("${minio.accessKey}")
-//	private String ACCESS_KEY;
-//	@Value("${minio.secretKey}")
-//	private String SECRET_KEY;
 
 	@Value("${tenentcos.endpoint}")
 	private String OSS_ENDPOINT;
@@ -134,42 +115,6 @@ public class UserController {
 
 		return CommonResult.success(minioUploadDto);
 	}
-
-//	@ApiOperation("更换头像")
-//	@RequestMapping(value = "/change_icon", method = RequestMethod.POST)
-//	@ResponseBody
-//	public CommonResult<MinioUploadDto> uploadIcon(@RequestParam("file") MultipartFile file) {
-//		try {
-//            //创建一个MinIO的Java客户端
-//            MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
-//            boolean isExist = minioClient.bucketExists(BUCKET_NAME);
-//            if (isExist) {
-//                LOGGER.info("存储桶已经存在！");
-//            } else {
-//                //创建存储桶并设置只读权限
-//                minioClient.makeBucket(BUCKET_NAME);
-//                minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
-//            }
-//            String filename = file.getOriginalFilename();
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//            // 设置存储对象名称
-//            String objectName = sdf.format(new Date()) + "/" + filename;
-//            // 使用putObject上传一个文件到存储桶中
-//            minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
-//            
-//            LOGGER.info("文件上传成功!");
-//            MinioUploadDto minioUploadDto = new MinioUploadDto();
-//            minioUploadDto.setName(filename);
-//            minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
-//            
-//            userService.setCurrentUserIcon(minioUploadDto.getUrl());
-//            
-//            return CommonResult.success(minioUploadDto);
-//        } catch (Exception e) {
-//            LOGGER.info("上传发生错误: {}！", e.getMessage());
-//        }
-//        return CommonResult.failed();
-//	}
 
 	@ApiOperation("follow用户")
 	@RequestMapping(value = "/follow/{id}", method = RequestMethod.PUT)

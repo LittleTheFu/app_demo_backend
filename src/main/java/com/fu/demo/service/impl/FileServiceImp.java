@@ -50,7 +50,8 @@ public class FileServiceImp implements FileService{
 			file.transferTo(localFile);
 
 			PutObjectRequest putObjectRequest = new PutObjectRequest(OSS_BUCKET_NAME, objectName, localFile);
-			PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
+//			PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
+			cosClient.putObject(putObjectRequest);
 
 //			LOGGER.info("文件上传成功!");
 			OssUploadDto minioUploadDto = new OssUploadDto();
